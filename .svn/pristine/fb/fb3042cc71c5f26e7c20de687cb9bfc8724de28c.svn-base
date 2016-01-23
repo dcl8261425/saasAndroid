@@ -1,0 +1,82 @@
+package com.herotculb.qunhaichat.weixin.getvip;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import android.content.Context;
+import android.os.Handler;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
+import android.view.ViewGroup;
+import android.view.WindowManager.LayoutParams;
+import android.webkit.WebView.FindListener;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.SimpleAdapter;
+import android.widget.TableLayout;
+import android.widget.AdapterView.OnItemClickListener;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.ConpanyUserDto;
+import com.herotculb.qunhaichat.dto.LinkManListDto;
+import com.herotculb.qunhaichat.dto.WeiXinMenuTableDto;
+import com.herotculb.qunhaichat.weixin.gailan.WeixinMenuManagerHandler.MenuChile;
+import com.herotculb.qunhaichat.weixin.gailan.WeixinMenuManagerHandler.MenuLongChile;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class WeixinGetVipHandler extends Handler {
+	HomeActivity context;
+	ListView view;
+	LoadingDialog dialog;
+	View viewp;
+	
+	public WeixinGetVipHandler(HomeActivity context, ListView view,
+			LoadingDialog dialog, View viewp) {
+		super();
+		this.context = context;
+		this.view = view;
+		this.dialog = dialog;
+		this.viewp = viewp;
+	}
+	@Override
+	public void handleMessage(android.os.Message msg) {
+		super.handleMessage(msg);
+		Map<String, Object> map = (Map<String, Object>)msg.obj;
+		boolean b=(Boolean) map.get("success");
+		dialog.hide();
+		if(b){
+			TableLayout tableLayout=new TableLayout(context);
+			tableLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+			List<LinkManListDto> weiXinList = (List<LinkManListDto>) map.get("data");
+			List<Map<String, String>> data = new ArrayList<Map<String,String>>();
+			for(int i=0;i<weiXinList.size();i++){
+				LinkManListDto dto = weiXinList.get(i);
+				Map<String, String> mapLink = new HashMap<String, String>();
+				mapLink.put("vipId", dto.getVipId());
+				mapLink.put("linkManName", dto.getLinkManName());
+				data.add(mapLink);
+				String[] from = {"vipId","linkManName"};
+				int[] to = {R.id.vipId,R.id.linkManName};
+				SimpleAdapter adapter = new SimpleAdapter(context,
+						data,R.layout.vip_list,from,to);
+				view.setAdapter(adapter);
+			}
+			Log.e("-handleMessage---", "----");
+		}else{
+			new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+            .setTitleText("出错了！")
+            .setContentText((String)map.get("info"))
+            .show();
+		}
+	}
+	
+}

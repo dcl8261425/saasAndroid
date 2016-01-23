@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/user_company_group_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+            
+            <TableLayout
+                android:id="@+id/user_company_group_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" >
+                    <TableRow android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.beardedhen.androidbootstrap.BootstrapEditText
+					        android:id="@+id/user_company_group_id"
+					        android:layout_width="match_parent"
+					        android:layout_height="wrap_content"
+					        android:layout_margin="10dp"
+					        android:visibility="gone"
+					        android:singleLine="true"
+					        bootstrapbutton:be_roundedCorners="true"
+					        bootstrapbutton:be_state="warning" />
+                        <com.beardedhen.androidbootstrap.BootstrapEditText
+					        android:id="@+id/user_company_group_gname"
+					        android:layout_width="match_parent"
+					        android:layout_height="wrap_content"
+					        android:layout_margin="10dp"
+					        android:visibility="gone"
+					        android:singleLine="true"
+					        bootstrapbutton:be_roundedCorners="true"
+					        bootstrapbutton:be_state="warning" />
+                        <com.beardedhen.androidbootstrap.BootstrapEditText
+					        android:id="@+id/user_company_group_name"
+					        android:layout_width="match_parent"
+					        android:layout_height="wrap_content"
+					        android:layout_margin="10dp"
+					        android:hint="查找用户名"
+					        android:layout_weight="1"
+					        android:singleLine="true"
+					        bootstrapbutton:be_roundedCorners="true"
+					        bootstrapbutton:be_state="warning" />
+                    </TableRow>
+			      <com.beardedhen.androidbootstrap.BootstrapButton
+			                        android:id="@+id/user_company_group_name_query"
+			                        android:layout_width="fill_parent"
+			                        android:layout_height="50dp"
+			                        android:layout_margin="5dp"
+			                        android:text="查询"
+			                        bootstrapbutton:bb_icon_left="fa-th-list"
+			                        bootstrapbutton:bb_roundedCorners="true"
+			                        bootstrapbutton:bb_text_gravity="center"
+			                        bootstrapbutton:bb_type="primary" />
+			      <com.beardedhen.androidbootstrap.BootstrapEditText
+				        android:id="@+id/user_company_group_nowpage"
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:layout_margin="10dp"
+				        android:hint="id"
+				        android:singleLine="true"
+				        android:visibility="gone"
+				        bootstrapbutton:be_roundedCorners="true"
+				        bootstrapbutton:be_state="warning" />
+			      	  <ListView 
+			      	      android:id="@+id/user_company_group_list"
+			                    android:layout_width="match_parent"
+			                    android:layout_height="wrap_content"
+			                    android:layout_margin="5dp"
+			                    android:divider="#00000000"
+			                    android:gravity="center"
+			                    android:scrollbars="none"/>
+		</TableLayout>
+
+</LinearLayout>

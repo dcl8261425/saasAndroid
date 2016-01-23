@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weixin_wifi_layout_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+     <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/weixin_wifi_layout_addNewWifi"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="添加新热点"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="success" />
+     <ListView 
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
+         android:id="@+id/weixin_wifi_layout_list"
+         ></ListView>
+
+</LinearLayout>

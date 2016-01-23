@@ -1,0 +1,21 @@
+package com.herotculb.qunhaichat.weixin.gailan.huifuziyuanku;
+
+import android.content.Context;
+import android.os.Handler;
+
+public class AutoResendDeleteThread extends Thread {
+	private Context context;
+	private long id;
+	private Handler handler;
+
+	public AutoResendDeleteThread(Context context, long id, Handler handler) {
+		super();
+		this.context = context;
+		this.id = id;
+		this.handler = handler;
+	}
+	@Override
+	public void run() {
+		
+	}
+}

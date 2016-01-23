@@ -1,0 +1,30 @@
+package com.herotculb.qunhaichat.homeactiviti.weixin.wifi;
+
+import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class WiXinWiFi {
+	public HomeActivity home;
+	public LinearLayout linearLayout;
+	public WiXinWiFi(HomeActivity home,LinearLayout linearLayout){
+		this.home=home;
+		this.linearLayout=linearLayout;
+		Log.e("---------------------", "weixin1");
+		LinearLayout gridLayout = (LinearLayout) home.inflater.inflate(
+				R.layout.weixin_wifi_layout, null)
+				.findViewById(R.id.weixin_wifi_layout_main);
+		linearLayout.removeAllViews();
+		linearLayout.addView(gridLayout);
+		ListView list=(ListView) home.findViewById(R.id.weixin_wifi_layout_list);
+		LoadingDialog dialog = new LoadingDialog(home, "正在获取数据");
+		dialog.show();
+		WeiXinWiFiHandler handler=new WeiXinWiFiHandler(home, dialog,list);
+		WeiXinWifiThread thread=new WeiXinWifiThread(home, handler);
+		thread.start();
+	}
+}

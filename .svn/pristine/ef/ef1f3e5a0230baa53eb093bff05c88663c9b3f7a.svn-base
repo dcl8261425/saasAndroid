@@ -1,0 +1,108 @@
+package com.herotculb.qunhaichat.weixin.gailan.huifuziyuanku.adopter;
+
+import java.util.List;
+
+import android.content.Context;
+import android.os.Handler;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TableLayout;
+import android.widget.TextView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.WeiXinReSendDto;
+import com.herotculb.qunhaichat.hr.qiandao.MeetingHandler;
+import com.herotculb.qunhaichat.hr.qiandao.MeetingThread;
+import com.herotculb.qunhaichat.weixin.gailan.WeixinMenuManagerDelHandler;
+import com.herotculb.qunhaichat.weixin.gailan.WeixinMenuManagerDelThread;
+
+public class AutoResourceAdapter extends BaseAdapter {
+	private HomeActivity  context;
+	private List<WeiXinReSendDto> list;
+	public AutoResourceAdapter(HomeActivity context,List<WeiXinReSendDto> list){
+		this.context=context;
+		this.list=list;
+	}
+	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return list.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		// TODO Auto-generated method stub
+		return list.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		// TODO Auto-generated method stub
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO Auto-generated method stub
+		final WeiXinReSendDto dto=(WeiXinReSendDto) getItem(position);
+		LayoutInflater inflater = LayoutInflater.from(context);
+		TableLayout gridLayout = (TableLayout) inflater.inflate(
+				R.layout.weixin_gailan_autoresoureitem_layout, null);
+		TextView text=(TextView) gridLayout.findViewById(R.id.weixin_gailan_autoresoureitem_name);
+		BootstrapButton update=(BootstrapButton) gridLayout.findViewById(R.id.weixin_gailan_autoresoureitem_update);
+		BootstrapButton delete=(BootstrapButton) gridLayout.findViewById(R.id.weixin_gailan_autoresoureitem_delete);
+		update.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Log.e("id", dto.getName());
+			}
+		});
+		delete.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+                new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("删除")
+                .setContentText("您确定删除此信息？")
+                .setCancelText("取消")
+                .setConfirmText("确定")
+                .showCancelButton(true)
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        // reuse previous dialog instance, keep widget user state, reset them if you need
+                        sDialog.setTitleText("取消删除")
+                                .setContentText("您的删除已经取消")
+                                .setConfirmText("确定")
+                                .showCancelButton(false)
+                                .setCancelClickListener(null)
+                                .setConfirmClickListener(null)
+                                .changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                    }
+                })
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                    	WeixinMenuManagerDelHandler handler=new WeixinMenuManagerDelHandler(sDialog, context);
+                    	WeixinMenuManagerDelThread thread=new WeixinMenuManagerDelThread(context, dto.getId(), handler);
+                    	thread.start();
+                    }
+                })
+                .show();
+			}
+		});
+		text.setText(dto.getName());
+		return gridLayout;
+	}
+
+}

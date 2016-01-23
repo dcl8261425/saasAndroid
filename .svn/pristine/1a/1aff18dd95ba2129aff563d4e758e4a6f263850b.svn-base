@@ -1,0 +1,151 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg2" >
+
+        <Button
+            android:id="@+id/login_register"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_denglu"
+            android:gravity="right"
+            android:padding="8dp"
+            android:text="登 录"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+    <LinearLayout
+         android:id="@+id/login_main_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical" >
+
+		<TextView 
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="注册用户"
+		    android:gravity="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/shape_rounded_miaobian"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/register_conpany_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#0000"
+                android:hint="公司名称"
+                android:padding="8dp"
+                android:singleLine="true" />
+
+            <include layout="@layout/layout_line" />
+
+            <EditText
+                android:id="@+id/register_soft_admin_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#0000"
+                android:hint="应用管理人姓名"
+                android:padding="8dp"
+                android:singleLine="true" />
+            <include layout="@layout/layout_line" />
+            <EditText
+                android:id="@+id/register_soft_admin_phone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#0000"
+                android:hint="应用管理人电话"
+                android:padding="8dp"
+                android:singleLine="true" />
+            <include layout="@layout/layout_line" />
+            <EditText
+                android:id="@+id/register_conpany_type_id"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#0000"
+				android:visibility="gone"
+                android:padding="8dp"
+                android:singleLine="true" />
+            <EditText
+                android:id="@+id/register_conpany_type"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#0000"
+                android:hint="公司所属行业"
+                android:padding="8dp"
+                android:singleLine="true" />
+            <include layout="@layout/layout_line" />
+            <Button
+	            android:id="@+id/register_conpany_type_btn"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:background="#ffffff"
+	            android:gravity="center"
+	            android:padding="8dp"
+	            android:text="选 择 行 业"
+	            android:textColor="#ffff00"
+	            android:textStyle="bold" />
+            <include layout="@layout/layout_line" />
+            <EditText
+                android:id="@+id/register_conpany_admin_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#0000"
+                android:hint="请输入email"
+                android:padding="8dp"
+                android:singleLine="true" />
+            <include layout="@layout/layout_line" />
+            <TextView android:layout_height="wrap_content" 
+                android:id="@+id/province_text" 
+                android:layout_width="wrap_content" 
+                android:text="省份："></TextView>
+            <Spinner android:layout_height="wrap_content" 
+                android:layout_width="wrap_content" 
+                android:id="@+id/register_province_spinner"></Spinner>
+        	<include layout="@layout/layout_line" />
+        	<TextView android:layout_height="wrap_content" 
+        	    android:id="@+id/city_text" 
+        	    android:layout_width="wrap_content" 
+        	    android:text="城市："></TextView>
+            <Spinner android:layout_height="wrap_content" 
+                android:id="@+id/register_city_spinner" 
+                android:layout_width="wrap_content"></Spinner>
+        	<include layout="@layout/layout_line" />
+        	<TextView android:layout_height="wrap_content" 
+        	    android:id="@+id/county_text" 
+        	    android:layout_width="wrap_content" 
+        	    android:text="县城镇："></TextView>
+            <Spinner android:layout_height="wrap_content" 
+                android:layout_width="wrap_content" 
+                android:id="@+id/register_county_spinner"></Spinner>
+        	<include layout="@layout/layout_line" />
+        	<EditText
+                android:id="@+id/register_conpany_pin_yin"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#0000"
+                android:hint="请输入验证码"
+                android:padding="8dp"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/login_register_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_denglu"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="注 册"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</RelativeLayout>

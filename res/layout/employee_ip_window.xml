@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/employee_ip_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_background"
+    android:orientation="vertical" >
+
+	<TextView android:id="@+id/employee_ip1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/darksalmon"
+        android:layout_margin="10dp"
+	    android:text="只允许本机局域网的计算机，手机进行签到"/>
+	<TextView android:id="@+id/employee_ip2"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/darksalmon"
+        android:layout_margin="10dp"
+	    android:text="允许任何计算机，手机进行签到"/>
+
+</LinearLayout>

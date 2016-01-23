@@ -1,0 +1,43 @@
+package com.herotculb.qunhaichat.homeactiviti.weixin.mapset;
+
+import java.util.List;
+import java.util.Map;
+
+import com.herotculb.qunhaichat.util.QNPermissionApiImpl;
+
+import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+
+public class MapSetTread extends Thread{
+	private Context context;
+	private Handler handler;
+	private String x;
+	private String y;
+	public MapSetTread(Context context,Handler handler,String x,String y) {
+		super();
+		this.context = context;
+		this.handler = handler;
+		this.x=x;
+		this.y=y;
+	}
+	@Override
+	public void run() {
+		Looper.prepare();
+		QNPermissionApiImpl qnpAPi=new QNPermissionApiImpl(context);
+		List<Map<String, Object>> list=qnpAPi.saveMap(x,y);
+		Map<String,Object> map=list.iterator().next();
+		boolean b=(Boolean) map.get("success");
+		if(b){
+			Message sendmsg = Message.obtain();  
+            sendmsg.obj = map;   //利用Message.obj把子线程的handle传递给主线程。  
+            handler.sendMessage(sendmsg); 
+		}else{
+			//获取数据失败
+			Message sendmsg = Message.obtain();  
+            sendmsg.obj = map;   //利用Message.obj把子线程的handle传递给主线程。  
+            handler.sendMessage(sendmsg);  
+		}
+	}
+}

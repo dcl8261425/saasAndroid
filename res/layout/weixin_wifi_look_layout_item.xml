@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weixin_wifi_look_layout_item_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+  
+     <TableRow 
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          >
+	    <TextView 
+	        android:id="@+id/weixin_wifi_look_layout_item_vipname"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:layout_weight="1"
+	        />
+		 <TextView 
+	        android:id="@+id/weixin_wifi_look_layout_item_mac"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:layout_weight="1"
+	        />
+		  <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/weixin_wifi_look_layout_item_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="关闭"
+            bootstrapbutton:bb_roundedCorners="true"
+            bootstrapbutton:bb_text_gravity="center"
+	        android:layout_weight="1"
+	          android:layout_margin="5dp"
+            bootstrapbutton:bb_type="primary" />
+	 </TableRow>
+
+</TableLayout>

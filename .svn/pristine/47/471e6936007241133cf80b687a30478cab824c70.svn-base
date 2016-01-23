@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+  android:orientation="vertical"  
+  android:layout_width="300dp"  
+  android:background="@drawable/dialog_background"
+  android:layout_height="wrap_content" >
+     <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_gailan_autoresoure_imagetext_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="id"
+        android:singleLine="true"
+        android:visibility="gone"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_gailan_autoresoure_imagetext_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="资源名"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_gailan_autoresoure_imagetext_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="标题"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+<com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_gailan_autoresoure_imagetext_marks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="说明"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_gailan_autoresoure_imagetext_imageLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="图片地址"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+     <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_gailan_autoresoure_imagetext_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="点击后链接的地址"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/weixin_gailan_autoresoure_imagetext_content_enter"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="确定"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/weixin_gailan_autoresoure_imagetext_content_cancel"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="取消"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+        </TableRow>
+    </TableLayout>
+    
+
+</LinearLayout>

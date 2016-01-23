@@ -1,0 +1,99 @@
+package com.herotculb.qunhaichat.homeactiviti.util.window.goodselect;
+
+import java.util.List;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TableLayout;
+import android.widget.TextView;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.GoodsTableDto;
+import com.herotculb.qunhaichat.dto.WeiXinGoodsDto;
+
+public class QueryGoodsAdapter extends BaseAdapter{
+	private Activity  context;
+	private List<WeiXinGoodsDto> list;
+	private Class returnclass;
+	private String type;
+	public QueryGoodsAdapter(Activity context,List<WeiXinGoodsDto> list,Class returnclass,String type){
+		this.context=context;
+		this.list=list;
+		this.returnclass=returnclass;
+		this.type=type;
+	}
+	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return list.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		// TODO Auto-generated method stub
+		return list.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		// TODO Auto-generated method stub
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO Auto-generated method stub
+		final GoodsTableDto dto=(GoodsTableDto) getItem(position);
+		LayoutInflater inflater = LayoutInflater.from(context);
+		TableLayout gridLayout = (TableLayout) inflater.inflate(
+				R.layout.query_goods_window_item, null);
+		TextView name=(TextView) gridLayout.findViewById(R.id.query_goods_item_name);
+		TextView num=(TextView) gridLayout.findViewById(R.id.query_goods_item_num);
+		TextView price=(TextView) gridLayout.findViewById(R.id.query_goods_item_price);
+		TextView model=(TextView) gridLayout.findViewById(R.id.query_goods_item_model);
+		TextView type=(TextView) gridLayout.findViewById(R.id.query_goods_item_type);
+		BootstrapButton enter=(BootstrapButton) gridLayout.findViewById(R.id.query_goods_item_type_enter);
+		enter.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(context,
+						returnclass);
+				Bundle b = new Bundle();
+				b.putString("type", "goodsSelect");
+				b.putString("type2",QueryGoodsAdapter.this.type);
+				b.putString("name", dto.getGoodsName());
+				b.putString("num", dto.getGoodsNum()+"");
+				b.putString("price", dto.getPrice()+"");
+				b.putString("model", dto.getGoodsModel());
+				b.putString("types", dto.getGoodsType());
+				b.putString("tiaoma", dto.getCodeid());
+				b.putString("pinyin", dto.getSpell());
+				b.putString("inprice", dto.getInPrice()+"");
+				b.putString("id", dto.getId()+"");
+				b.putString("salesnum", dto.getSalesNum()+"");
+				b.putString("score", dto.getScore()+"");
+				b.putString("totalinprice", dto.getTotalInPrice()+"");
+				b.putString("totalprice", dto.getTotalPrice()+"");
+				i.putExtras(b);
+				context.setResult(context.RESULT_OK, i);
+				context.finish();
+			}
+		});
+		name.setText("品名"+dto.getGoodsName());
+		num.setText("数量"+dto.getGoodsNum()+"");
+		price.setText("售价"+dto.getPrice()+"");
+		model.setText("型号"+dto.getGoodsModel());
+		type.setText("单位"+dto.getGoodsType());
+		
+		return gridLayout;
+	}
+
+}

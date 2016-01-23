@@ -1,0 +1,137 @@
+package com.herotculb.qunhaichat.dto;
+
+public class WeiXinAutoReSendMenuDto {
+	public static int TYPE_TEXT=1;
+	public static int TYPE_IMAGE=2;
+	public static int TYPE_VOICE=3;
+	public static int TYPE_VIDEO=4;
+	public static int TYPE_LOCATION=5;
+	public static int TYPE_LINK=6;
+	public static int TYPE_EVENT=7;
+	public static int EVENT_SUBSCRIBE=1;//关注subscribe
+	public static int EVENT_UNSUBSCRIB=2;//取消关注
+	public static int EVENT_LOCATION=3;
+	public static int EVENT_CLICK=4;
+	private long id;
+	private String name;
+	private long weixin_keys;
+	private String content;
+	private String weixin_events;
+	private long type;
+	private boolean uses;
+	private long conpanyId;
+	public static int getTYPE_TEXT() {
+		return TYPE_TEXT;
+	}
+	public static void setTYPE_TEXT(int tYPE_TEXT) {
+		TYPE_TEXT = tYPE_TEXT;
+	}
+	public static int getTYPE_IMAGE() {
+		return TYPE_IMAGE;
+	}
+	public static void setTYPE_IMAGE(int tYPE_IMAGE) {
+		TYPE_IMAGE = tYPE_IMAGE;
+	}
+	public static int getTYPE_VOICE() {
+		return TYPE_VOICE;
+	}
+	public static void setTYPE_VOICE(int tYPE_VOICE) {
+		TYPE_VOICE = tYPE_VOICE;
+	}
+	public static int getTYPE_VIDEO() {
+		return TYPE_VIDEO;
+	}
+	public static void setTYPE_VIDEO(int tYPE_VIDEO) {
+		TYPE_VIDEO = tYPE_VIDEO;
+	}
+	public static int getTYPE_LOCATION() {
+		return TYPE_LOCATION;
+	}
+	public static void setTYPE_LOCATION(int tYPE_LOCATION) {
+		TYPE_LOCATION = tYPE_LOCATION;
+	}
+	public static int getTYPE_LINK() {
+		return TYPE_LINK;
+	}
+	public static void setTYPE_LINK(int tYPE_LINK) {
+		TYPE_LINK = tYPE_LINK;
+	}
+	public static int getTYPE_EVENT() {
+		return TYPE_EVENT;
+	}
+	public static void setTYPE_EVENT(int tYPE_EVENT) {
+		TYPE_EVENT = tYPE_EVENT;
+	}
+	public static int getEVENT_SUBSCRIBE() {
+		return EVENT_SUBSCRIBE;
+	}
+	public static void setEVENT_SUBSCRIBE(int eVENT_SUBSCRIBE) {
+		EVENT_SUBSCRIBE = eVENT_SUBSCRIBE;
+	}
+	public static int getEVENT_UNSUBSCRIB() {
+		return EVENT_UNSUBSCRIB;
+	}
+	public static void setEVENT_UNSUBSCRIB(int eVENT_UNSUBSCRIB) {
+		EVENT_UNSUBSCRIB = eVENT_UNSUBSCRIB;
+	}
+	public static int getEVENT_LOCATION() {
+		return EVENT_LOCATION;
+	}
+	public static void setEVENT_LOCATION(int eVENT_LOCATION) {
+		EVENT_LOCATION = eVENT_LOCATION;
+	}
+	public static int getEVENT_CLICK() {
+		return EVENT_CLICK;
+	}
+	public static void setEVENT_CLICK(int eVENT_CLICK) {
+		EVENT_CLICK = eVENT_CLICK;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public long getWeixin_keys() {
+		return weixin_keys;
+	}
+	public void setWeixin_keys(long weixin_keys) {
+		this.weixin_keys = weixin_keys;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getWeixin_events() {
+		return weixin_events;
+	}
+	public void setWeixin_events(String weixin_events) {
+		this.weixin_events = weixin_events;
+	}
+	public long getType() {
+		return type;
+	}
+	public void setType(long type) {
+		this.type = type;
+	}
+	public boolean isUses() {
+		return uses;
+	}
+	public void setUses(boolean uses) {
+		this.uses = uses;
+	}
+	public long getConpanyId() {
+		return conpanyId;
+	}
+	public void setConpanyId(long conpanyId) {
+		this.conpanyId = conpanyId;
+	}
+}

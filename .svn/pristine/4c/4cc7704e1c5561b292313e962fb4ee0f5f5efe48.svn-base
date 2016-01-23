@@ -1,0 +1,31 @@
+package com.herotculb.qunhaichat.weixin.getvip.window;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+
+import android.app.Activity;
+import android.os.Bundle;
+/**
+ * 会员操作
+ * @author lkx
+ *
+ */
+public class VipUpdateWindowActivity extends Activity {
+	private BootstrapButton enters;     // 确认添加
+	private BootstrapButton addMoney;   // 储值
+	private BootstrapButton jianMoney;  // 减储值
+	private BootstrapButton addScore;   // 添加积分
+	private BootstrapButton jianScore;  // 减积分
+	private BootstrapButton discount;   // 优惠
+	private BootstrapButton create;     // 创建新等级
+	private BootstrapButton update;     // 修改等级
+	private BootstrapButton createDH;     // 创建新兑换物
+	private BootstrapButton updateDH;     // 修改新兑换物
+	private BootstrapButton delDH;      // 删除兑换物
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+	}
+	
+}

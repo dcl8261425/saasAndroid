@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/employee_get_meeting_set_info_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                 android:layout_margin="0dp" >
+                <TableRow android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_get_meeting_set_info_enter"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="确定保存"
+                        android:layout_weight="1"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_get_meeting_set_info_cancle"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="取消"
+                        android:layout_weight="1"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+                </TableRow>
+                
+                <TableRow android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="上班时间："
+                        android:layout_weight="2"/>
+                    <com.beardedhen.androidbootstrap.BootstrapEditText 
+                        android:id="@+id/meeting_set_info_start_date"
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:layout_margin="10dp"
+				        android:hint=""
+				        android:layout_weight="2"
+				        android:singleLine="true"
+				        bootstrapbutton:be_roundedCorners="true"
+				        bootstrapbutton:be_state="warning"/>
+                </TableRow>
+                
+                <TableRow android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="下班时间："
+                        android:layout_weight="2"/>
+                    <com.beardedhen.androidbootstrap.BootstrapEditText 
+                        android:id="@+id/meeting_set_info_end_date"
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:layout_margin="10dp"
+				        android:hint=""
+				        android:layout_weight="2"
+				        android:singleLine="true"
+				        bootstrapbutton:be_roundedCorners="true"
+				        bootstrapbutton:be_state="warning"/>
+                </TableRow>
+				<TableRow android:layout_width="fill_parent"
+				    android:layout_height="wrap_content">
+                    <com.beardedhen.androidbootstrap.BootstrapEditText 
+                        android:id="@+id/meeting_set_info_ip"
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:layout_margin="10dp"
+				        android:visibility="gone"
+				        android:singleLine="true"
+				        bootstrapbutton:be_roundedCorners="true"
+				        bootstrapbutton:be_state="warning"/>
+				    <com.beardedhen.androidbootstrap.BootstrapEditText 
+                        android:id="@+id/meeting_set_info_iptest"
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:layout_margin="10dp"
+				        android:hint="指定网络"
+				        android:layout_weight="4"
+				        android:singleLine="true"
+				        bootstrapbutton:be_roundedCorners="true"
+				        bootstrapbutton:be_state="warning"/>
+				    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/meeting_set_info_iptest_btn"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="选择"
+                        android:layout_weight="1"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+				</TableRow>
+				<com.herotculb.qunhaichat.view.listview.updown.XListView
+                    android:id="@+id/employee_get_meeting_set_info_list"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:divider="#00000000"
+                    android:gravity="center"
+                    android:scrollbars="none" />
+            </TableLayout>
+                        
+</LinearLayout>

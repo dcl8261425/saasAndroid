@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/message_vip_send_duihuan_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+      <TextView android:id="@+id/jiangpinText"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"/>
+
+      <Spinner android:id="@+id/jiangpin01"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"/>
+                    
+       <com.beardedhen.androidbootstrap.BootstrapEditText
+                        android:id="@+id/message_vip_send_duihuan_num"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:hint="发送数量"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+       <TextureView android:id="@+id/message_vip_send_duihuan_marks"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"/>
+       <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/message_vip_send_duihuan_enter"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:hint="确认"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />     
+
+</LinearLayout>

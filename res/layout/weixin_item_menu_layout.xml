@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/weixin_item_menu_layout_List"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+     android:gravity="center"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/weixin_item_menu_layout_List_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:dividerHeight="0dp"
+         android:gravity="center"
+        android:layout_weight="0.73" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+             android:gravity="center"
+             
+             >
+
+            <ListView
+                android:id="@+id/weixin_item_menu_layout_List_listView"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                         android:scrollbars="none"
+                        android:dividerHeight="0dp"
+                        android:divider="#00000000"
+                android:gravity="center"
+                 >
+
+            </ListView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

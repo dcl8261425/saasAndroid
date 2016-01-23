@@ -1,0 +1,85 @@
+package com.herotculb.qunhaichat.weixin.getvip;
+
+import java.util.List;
+import java.util.Map;
+
+import android.content.Context;
+import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.WindowManager.LayoutParams;
+import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.TableLayout;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.dto.ConpanyUserDto;
+import com.herotculb.qunhaichat.dto.LinkManListDto;
+
+public class WeixinGetVipHandler extends Handler {
+	Context context;
+	ViewGroup view;
+	public WeixinGetVipHandler(Context context, ViewGroup view) {
+		super();
+		this.context = context;
+		this.view = view;
+	}
+	@Override
+	public void handleMessage(android.os.Message msg) {
+		super.handleMessage(msg);
+		Map<String, Object> map = (Map<String, Object>)msg.obj;
+		boolean b=(Boolean) map.get("success");
+		Log.e("-handleMessage-bbbbb--", "-------"+b);
+		if(b){
+			TableLayout tableLayout=new TableLayout(context);
+			tableLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+			List<LinkManListDto> weiXinList = (List<LinkManListDto>) map.get("data");
+			for(int i=0;i<weiXinList.size();i++){
+				LinkManListDto dto = weiXinList.get(i);
+				BootstrapButton bootstrapButton=new BootstrapButton(context);
+				 bootstrapButton.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, 40));
+				 bootstrapButton.setText(dto.getAddUserName());
+				 bootstrapButton.setRightIcon("fa-refresh");
+				 bootstrapButton.setBootstrapType("info");
+				 view.addView(bootstrapButton);
+//				 tableLayout.addView(bootstrapButton);
+			}
+//			view.addView(tableLayout);
+			Log.e("-handleMessage---", "----");
+		}else{
+			new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+            .setTitleText("出错了！")
+            .setContentText((String)map.get("info"))
+            .show();
+		}
+	}
+	
+	//点击主菜单时展开的
+	public class MenuChile implements OnClickListener {
+		private HomeActivity content;
+		private ConpanyUserDto dto;
+		List<Map<String, String>> moreList;
+		private PopupWindow pwMyPopWindow;// popupwindow
+		private ListView lvPopupList;// popupwindow中的ListView
+		private int NUM_OF_VISIBLE_LIST_ROWS = 2;// 指定popupwindow中Item的数量
+		private View viewp;
+		
+		public MenuChile(HomeActivity content, ConpanyUserDto dto, View viewp) {
+			super();
+			this.content = content;
+			this.dto = dto;
+			this.viewp = viewp;
+		}
+
+		@Override
+		public void onClick(View v) {
+			// TODO 自动生成的方法存根
+			
+		}
+		
+	}
+}

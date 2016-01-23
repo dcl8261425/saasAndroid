@@ -1,0 +1,24 @@
+package com.herotculb.qunhaichat.homeactiviti.util.window.goodselect;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.herotculb.qunhaichat.R;
+/**
+ * 此窗口是扫描窗口，直接返回商品对象
+ * @author Administrator
+ *
+ */
+public class ErWeiMaQueryGoodsWindow extends Activity{
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// 隐藏头
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.query_goods_erweima_window);
+		
+	}
+}

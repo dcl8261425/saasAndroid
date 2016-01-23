@@ -1,0 +1,75 @@
+package com.herotculb.qunhaichat.dto;
+
+
+public class NumLibsDto {
+	private long id;
+	private String content;
+	private long awardsId;
+	private String xuliehao;
+	private String startDate;
+	private String endDate;
+	private boolean uses;
+	private long userid;
+	private long linkmanId;
+	private long conpanyId;
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public long getAwardsId() {
+		return awardsId;
+	}
+	public void setAwardsId(long awardsId) {
+		this.awardsId = awardsId;
+	}
+	public String getXuliehao() {
+		return xuliehao;
+	}
+	public void setXuliehao(String xuliehao) {
+		this.xuliehao = xuliehao;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public boolean isUses() {
+		return uses;
+	}
+	public void setUses(boolean uses) {
+		this.uses = uses;
+	}
+	public long getUserid() {
+		return userid;
+	}
+	public void setUserid(long userid) {
+		this.userid = userid;
+	}
+	public long getLinkmanId() {
+		return linkmanId;
+	}
+	public void setLinkmanId(long linkmanId) {
+		this.linkmanId = linkmanId;
+	}
+	public long getConpanyId() {
+		return conpanyId;
+	}
+	public void setConpanyId(long conpanyId) {
+		this.conpanyId = conpanyId;
+	}
+}

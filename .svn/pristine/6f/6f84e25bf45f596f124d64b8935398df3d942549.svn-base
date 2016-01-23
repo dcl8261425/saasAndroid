@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+     <TableRow 
+                            android:layout_width="fill_parent"
+                     android:layout_margin="0dp"
+                    android:gravity="center" 
+        >
+        <TextView android:id="@+id/selected_my_chance_name"
+	        android:layout_width="wrap_content"
+	        android:layout_height="50dp"
+	        android:textSize="20dp"
+	        android:textStyle="bold"
+	        android:layout_weight="1"
+	        android:dividerHeight="0dp"
+	        android:textColor="@color/darksalmon"
+	        android:gravity="center"
+	        />
+        </TableRow>
+    <TableRow 
+                            android:layout_width="fill_parent"
+                     android:layout_margin="0dp"
+                    android:gravity="center" 
+        >	
+        <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/selected_my_chance_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_margin="2dp"
+                        android:text="查看记录"
+                        android:layout_weight="1"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />    
+	    </TableRow>
+
+</TableLayout>

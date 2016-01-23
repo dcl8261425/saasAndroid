@@ -1,0 +1,21 @@
+package com.herotculb.qunhaichat.weixin.gailan.wenzhang;
+
+import android.content.Context;
+import android.os.Handler;
+
+public class WenZhangSetThread extends Thread{
+	private Context context;
+	private String id;
+	private Handler handler;
+		
+	public WenZhangSetThread(Context context, String type,Handler handler) {
+		super();
+		this.context = context;
+		this.id = id;
+		this.handler = handler;
+	}
+	@Override
+	public void run() {
+		
+	}
+}

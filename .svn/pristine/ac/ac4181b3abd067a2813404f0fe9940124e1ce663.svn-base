@@ -1,0 +1,276 @@
+package com.herotculb.qunhaichat.weixin.operationgame.window;
+
+import java.util.Calendar;
+
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.DatePicker;
+import android.widget.Spinner;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.weixin.addgame.WeixinAddAwardsToGuaGuaKaHandler;
+import com.herotculb.qunhaichat.weixin.addgame.WeixinAddAwardsToGuaGuaKaThread;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class GameAddAwardsToGuaGuaKaWindow extends Activity {
+	private BootstrapButton enter;
+	private BootstrapButton calcel;
+	private BootstrapButton startButton;
+	private BootstrapButton endButton;
+	private BootstrapButton textButton;
+	private Spinner spinner;
+	private BootstrapEditText id;
+	private BootstrapEditText text;  // 奖品
+	private BootstrapEditText startdate;  
+	private BootstrapEditText enddate;  
+	private BootstrapEditText num;  
+	
+	private static final int SHOW_DATAPICK = 0;
+    private static final int DATE_DIALOG_ID = 1; 
+    private static final int SHOW_DATAPICK_END = 2;
+    private static final int DATE_DIALOG_END_ID = 3;
+    
+    private int mYear; 
+    private int mMonth;
+    private int mDay;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// 隐藏头
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.weixin_game_add_guaguaka_window);
+		enter =(BootstrapButton)findViewById(R.id.weixin_add_guaguaka_content_enter);
+		calcel = (BootstrapButton)findViewById(R.id.weixin_add_guaguaka_content_cancel);
+		textButton = (BootstrapButton)findViewById(R.id.weixin_add_guaguaka_text_button);
+		id=(BootstrapEditText) findViewById(R.id.weixin_add_guaguaka_id);
+		text=(BootstrapEditText) findViewById(R.id.weixin_add_guaguaka_text);
+		num=(BootstrapEditText) findViewById(R.id.weixin_add_guaguaka_num);
+		
+		initializeViews();
+		final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR); 
+        mMonth = c.get(Calendar.MONTH); 
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+		
+		enter.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 自动生成的方法存根
+				LoadingDialog dialog2 = new LoadingDialog(
+						GameAddAwardsToGuaGuaKaWindow.this, "正在获取数据");
+				dialog2.show();
+				WeixinAddAwardsToGuaGuaKaHandler handler = new WeixinAddAwardsToGuaGuaKaHandler(GameAddAwardsToGuaGuaKaWindow.this, dialog2);
+				WeixinAddAwardsToGuaGuaKaThread thread = new WeixinAddAwardsToGuaGuaKaThread(GameAddAwardsToGuaGuaKaWindow.this, handler);
+				thread.start();
+			}
+		});
+		
+		textButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 弹出选择框				
+				Intent i = new Intent(GameAddAwardsToGuaGuaKaWindow.this, GameAddAwardsToGuaGuaKaQueryWindow.class);  
+				Bundle b = new Bundle();
+				b.putString("type", "game_add_awards");
+                i.putExtras(b); 
+                GameAddAwardsToGuaGuaKaWindow.this.startActivityForResult(i, 0);  
+                GameAddAwardsToGuaGuaKaWindow.this.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+			}
+		});
+		
+		calcel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 自动生成的方法存根
+				GameAddAwardsToGuaGuaKaWindow.this.finish();
+			}
+		});
+		Bundle bundle = getIntent().getExtras();
+		String contentStr = bundle.getString("content");
+  		String idStr = String.valueOf(bundle.getLong("id"));
+  		if(contentStr!=null && !contentStr.equals("")){
+  			id.setText(idStr);
+  			text.setText(contentStr);
+		}
+		setDateTime();
+		
+	}
+	
+	/**
+	 * 初始化控件和UI视图
+	 */
+	private void initializeViews(){
+		startdate=(BootstrapEditText) findViewById(R.id.weixin_add_guaguaka_start_date);
+		enddate=(BootstrapEditText) findViewById(R.id.weixin_add_guaguaka_end_date);
+		startButton =(BootstrapButton)findViewById(R.id.weixin_add_guaguaka_start_button);
+		endButton =(BootstrapButton)findViewById(R.id.weixin_add_guaguaka_end_button);
+		startButton.setOnClickListener(new OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				// TODO 自动生成的方法存根
+				Message msg = new Message();
+				if(startButton.equals((BootstrapButton)v)){
+					msg.what = GameAddAwardsToGuaGuaKaWindow.SHOW_DATAPICK;
+				}
+				GameAddAwardsToGuaGuaKaWindow.this.dateandtimeHandler.sendMessage(msg);
+			}
+		});
+		endButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 自动生成的方法存根
+				Message msg = new Message();
+				if(endButton.equals((BootstrapButton)v)){
+					msg.what = GameAddAwardsToGuaGuaKaWindow.SHOW_DATAPICK_END;
+				}
+				GameAddAwardsToGuaGuaKaWindow.this.dateandtimeHandler.sendMessage(msg);
+			}
+		});
+		
+	}
+	/**
+	 * 设置日期
+	 */
+	private void setDateTime(){
+       final Calendar c = Calendar.getInstance(); 
+        
+       mYear = c.get(Calendar.YEAR); 
+       mMonth = c.get(Calendar.MONTH); 
+       mDay = c.get(Calendar.DAY_OF_MONTH);
+   
+       updateDateDisplay();
+    }
+	/**
+	 * 设置结束日期
+	 */
+	private void setEndDateTime(){
+       final Calendar c = Calendar.getInstance(); 
+        
+       mYear = c.get(Calendar.YEAR); 
+       mMonth = c.get(Calendar.MONTH); 
+       mDay = c.get(Calendar.DAY_OF_MONTH);
+   
+       endDateDisplay();
+    }
+	/**
+     * 更新日期显示
+     */
+    private void updateDateDisplay(){
+    	startdate.setText(new StringBuilder().append(mYear).append("-")
+               .append((mMonth + 1) < 10 ? "0" + (mMonth + 1) : (mMonth + 1)).append("-")
+               .append((mDay < 10) ? "0" + mDay : mDay));
+    }
+    private void endDateDisplay(){
+    	enddate.setText(new StringBuilder().append(mYear).append("-")
+                .append((mMonth + 1) < 10 ? "0" + (mMonth + 1) : (mMonth + 1)).append("-")
+                .append((mDay < 10) ? "0" + mDay : mDay));
+    }
+    /**
+     * 日期控件的事件
+     */ 
+    private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() { 
+   
+       public void onDateSet(DatePicker view, int year, int monthOfYear, 
+              int dayOfMonth) { 
+           mYear = year; 
+           mMonth = monthOfYear; 
+           mDay = dayOfMonth; 
+ 
+           updateDateDisplay();
+       } 
+    };
+    /**
+     * 日期控件的事件-结束
+     */ 
+    private DatePickerDialog.OnDateSetListener mEndDateSetListener = new DatePickerDialog.OnDateSetListener() { 
+   
+       public void onDateSet(DatePicker view, int year, int monthOfYear, 
+              int dayOfMonth) { 
+           mYear = year; 
+           mMonth = monthOfYear; 
+           mDay = dayOfMonth; 
+ 
+           endDateDisplay();
+       } 
+    };
+    @Override 
+    protected Dialog onCreateDialog(int id) { 
+       switch (id) { 
+       case DATE_DIALOG_ID: 
+           return new DatePickerDialog(this, mDateSetListener, mYear, mMonth, 
+                  mDay);
+       case DATE_DIALOG_END_ID: 
+    	   return new DatePickerDialog(this, mEndDateSetListener, mYear, mMonth, 
+                   mDay);
+       }
+            
+       return null; 
+    } 
+   
+    @Override 
+    protected void onPrepareDialog(int id, Dialog dialog) { 
+       switch (id) { 
+       case DATE_DIALOG_ID: 
+           ((DatePickerDialog) dialog).updateDate(mYear, mMonth, mDay); 
+           break;
+       case DATE_DIALOG_END_ID: 
+           ((DatePickerDialog) dialog).updateDate(mYear, mMonth, mDay); 
+           break;
+       }
+    } 
+    /**
+     * 处理日期和时间控件的Handler
+     */ 
+    Handler dateandtimeHandler = new Handler() {
+   
+       @Override 
+       public void handleMessage(Message msg) { 
+           switch (msg.what) { 
+           case GameAddAwardsToGuaGuaKaWindow.SHOW_DATAPICK: 
+               showDialog(DATE_DIALOG_ID); 
+               break;
+           case GameAddAwardsToGuaGuaKaWindow.SHOW_DATAPICK_END:
+               showDialog(DATE_DIALOG_END_ID);
+               break;
+           } 
+       } 
+   
+    };
+  //弹出框返回的内容在这里接受
+  	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
+  	        super.onActivityResult(requestCode, resultCode, data);
+  	        Log.e("gaatkw--", "onActivityResult"+data);
+  	        //取出字符串  
+  	        if(data==null){
+  	        	return ;
+  	        }
+  	        Bundle bundle = data.getExtras();	        
+  	        if(bundle==null){
+  	        	return ;
+  	        }
+  	        String type=(String) bundle.get("type");
+  	        if(type.equals("game_add_awards")){
+  	        	text.setText(bundle.getString("content"));
+  	        }
+  	        
+  	        
+  	  }
+}

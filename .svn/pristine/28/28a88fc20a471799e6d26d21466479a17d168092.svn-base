@@ -1,0 +1,39 @@
+package com.herotculb.qunhaichat.weixin.gailan.window;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Spinner;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.WeiXinAutoReSendMenuDto;
+import com.herotculb.qunhaichat.weixin.gailan.huifushezhi.AutoResendSetAddHandler;
+import com.herotculb.qunhaichat.weixin.gailan.huifushezhi.AutoResendSetAddThread;
+import com.herotculb.qunhaichat.weixin.gailan.huifushezhi.AutoResendSetUpdateHandler;
+import com.herotculb.qunhaichat.weixin.gailan.huifushezhi.AutoResendSetUpdateThread;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class AutoResendSetItemWindow extends Activity {
+	private BootstrapButton enter;
+	private BootstrapButton cencal;
+	private BootstrapEditText name;
+	private BootstrapEditText content;
+	private BootstrapEditText idedit;
+	private Spinner spinner;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// 隐藏头
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.weixin_gailan_autoresoure_item_window);
+		
+	}
+}

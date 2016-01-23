@@ -1,0 +1,198 @@
+package com.herotculb.qunhaichat.weixin.getgame.window;
+
+import java.util.Calendar;
+
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.DatePicker;
+import android.widget.TextView;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.R;
+
+public class StartEndDateWindow extends Activity {
+	private BootstrapButton startButton;
+	private BootstrapButton endButton;
+	private TextView startDate;  
+	private TextView endDate;
+	
+	private static final int SHOW_DATAPICK = 0;
+    private static final int DATE_DIALOG_ID = 1; 
+    private static final int SHOW_DATAPICK_END = 2;
+    private static final int DATE_DIALOG_END_ID = 3;
+    
+    private int mYear; 
+    private int mMonth;
+    private int mDay;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// 隐藏头
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.game_dazhuanpan_list);
+		
+		initializeViews();
+		final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR); 
+        mMonth = c.get(Calendar.MONTH); 
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+        
+        setDateTime();
+	}
+	
+	/**
+	 * 初始化控件和UI视图
+	 */
+	private void initializeViews(){
+		startDate=(BootstrapEditText) findViewById(R.id.weixin_add_guaguaka_start_date);
+		endDate=(BootstrapEditText) findViewById(R.id.weixin_add_guaguaka_end_date);
+		startButton =(BootstrapButton)findViewById(R.id.weixin_add_guaguaka_start_button);
+		endButton =(BootstrapButton)findViewById(R.id.weixin_add_guaguaka_end_button);
+		startButton.setOnClickListener(new OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				// TODO 自动生成的方法存根
+				Message msg = new Message();
+				if(startButton.equals((BootstrapButton)v)){
+					msg.what = StartEndDateWindow.SHOW_DATAPICK;
+				}
+				StartEndDateWindow.this.dateandtimeHandler.sendMessage(msg);
+			}
+		});
+		endButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 自动生成的方法存根
+				Message msg = new Message();
+				if(endButton.equals((BootstrapButton)v)){
+					msg.what = StartEndDateWindow.SHOW_DATAPICK_END;
+				}
+				StartEndDateWindow.this.dateandtimeHandler.sendMessage(msg);
+			}
+		});
+		
+	}
+	
+	/**
+	 * 设置日期
+	 */
+	private void setDateTime(){
+       final Calendar c = Calendar.getInstance(); 
+        
+       mYear = c.get(Calendar.YEAR); 
+       mMonth = c.get(Calendar.MONTH); 
+       mDay = c.get(Calendar.DAY_OF_MONTH);
+   
+       updateDateDisplay();
+    }
+	/**
+	 * 设置结束日期
+	 */
+	private void setEndDateTime(){
+       final Calendar c = Calendar.getInstance(); 
+        
+       mYear = c.get(Calendar.YEAR); 
+       mMonth = c.get(Calendar.MONTH); 
+       mDay = c.get(Calendar.DAY_OF_MONTH);
+   
+       endDateDisplay();
+    }
+	/**
+     * 更新日期显示
+     */
+    private void updateDateDisplay(){
+    	startDate.setText(new StringBuilder().append(mYear).append("-")
+               .append((mMonth + 1) < 10 ? "0" + (mMonth + 1) : (mMonth + 1)).append("-")
+               .append((mDay < 10) ? "0" + mDay : mDay));
+    }
+    private void endDateDisplay(){
+    	endDate.setText(new StringBuilder().append(mYear).append("-")
+                .append((mMonth + 1) < 10 ? "0" + (mMonth + 1) : (mMonth + 1)).append("-")
+                .append((mDay < 10) ? "0" + mDay : mDay));
+    }
+    /**
+     * 日期控件的事件
+     */ 
+    private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() { 
+   
+       public void onDateSet(DatePicker view, int year, int monthOfYear, 
+              int dayOfMonth) { 
+           mYear = year; 
+           mMonth = monthOfYear; 
+           mDay = dayOfMonth; 
+ 
+           updateDateDisplay();
+       } 
+    };
+    /**
+     * 日期控件的事件-结束
+     */ 
+    private DatePickerDialog.OnDateSetListener mEndDateSetListener = new DatePickerDialog.OnDateSetListener() { 
+   
+       public void onDateSet(DatePicker view, int year, int monthOfYear, 
+              int dayOfMonth) { 
+           mYear = year; 
+           mMonth = monthOfYear; 
+           mDay = dayOfMonth; 
+ 
+           endDateDisplay();
+       } 
+    };
+    @Override 
+    protected Dialog onCreateDialog(int id) { 
+       switch (id) { 
+       case DATE_DIALOG_ID: 
+           return new DatePickerDialog(this, mDateSetListener, mYear, mMonth, 
+                  mDay);
+       case DATE_DIALOG_END_ID: 
+    	   return new DatePickerDialog(this, mEndDateSetListener, mYear, mMonth, 
+                   mDay);
+       }
+            
+       return null; 
+    } 
+   
+    @Override 
+    protected void onPrepareDialog(int id, Dialog dialog) { 
+       switch (id) { 
+       case DATE_DIALOG_ID: 
+           ((DatePickerDialog) dialog).updateDate(mYear, mMonth, mDay); 
+           break;
+       case DATE_DIALOG_END_ID: 
+           ((DatePickerDialog) dialog).updateDate(mYear, mMonth, mDay); 
+           break;
+       }
+    } 
+    /**
+     * 处理日期和时间控件的Handler
+     */ 
+    Handler dateandtimeHandler = new Handler() {
+   
+       @Override 
+       public void handleMessage(Message msg) { 
+           switch (msg.what) { 
+           case StartEndDateWindow.SHOW_DATAPICK: 
+               showDialog(DATE_DIALOG_ID); 
+               break;
+           case StartEndDateWindow.SHOW_DATAPICK_END:
+               showDialog(DATE_DIALOG_END_ID);
+               break;
+           } 
+       } 
+   
+    };
+	
+	
+}

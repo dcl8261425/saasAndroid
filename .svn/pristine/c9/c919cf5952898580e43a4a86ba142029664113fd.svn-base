@@ -1,0 +1,18 @@
+package com.herotculb.qunhaichat.weixin;
+
+import android.content.Context;
+import android.os.Handler;
+
+public class WeixinMenuManagerThread extends Thread {
+	private Context context;
+	private Handler handler;
+	public WeixinMenuManagerThread(Context context,Handler handler){
+		
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		super.run();
+	}
+	
+}

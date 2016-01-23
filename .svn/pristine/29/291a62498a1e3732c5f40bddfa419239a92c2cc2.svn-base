@@ -1,0 +1,27 @@
+package com.herotculb.qunhaichat.homeactiviti.weixin.mapset;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.herotculb.qunhaichat.R;
+
+public class LoactionListActivity extends Activity{
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// 隐藏头
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.weixin_mapset_all_layout);
+		
+	}
+}
+/*Intent i = new Intent(GaiLanMenuUpdateWindowActivity.this,
+		HomeActivity.class);
+Bundle b = new Bundle();
+b.putString("type", "cancel");
+i.putExtras(b);
+GaiLanMenuUpdateWindowActivity.this.setResult(RESULT_OK, i);
+GaiLanMenuUpdateWindowActivity.this.finish();*/

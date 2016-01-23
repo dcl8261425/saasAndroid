@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+  android:orientation="vertical"  
+  android:id="@+id/ajax_change_password_main"
+  android:layout_width="fill_parent"  
+  android:background="@drawable/dialog_background"
+  android:layout_height="wrap_content" >
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/change_password_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="id"
+        android:singleLine="true"
+        android:visibility="gone"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+		<TableRow android:layout_width="match_parent"
+		    android:layout_height="wrap_content">
+		    <TextView android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="旧密码"
+		        android:layout_weight="1"/>
+		    <com.beardedhen.androidbootstrap.BootstrapEditText
+		        android:id="@+id/change_password_old"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="10dp"
+		        android:hint="旧密码"
+		        android:layout_weight="1"
+		        android:singleLine="true"
+		        bootstrapbutton:be_roundedCorners="true"
+		        bootstrapbutton:be_state="warning" />
+		</TableRow>
+        <TableRow android:layout_width="match_parent"
+		    android:layout_height="wrap_content">
+		    <TextView android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="新密码"
+		        android:layout_weight="1"/>
+		    <com.beardedhen.androidbootstrap.BootstrapEditText
+		        android:id="@+id/change_password_newp"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="10dp"
+		        android:hint="新密码"
+		        android:layout_weight="1"
+		        android:singleLine="true"
+		        bootstrapbutton:be_roundedCorners="true"
+		        bootstrapbutton:be_state="warning" />
+		</TableRow>
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+		    <TextView android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="重新输入新密码"
+		        android:layout_weight="1"/>
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/change_password_renewp"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="重新输入新密码"
+	        android:layout_weight="1"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        </TableRow>
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/change_password_content_enter"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="确认修改"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+
+    </TableLayout>
+
+</LinearLayout>

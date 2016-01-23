@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+  android:orientation="vertical"  
+  android:id="@+id/goods_add_store_house_layout"
+  android:layout_width="300dp"  
+  android:background="@drawable/dialog_background"
+  android:layout_height="wrap_content" >
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+	<com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/goods_store_house_id"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="id"
+	        android:singleLine="true"
+	        android:visibility="gone"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/goods_store_house_name"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="仓库名"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        </TableRow>
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/goods_store_house_address"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="仓库地址"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        </TableRow>
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/goods_store_house_tel"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="仓库电话"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        </TableRow>
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/goods_store_house_userid"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:visibility="gone"
+	        android:layout_weight="3"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/goods_store_house_username"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="保管员"
+	        android:layout_weight="3"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/goods_store_house_userid_button"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="选择"
+                android:layout_weight="1"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+        <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/goods_store_house_clear"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="清除"
+                android:layout_weight="1"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+        </TableRow>
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/goods_store_house_content_enter"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="确定"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/goods_store_house_content_cancel"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="取消"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

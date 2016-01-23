@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weixin_goods_main_add"
+    android:layout_width="300dp"
+      android:background="@drawable/dialog_background"
+    android:layout_height="fill_parent"
+    >
+    <TableLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+      android:background="@drawable/dialog_background"
+> 
+<com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_goods_add_query"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:text="选择商品"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+<com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_goods_add_query_erweima"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:text="扫描二维/条形码"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_goods_main_add_goodid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="名称"
+        android:visibility="gone"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+ 
+  <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_goods_main_add_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:hint="名称"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+     <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_goods_main_add_type"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="单位"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+    </TableRow>
+                    <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+      <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_goods_main_add_model"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="型号"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+       <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_goods_main_add_tiaoma"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:hint="条形码"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+       </TableRow>
+                       <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+     	<com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_goods_main_add_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:hint="售价"
+        android:singleLine="true"
+         android:inputType="numberDecimal"
+         	        android:numeric="integer" 
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+	<com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_goods_main_add_inprice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:hint="进价"
+         android:inputType="numberDecimal"
+         	        android:numeric="integer" 
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+	</TableRow>
+	                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+	<com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_goods_main_add_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:hint="积分"
+         android:inputType="numberDecimal"
+         	        android:numeric="integer" 
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+	<com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_goods_main_add_pinyin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:hint="拼音首写"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+	</TableRow>
+	                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+	<com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_goods_main_add_image1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:hint="图片1地址"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+	<com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_goods_main_add_image2"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="图片2地址"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+	</TableRow>
+	  <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+	<com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_goods_main_add_image3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:hint="图片3地址"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+	<com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_goods_main_add_image4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:hint="图片4地址"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+	</TableRow>
+	  <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+	  <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_goods_add_enter"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:text="确定添加"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+	  	  <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_goods_add_back"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:text="返回"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+	  	  </TableRow>
+</TableLayout>
+</ScrollView>

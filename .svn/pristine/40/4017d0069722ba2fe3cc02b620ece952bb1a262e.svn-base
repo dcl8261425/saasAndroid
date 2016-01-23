@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weixin_duihuan_layout_main"
+      android:layout_width="300dp"  
+  android:background="@drawable/dialog_background"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_duihuan_layout_huodong_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="输入序列号"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+      <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_duihuan_layout_huodong_enter"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="查询"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+      <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_duihuan_layout_huodong_close"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="关闭"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="warning" />
+      
+
+</LinearLayout>

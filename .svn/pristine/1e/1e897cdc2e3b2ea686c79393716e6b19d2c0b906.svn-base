@@ -1,0 +1,55 @@
+package com.herotculb.qunhaichat.crm.notes;
+
+import java.util.List;
+import java.util.Map;
+
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.crm.querychance.window.AddLinkManWindow;
+import com.herotculb.qunhaichat.util.QNPermissionApiImpl;
+
+public class AddNotesItemThread extends Thread {
+	private AddLinkManWindow context;
+	private String chanceId;
+	private String notesId;
+	private String notesAddress;
+	private String notesDriver;
+	private Handler handler;
+	
+	public AddNotesItemThread(AddLinkManWindow context, String chanceId,
+			String notesId, String notesAddress, String notesDriver,
+			Handler handler) {
+		super();
+		this.context = context;
+		this.chanceId = chanceId;
+		this.notesId = notesId;
+		this.notesAddress = notesAddress;
+		this.notesDriver = notesDriver;
+		this.handler = handler;
+	}
+
+	@Override
+	public void run() {
+		super.run();
+		Looper.prepare();
+		
+		BootstrapEditText titletext =(BootstrapEditText) context.findViewById(R.id.add_notes_item_title);
+		BootstrapEditText markstext =(BootstrapEditText) context.findViewById(R.id.add_notes_item_marks);
+		
+		String Title = titletext.getText().toString();
+		String Marks = markstext.getText().toString();
+		
+		QNPermissionApiImpl qnpAPi=new QNPermissionApiImpl(context);
+		List<Map<String, Object>> list=qnpAPi.addNotesItem(chanceId, notesId, Title, notesAddress, notesDriver, Marks);
+		
+		Map<String,Object> map=list.iterator().next();
+		Message sendmsg = Message.obtain();  
+        sendmsg.obj = map;   //利用Message.obj把子线程的handle传递给主线程。  
+        handler.sendMessage(sendmsg);  
+	}
+	
+}

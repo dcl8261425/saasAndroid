@@ -1,0 +1,98 @@
+package com.herotculb.qunhaichat;
+
+import static android.view.Gravity.START;
+
+import java.util.List;
+import java.util.Map;
+
+import android.app.Activity;
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.herotculb.qunhaichat.activity.SignInActivityLoginThread;
+import com.herotculb.qunhaichat.util.QNPermissionApiImpl;
+
+public class HomeActivity extends Activity {
+
+	private DrawerArrowDrawable drawerArrowDrawable;
+	  private float offset;
+	  private boolean flipped;
+	  private ListView mLv;
+	  private Handler handler;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.activity_home);
+		
+		final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+	    final ImageView imageView = (ImageView) findViewById(R.id.drawer_indicator);
+	    final Resources resources = getResources();
+	    mLv = (ListView) findViewById(R.id.id_lv);  
+	    
+	    drawerArrowDrawable = new DrawerArrowDrawable(resources);
+	    drawerArrowDrawable.setStrokeColor(resources.getColor(R.color.light_gray));
+	    imageView.setImageDrawable(drawerArrowDrawable);
+
+	    drawer.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+	      @Override public void onDrawerSlide(View drawerView, float slideOffset) {
+	        offset = slideOffset;
+
+	        // Sometimes slideOffset ends up so close to but not quite 1 or 0.
+	        if (slideOffset >= .995) {
+	          flipped = true;
+	          drawerArrowDrawable.setFlip(flipped);
+	        } else if (slideOffset <= .005) {
+	          flipped = false;
+	          drawerArrowDrawable.setFlip(flipped);
+	        }
+
+	        drawerArrowDrawable.setParameter(offset);
+	      }
+	    });
+
+	    imageView.setOnClickListener(new View.OnClickListener() {
+	      @Override public void onClick(View v) {
+	        if (drawer.isDrawerVisible(START)) {
+	          drawer.closeDrawer(START);
+	        } else {
+	          drawer.openDrawer(START);
+	        }
+	      }
+	    });
+	    handler=new Handler(){
+			@Override
+			public void handleMessage(android.os.Message msg) {
+				super.handleMessage(msg);
+				Map<String, Object> map=(Map<String, Object>) msg.obj;
+				Log.e("--------------------------------------------------------------------------", (String) map.get("success"));
+			};
+		};
+		HomeActivityPermissionThread thread=new HomeActivityPermissionThread(handler, this);
+		thread.start();
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			QNPermissionApiImpl qnpAPi=new QNPermissionApiImpl();
+			qnpAPi.backManagerajax();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+}

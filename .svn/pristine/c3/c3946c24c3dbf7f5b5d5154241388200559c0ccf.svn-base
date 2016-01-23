@@ -1,0 +1,61 @@
+package com.herotculb.qunhaichat.homeactiviti.goods.outgoods;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.homeactiviti.util.window.goodselect.ErWeiMaQueryGoodsWindow;
+import com.herotculb.qunhaichat.homeactiviti.util.window.goodselect.QueryGoodsWindow;
+
+public class OutGoods {
+	public HomeActivity home;
+	public LinearLayout linearLayout;
+	public OutGoods(HomeActivity home, LinearLayout linearLayout) {
+		this.home = home;
+		this.linearLayout = linearLayout;
+		//仓库信息
+		LinearLayout gridLayout = (LinearLayout) home.inflater.inflate(
+				R.layout.good_outgoods, null)
+				.findViewById(R.id.good_outgoods_main);
+		linearLayout.removeAllViews();
+		linearLayout.addView(gridLayout);
+		BootstrapEditText name=(BootstrapEditText)OutGoods.this.home.findViewById(R.id.good_outgoods_main_name);
+		BootstrapEditText pinyin=(BootstrapEditText)OutGoods.this.home.findViewById(R.id.good_outgoods_main_pinyin);
+		BootstrapButton query=(BootstrapButton)OutGoods.this.home.findViewById(R.id.good_outgoods_main_query);
+		BootstrapButton erweima=(BootstrapButton)OutGoods.this.home.findViewById(R.id.good_outgoods_main_erweima);
+		query.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(OutGoods.this.home, QueryGoodsWindow.class);  
+				Bundle b = new Bundle();  
+				b.putString("class", "com.herotculb.qunhaichat.HomeActivity");
+				b.putString("type", "OutOrderQuery");
+                i.putExtras(b);  
+                OutGoods.this.home.startActivityForResult(i, 0);  
+                OutGoods.this.home.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+			}
+		});
+		erweima.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(OutGoods.this.home, ErWeiMaQueryGoodsWindow.class);  
+				Bundle b = new Bundle();  
+				b.putString("class", "com.herotculb.qunhaichat.HomeActivity");
+				b.putString("type", "OutOrderQuery");
+                i.putExtras(b);  
+                OutGoods.this.home.startActivityForResult(i, 0);  
+                OutGoods.this.home.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+			}
+		});
+	}
+}

@@ -1,0 +1,34 @@
+package com.herotculb.qunhaichat.homeactiviti.weixin.duihuan.window;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ListView;
+import android.widget.Spinner;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.WeiXinReSendDto;
+import com.herotculb.qunhaichat.weixin.gailan.huifushezhi.autoset.item.AutoResendSetItemHandler;
+import com.herotculb.qunhaichat.weixin.gailan.huifushezhi.autoset.item.AutoResendSetItemThread;
+import com.herotculb.qunhaichat.weixin.gailan.huifushezhi.item.AutoResendHandlerItem;
+import com.herotculb.qunhaichat.weixin.gailan.huifushezhi.item.AutoResendThreadItem;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class ErWeiMaWindow extends Activity {
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// 隐藏头
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.weixin_duihuan_layout_erweima);
+		
+	}
+	
+}

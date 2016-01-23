@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <com.herotculb.qunhaichat.widget.EditTextWithDate
+                android:id="@+id/good_chart_startDate"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:hint="请点击选择日期" />
+
+            <com.herotculb.qunhaichat.widget.EditTextWithDate
+                android:id="@+id/good_chart_endDate"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:hint="请点击选择日期" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/query_order_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:hint="订单号"
+                android:singleLine="true"
+                bootstrapbutton:be_roundedCorners="true"
+                bootstrapbutton:be_state="warning" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/query_order_query_num_enter"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="查询"
+                bootstrapbutton:bb_icon_left="fa-pencil-square-o"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/query_order_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:hint="订单名"
+                android:singleLine="true"
+                bootstrapbutton:be_roundedCorners="true"
+                bootstrapbutton:be_state="warning" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/query_order_query_enter"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="查询"
+                bootstrapbutton:bb_icon_left="fa-pencil-square-o"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+        </TableRow>
+        <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/query_order_query_close"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="关闭"
+                bootstrapbutton:bb_icon_left="fa-pencil-square-o"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+    </TableLayout>
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/query_goods_nowpage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="id"
+        android:singleLine="true"
+        android:visibility="gone"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+
+    
+    <com.herotculb.qunhaichat.view.listview.updown.XListView
+        android:id="@+id/queryGoods_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="5dp"
+        android:divider="#00000000"
+        android:gravity="center"
+        android:scrollbars="none" >
+    </com.herotculb.qunhaichat.view.listview.updown.XListView>
+
+</LinearLayout>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/employee_interactive_send_main"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_background"
+     >
+		<ScrollView
+	        android:id="@+id/employee_update_scroll"
+	        android:layout_width="match_parent"
+	        android:layout_height="fill_parent"
+	        android:scrollbars="none"
+	        android:layout_weight="1"
+	        android:gravity="center" >
+	        
+		    	<LinearLayout
+		            android:layout_width="fill_parent"
+		            android:layout_height="fill_parent"
+		            android:orientation="vertical" >
+		    
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                 >
+                
+                    <com.beardedhen.androidbootstrap.BootstrapEditText 
+                        android:id="@+id/send_title"
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:layout_margin="10dp"
+				        android:hint="请输入标题"
+				        android:singleLine="true"
+				        bootstrapbutton:be_roundedCorners="true"
+				        bootstrapbutton:be_state="warning"/>
+                
+                    <com.beardedhen.androidbootstrap.BootstrapEditText 
+                        android:id="@+id/send_content"
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:layout_margin="10dp"
+				        android:hint="输入发表的内容"
+				        android:singleLine="true"
+				        bootstrapbutton:be_roundedCorners="true"
+				        bootstrapbutton:be_state="warning"/>
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="图片上传"/>
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_interactive_image_space"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="个人图片空间"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_interactive_image_address"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="图片地址"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_interactive_image_upload"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="图片上传"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+                    <ImageView android:id="@+id/employee_interactive_img"
+		        	    android:layout_width="fill_parent"
+		        	    android:layout_height="wrap_content"
+		        	    />
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="文件上传"/>
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_interactive_file_space"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="个人文件空间"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_interactive_file_address"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="文件地址"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_interactive_file_upload"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="文件上传"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+                    <TextView android:id="@+id/employee_interactive_file"
+		        	    android:layout_width="fill_parent"
+		        	    android:layout_height="wrap_content"
+		        	    android:contentDescription="abc"
+		        	    />
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="视频上传"/>
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_interactive_video_space"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="个人视频空间"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_interactive_video_address"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="视频地址"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_interactive_video_upload"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="视频上传"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+                    <VideoView android:id="@+id/employee_interactive_video"
+		        	    android:layout_width="fill_parent"
+		        	    android:layout_height="wrap_content"
+		        	    android:contentDescription="abc"
+		        	    />
+                    <TextView android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="投票"/>
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_interactive_vote"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="创建投票项"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+                    <com.beardedhen.androidbootstrap.BootstrapEditText 
+                        android:id="@+id/send_vote_title"
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:layout_margin="10dp"
+				        android:hint="请输入标题，不输标题视为不创建投票"
+				        android:singleLine="true"
+				        bootstrapbutton:be_roundedCorners="true"
+				        bootstrapbutton:be_state="warning"/>
+                    <TableRow android:layout_width="fill_parent"
+                        android:layout_height="wrap_content">
+                        <com.beardedhen.androidbootstrap.BootstrapEditText 
+	                        android:id="@+id/send_vote_start"
+					        android:layout_width="match_parent"
+					        android:layout_height="wrap_content"
+					        android:layout_margin="10dp"
+					        android:hint="开始投票日期-不输入则为空"
+					        android:layout_weight="1"
+					        android:singleLine="true"
+					        bootstrapbutton:be_roundedCorners="true"
+					        bootstrapbutton:be_state="warning"/>
+                         <com.beardedhen.androidbootstrap.BootstrapButton
+		                        android:id="@+id/send_vote_start_btn"
+		                        android:layout_width="fill_parent"
+		                        android:layout_height="50dp"
+		                        android:layout_margin="5dp"
+		                        android:text="选择"
+		                        android:layout_weight="1"
+		                        bootstrapbutton:bb_roundedCorners="true"
+		                        bootstrapbutton:bb_text_gravity="center"
+		                        bootstrapbutton:bb_type="danger" />
+                    </TableRow>
+                    <TableRow android:layout_width="fill_parent"
+                        android:layout_height="wrap_content">
+                        <com.beardedhen.androidbootstrap.BootstrapEditText 
+	                        android:id="@+id/send_vote_end"
+					        android:layout_width="match_parent"
+					        android:layout_height="wrap_content"
+					        android:layout_margin="10dp"
+					        android:hint="开始投票日期-不输入则为空"
+					        android:layout_weight="1"
+					        android:singleLine="true"
+					        bootstrapbutton:be_roundedCorners="true"
+					        bootstrapbutton:be_state="warning"/>
+                         <com.beardedhen.androidbootstrap.BootstrapButton
+		                        android:id="@+id/send_vote_end_btn"
+		                        android:layout_width="fill_parent"
+		                        android:layout_height="50dp"
+		                        android:layout_margin="5dp"
+		                        android:text="选择"
+		                        android:layout_weight="1"
+		                        bootstrapbutton:bb_roundedCorners="true"
+		                        bootstrapbutton:bb_text_gravity="center"
+		                        bootstrapbutton:bb_type="danger" />
+                    </TableRow>
+                    <TableRow android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="多选"/>
+                        <com.beardedhen.androidbootstrap.BootstrapButton
+	                        android:id="@+id/employee_interactive_option"
+	                        android:layout_width="fill_parent"
+	                        android:layout_height="50dp"
+	                        android:layout_margin="5dp"
+	                        android:text="开启"
+	                        android:layout_weight="1"
+	                        bootstrapbutton:bb_roundedCorners="true"
+	                        bootstrapbutton:bb_text_gravity="center"
+	                        bootstrapbutton:bb_type="danger" />
+                    </TableRow>
+                    <TableRow android:layout_width="match_parent"
+	                    android:layout_height="wrap_content">
+	                    <com.beardedhen.androidbootstrap.BootstrapButton
+	                        android:id="@+id/employee_interactive_send_enter"
+	                        android:layout_width="fill_parent"
+	                        android:layout_height="50dp"
+	                        android:layout_margin="5dp"
+	                        android:text="发布"
+	                        android:layout_weight="1"
+	                        bootstrapbutton:bb_roundedCorners="true"
+	                        bootstrapbutton:bb_text_gravity="center"
+	                        bootstrapbutton:bb_type="primary" />
+	                    <com.beardedhen.androidbootstrap.BootstrapButton
+	                        android:id="@+id/employee_interactive_send_cancle"
+	                        android:layout_width="fill_parent"
+	                        android:layout_height="50dp"
+	                        android:layout_margin="5dp"
+	                        android:text="取消"
+	                        android:layout_weight="1"
+	                        bootstrapbutton:bb_roundedCorners="true"
+	                        bootstrapbutton:bb_text_gravity="center"
+	                        bootstrapbutton:bb_type="primary" />
+	                </TableRow>
+            </TableLayout>
+            
+            </LinearLayout>
+            
+     </ScrollView>                   
+</LinearLayout>

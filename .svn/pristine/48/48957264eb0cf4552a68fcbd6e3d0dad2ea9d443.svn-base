@@ -1,0 +1,101 @@
+package com.herotculb.qunhaichat.weixin.getgame.adapter;
+
+import java.util.Calendar;
+import java.util.List;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.DatePicker;
+import android.widget.DatePicker.OnDateChangedListener;
+import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TextView;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.GamesAwardsListDto;
+/**
+ * 大转盘 Adapter
+ * @author lkx
+ *
+ */
+public class WeixinGetDaZhuanPanAdapter extends BaseAdapter {
+	private HomeActivity  context;
+	private List<GamesAwardsListDto> list;
+	
+	public WeixinGetDaZhuanPanAdapter(HomeActivity context, List<GamesAwardsListDto> list) {
+		super();
+		this.context = context;
+		this.list = list;
+	}
+
+	@Override
+	public int getCount() {
+		// TODO 自动生成的方法存根
+		return list.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		// TODO 自动生成的方法存根
+		return list.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		// TODO 自动生成的方法存根
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO 自动生成的方法存根
+		final GamesAwardsListDto dto = (GamesAwardsListDto) getItem(position);
+		LayoutInflater inflater = LayoutInflater.from(context);
+		TableLayout gridLayout = (TableLayout) inflater.inflate(
+				R.layout.game_dazhuanpan_list, null);
+		TextView text  = (TextView) gridLayout.findViewById(R.id.game_dazhuanpan_content);
+		TextView text1 = (TextView) gridLayout.findViewById(R.id.game_dazhuanpan_num);
+		DatePicker text2 = (DatePicker) gridLayout.findViewById(R.id.game_dazhuanpan_start_date);
+		DatePicker text3 = (DatePicker) gridLayout.findViewById(R.id.game_dazhuanpan_end_date);
+		BootstrapButton enter =(BootstrapButton) gridLayout.findViewById(R.id.game_dazhuanpan_enter);
+		enter.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 自动生成的方法存根
+				
+			}
+		});
+		text.setText(dto.getContent());
+		text1.setText(String.valueOf(dto.getNum()));
+		text2.init(2015, 6, 28, new OnDateChangedListener() {
+			
+			@Override
+			public void onDateChanged(DatePicker view,
+					int year, int monthOfYear, int dayOfMonth) {
+				// 获取一个日历对象，并初始化为当前选中的时间
+				Calendar calendar = Calendar.getInstance();
+				calendar.set(year, monthOfYear, dayOfMonth);
+			}
+		});
+		text3.init(2015, 6, 28, new OnDateChangedListener() {
+			
+			@Override
+			public void onDateChanged(DatePicker view,
+					int year, int monthOfYear, int dayOfMonth) {
+				// 获取一个日历对象，并初始化为当前选中的时间
+				Calendar calendar = Calendar.getInstance();
+				calendar.set(year, monthOfYear, dayOfMonth);
+			}
+		});
+//		text2.set
+//		text3.setText(dto.getEndDate());
+		return gridLayout;
+	}
+
+}

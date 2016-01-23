@@ -1,0 +1,22 @@
+package com.herotculb.qunhaichat.homeactiviti.weixin.wifi;
+
+import android.util.Log;
+import android.widget.LinearLayout;
+
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+
+public class WiXinWiFi {
+	public HomeActivity home;
+	public LinearLayout linearLayout;
+	public WiXinWiFi(HomeActivity home,LinearLayout linearLayout){
+		this.home=home;
+		this.linearLayout=linearLayout;
+		Log.e("---------------------", "weixin1");
+		LinearLayout gridLayout = (LinearLayout) home.inflater.inflate(
+				R.layout.weixin_wifi_layout, null)
+				.findViewById(R.id.weixin_wifi_layout_main);
+		linearLayout.removeAllViews();
+		linearLayout.addView(gridLayout);
+	}
+}

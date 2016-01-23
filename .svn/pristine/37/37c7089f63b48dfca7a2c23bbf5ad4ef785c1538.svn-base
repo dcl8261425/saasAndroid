@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weixin_goods_item_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+> 
+<TableRow 
+    android:layout_width="fill_parent"
+      android:layout_margin="0dp"
+     android:gravity="center" 
+    >
+    <TextView 
+         android:layout_width="fill_parent"
+         android:id="@+id/weixin_goods_item_main_name"
+         android:layout_height="wrap_content"
+          android:layout_margin="5dp"
+        android:layout_weight="1"
+        />
+     <TextView 
+         android:layout_width="fill_parent"
+         android:id="@+id/weixin_goods_item_main_price"
+         android:layout_height="wrap_content"
+          android:layout_margin="5dp"
+        android:layout_weight="1"
+        />
+
+</TableRow>
+<TableRow 
+    android:layout_width="fill_parent"
+      android:layout_margin="0dp"
+     android:gravity="center" 
+    >
+    <TextView 
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:id="@+id/weixin_goods_item_main_inprice"
+          android:layout_margin="5dp"
+        android:layout_weight="1"
+        />
+     <TextView 
+         android:layout_width="fill_parent"
+         android:id="@+id/weixin_goods_item_main_score"
+         android:layout_height="wrap_content"
+          android:layout_margin="5dp"
+        android:layout_weight="1"
+        />
+     
+</TableRow>
+<TableRow 
+    android:layout_width="fill_parent"
+      android:layout_margin="0dp"
+     android:gravity="center" 
+    >
+    <TextView 
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:id="@+id/weixin_goods_item_main_model"
+          android:layout_margin="5dp"
+        android:layout_weight="1"
+        />
+     <TextView 
+         android:layout_width="fill_parent"
+         android:id="@+id/weixin_goods_item_main_type"
+         android:layout_height="wrap_content"
+          android:layout_margin="5dp"
+        android:layout_weight="1"
+        />
+     
+</TableRow>
+ <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_goods_item_main_enter"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:text="回复资源管理"
+                        bootstrapbutton:bb_icon_left="fa-sign-in"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+</TableLayout>

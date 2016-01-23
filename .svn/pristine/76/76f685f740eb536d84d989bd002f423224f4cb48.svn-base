@@ -1,0 +1,69 @@
+package com.herotculb.qunhaichat.homeactiviti.goods.outgoods;
+
+import java.util.Map;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.os.Handler;
+import android.view.View;
+import android.widget.TextView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.GoodsTableDto;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class SubmitOrderHandler  extends Handler{
+	Activity context;
+	LoadingDialog dialog;
+	boolean issave;
+	public SubmitOrderHandler(Activity context2,
+			LoadingDialog dialog,boolean issave) {
+		super();
+		this.context = context2;
+		this.dialog = dialog;
+		this.issave=issave;
+	}
+	@SuppressLint("ResourceAsColor")
+	@Override
+	public void handleMessage(android.os.Message msg) {
+		Map<String, Object> map = (Map<String, Object>) msg.obj;
+		Boolean b=(Boolean) map.get("success");
+		dialog.hide();
+		dialog.dismiss();
+		if(b){
+			 new SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE)
+			 .setTitleText("创建成功")
+             .setContentText((String) map.get("info")+"订单号:"+(String) map.get("orderNum"))//orderId
+             .setConfirmText("确定")
+             .showCancelButton(false)
+             .setCancelClickListener(null)
+             .setConfirmClickListener(null).show();
+			
+				if(!issave){
+					 BootstrapButton save=(BootstrapButton)context.findViewById(R.id.good_outgoods_main_save);
+						BootstrapButton ruke=(BootstrapButton)context.findViewById(R.id.good_outgoods_main_ruku);
+						String info=(String) map.get("info");
+						if(info.equals("保存并入库完成")){
+							save.setVisibility(View.GONE);
+						}
+						ruke.setVisibility(View.GONE);
+					 }
+				 	TextView idtext=(TextView) context.findViewById(R.id.orderId);
+		     		idtext.setText((String) map.get("orderId"));
+		     		String num=(String) map.get("scoreNum");
+		     		TextView scoreNum=(TextView) context.findViewById(R.id.good_ingoods_scoreStr);
+		     		scoreNum.setText(num);
+		     		
+		}else{
+			 new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+			 .setTitleText("失败")
+             .setContentText((String) map.get("info"))
+             .setConfirmText("确定")
+             .showCancelButton(false)
+             .setCancelClickListener(null)
+             .setConfirmClickListener(null).show();
+		}
+	}
+}

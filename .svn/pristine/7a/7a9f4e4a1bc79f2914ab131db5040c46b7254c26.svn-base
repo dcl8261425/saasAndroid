@@ -1,0 +1,22 @@
+package com.herotculb.qunhaichat.homeactiviti.goods.query;
+
+import android.widget.LinearLayout;
+
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+
+public class GoodsQuery {
+	public HomeActivity home;
+	public LinearLayout linearLayout;
+	public GoodsQuery(HomeActivity home, LinearLayout linearLayout) {
+		this.home = home;
+		this.linearLayout = linearLayout;
+		
+		//仓库信息
+		LinearLayout gridLayout = (LinearLayout) home.inflater.inflate(
+				R.layout.goods_source_layout, null)
+				.findViewById(R.id.goods_source_main);
+		linearLayout.removeAllViews();
+		linearLayout.addView(gridLayout);
+	}
+}

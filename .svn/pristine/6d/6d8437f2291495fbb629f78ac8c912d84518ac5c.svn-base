@@ -1,0 +1,53 @@
+package com.herotculb.qunhaichat.goods.source;
+
+import java.util.List;
+import java.util.Map;
+
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.util.QNPermissionApiImpl;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.util.Log;
+
+/**
+ * 会员管理的 Thread 与主程序的通讯
+ * @author Administrator
+ *
+ */
+public class GoodsQuerySourceThread extends Thread {
+	private Context context;
+	private String nowpage;
+	private String countNum;
+	private String name;
+	private Handler handler;
+	
+	public GoodsQuerySourceThread(Context context, String nowpage, String countNum,
+			String name, Handler handler) {
+		super();
+		this.context = context;
+		this.nowpage = nowpage;
+		this.countNum = countNum;
+		this.name = name;
+		this.handler = handler;
+	}
+
+	@Override
+	public void run() {
+		super.run();
+		Looper.prepare();
+		
+		QNPermissionApiImpl qnpAPi=new QNPermissionApiImpl(context);
+		List<Map<String, Object>> list=qnpAPi.queryGoodsSource(name, nowpage, countNum);
+		Map<String,Object> map=list.iterator().next();
+		Message sendmsg = Message.obtain();  
+        sendmsg.obj = map;   //利用Message.obj把子线程的handle传递给主线程。  
+        handler.sendMessage(sendmsg);  
+	}
+	
+}

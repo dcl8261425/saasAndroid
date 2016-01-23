@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/employee_stute_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_background"
+    android:orientation="vertical" >
+
+	<TextView android:id="@+id/employee_stute1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/darksalmon"
+        android:layout_margin="10dp"
+	    android:text="迟到"/>
+	<TextView android:id="@+id/employee_stute2"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/darksalmon"
+        android:layout_margin="10dp"
+	    android:text="早退"/>
+	<TextView android:id="@+id/employee_stute3"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/darksalmon"
+        android:layout_margin="10dp"
+	    android:text="迟到加早退"/>
+	<TextView android:id="@+id/employee_stute4"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/darksalmon"
+        android:layout_margin="10dp"
+	    android:text="外出"/>
+	<TextView android:id="@+id/employee_stute5"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/darksalmon"
+        android:layout_margin="10dp"
+	    android:text="正常签到"/>
+
+</LinearLayout>

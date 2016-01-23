@@ -1,0 +1,90 @@
+package com.herotculb.qunhaichat.weixin.gailan.huifuziyuanku;
+
+import java.util.List;
+import java.util.Map;
+
+import android.annotation.SuppressLint;
+import android.os.Handler;
+import android.widget.ListView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.dto.WeiXinReSendDto;
+import com.herotculb.qunhaichat.weixin.gailan.huifuziyuanku.adopter.AutoResourceAdapter;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class AutoResendHandler extends Handler{
+	HomeActivity context;
+	ListView view;
+	LoadingDialog dialog;
+	int type;
+	
+	public AutoResendHandler(HomeActivity context,int type, ListView view,
+			LoadingDialog dialog) {
+		super();
+		this.context = context;
+		this.view = view;
+		this.dialog = dialog;
+		this.type=type;
+	}
+	@SuppressLint("ResourceAsColor")
+	@Override
+	public void handleMessage(android.os.Message msg) {
+		Map<String, Object> map = (Map<String, Object>) msg.obj;
+		Boolean b=(Boolean) map.get("success");
+		dialog.hide();
+		dialog.dismiss();
+		if(b){
+			List<WeiXinReSendDto> list=(List<WeiXinReSendDto>) map.get("data");
+			switch (type) {
+			case WeiXinReSendDto.TEXT:
+				//文本
+				AutoResourceAdapter adapter = new AutoResourceAdapter(context,list);
+				 view.setAdapter(adapter);
+				 HomeActivity.setListViewHeightBasedOnChildren(view);
+				break;
+			case WeiXinReSendDto.IMAGE:
+				//图片
+				AutoResourceAdapter adapter1 = new AutoResourceAdapter(context,list);
+				 view.setAdapter(adapter1);
+				 HomeActivity.setListViewHeightBasedOnChildren(view);
+				break;
+			case WeiXinReSendDto.IMAGE_TEXT:
+				//图文
+				AutoResourceAdapter adapter2 = new AutoResourceAdapter(context,list);
+				 view.setAdapter(adapter2);
+				 HomeActivity.setListViewHeightBasedOnChildren(view);
+				break;
+			case WeiXinReSendDto.MUSIC:
+				//音乐
+				AutoResourceAdapter adapter3 = new AutoResourceAdapter(context,list);
+				 view.setAdapter(adapter3);
+				 HomeActivity.setListViewHeightBasedOnChildren(view);
+				break;
+			case WeiXinReSendDto.VIDEO:
+				//视频
+				AutoResourceAdapter adapter4 = new AutoResourceAdapter(context,list);
+				 view.setAdapter(adapter4);
+				 HomeActivity.setListViewHeightBasedOnChildren(view);
+				break;
+			case WeiXinReSendDto.VOICE:
+				//语音
+				AutoResourceAdapter adapter5 = new AutoResourceAdapter(context,list);
+				 view.setAdapter(adapter5);
+				 HomeActivity.setListViewHeightBasedOnChildren(view);
+				break;
+			default:
+				break;
+			}
+			
+		}else{
+			 new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+			 .setTitleText("失败")
+             .setContentText((String) map.get("info"))
+             .setConfirmText("确定")
+             .showCancelButton(false)
+             .setCancelClickListener(null)
+             .setConfirmClickListener(null).show();
+		}
+	}
+}

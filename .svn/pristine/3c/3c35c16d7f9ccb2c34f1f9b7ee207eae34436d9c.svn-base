@@ -1,0 +1,62 @@
+package com.herotculb.qunhaichat.weixin.addgame;
+
+import java.util.List;
+import java.util.Map;
+
+import com.herotculb.qunhaichat.util.QNPermissionApiImpl;
+
+import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+
+public class WeixinAddAwardsToGuaGuaKaThread extends Thread {
+	private Context context;
+	private String text;
+	private String value;	
+	private String startdate;	
+	private String enddate;	
+	private String id;	
+	private String num;	
+	private Handler handler;
+	
+	public WeixinAddAwardsToGuaGuaKaThread(Context context, String text,
+			String value, String startdate, String enddate, String id,
+			String num, Handler handler) {
+		super();
+		this.context = context;
+		this.text = text;
+		this.value = value;
+		this.startdate = startdate;
+		this.enddate = enddate;
+		this.id = id;
+		this.num = num;
+		this.handler = handler;
+	}
+
+	@Override
+	public void run() {
+		super.run();
+		Looper.prepare();
+		
+		QNPermissionApiImpl qnpAPi=new QNPermissionApiImpl(context);
+		List<Map<String, Object>> list= qnpAPi.addAwardsToguaguaka(value, text, id, enddate, startdate, num);
+		Map<String,Object> map=list.iterator().next();
+		boolean b=(Boolean) map.get("success");
+		String info = (String)map.get("info");
+		if(b){
+			map.put("success", b);
+			map.put("info", info);
+			//获取数据成功
+			Message sendmsg = Message.obtain();  
+            sendmsg.obj = map;   //利用Message.obj把子线程的handle传递给主线程。  
+            handler.sendMessage(sendmsg); 
+		}else{
+			//获取数据失败
+			Message sendmsg = Message.obtain();  
+            sendmsg.obj = map;   //利用Message.obj把子线程的handle传递给主线程。  
+            handler.sendMessage(sendmsg); 
+		}
+	}
+	
+}

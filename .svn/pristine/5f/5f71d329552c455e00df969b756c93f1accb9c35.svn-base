@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weixin_gailan_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/weixin_gailan_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none"
+        android:layout_weight="0.73"
+        android:gravity="center" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:layout_margin="0dp"
+                android:gravity="center" >
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_margin="0dp"
+                    android:gravity="center" >
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_menu_manager"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:text="管理菜单"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_auto_manager"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:text="回复资源管理"
+                        bootstrapbutton:bb_icon_left="fa-sign-in"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:gravity="center" >
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_auto_definition"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:text="自动回复设置"
+                        bootstrapbutton:bb_icon_left="fa-pencil-square-o"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="warning" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_create_article"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:text="文章管理"
+                        bootstrapbutton:bb_icon_left="fa-file-o"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="info" />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/weixin_gailan_menuManager"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:visibility="gone" >
+
+                <TableLayout
+                    android:id="@+id/weixin_gailan_menuManager_list"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="5dp"
+                    android:gravity="center" >
+                </TableLayout>
+
+                <TableLayout
+                    android:id="@+id/weixin_gailan_menuManager_list_item"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center" >
+                </TableLayout>
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/weixin_menu_add"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:text="添加新主菜单"
+                    bootstrapbutton:bb_icon_left="fa-puzzle-piece"
+                    bootstrapbutton:bb_roundedCorners="true"
+                    bootstrapbutton:bb_text_gravity="center"
+                    bootstrapbutton:bb_type="success" />
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/weixin_menu_reflash"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:text="更新到微信"
+                    bootstrapbutton:bb_icon_left="fa-refresh"
+                    bootstrapbutton:bb_roundedCorners="true"
+                    bootstrapbutton:bb_text_gravity="center"
+                    bootstrapbutton:bb_type="primary" />
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/weixin_gailan_autoResendResoursManager"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:visibility="gone" >
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center" >
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailan_huifuziyuan_pager_image"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="图片"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailan_huifuziyuan_pager_voice"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="语音"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailan_huifuziyuan_pager_video"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="视频"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center" >
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailan_huifuziyuan_pager_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="文本"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailan_huifuziyuan_pager_music"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="音乐"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailan_huifuziyuan_pager_imagetext"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="图文"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+                </TableRow>
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/weixin_gailan_huifuziyuan_pager_add"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:text="添加新资源"
+                    bootstrapbutton:bb_icon_left="fa-puzzle-piece"
+                    bootstrapbutton:bb_roundedCorners="true"
+                    bootstrapbutton:bb_text_gravity="center"
+                    bootstrapbutton:bb_type="success" />
+
+                <ListView
+                    android:id="@+id/weixin_gailan_autoResendResoursManager_list"
+                    android:layout_width="fill_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="5dp"
+                    android:divider="#00000000"
+                    android:gravity="center"
+                    android:scrollbars="none" >
+                </ListView>
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/weixin_gailan_autoResendSet"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="gone" >
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center" >
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailanautoResendSet_pager_image"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="图片回复设置"
+                        bootstrapbutton:bb_icon_left="fa-android"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailan_autoResendSet_pager_voice"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="语音回复设置"
+                        bootstrapbutton:bb_icon_left="fa-android"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center" >
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailan_autoResendSet_pager_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="文本回复设置"
+                        bootstrapbutton:bb_icon_left="fa-android"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailan_autoResendSet_pager_location"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="位置回复设置"
+                        bootstrapbutton:bb_icon_left="fa-android"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center" >
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailan_autoResendSet_pager_video"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="视频回复设置"
+                        bootstrapbutton:bb_icon_left="fa-android"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailan_autoResendSet_pager_event"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="事件回复"
+                        bootstrapbutton:bb_icon_left="fa-android"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center" >
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailan_autoResendSet_pager_link"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="链接回复"
+                        bootstrapbutton:bb_icon_left="fa-android"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+                </TableRow>
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/weixin_gailan_autoResendSet_pager_add"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:text="添加新设置"
+                    bootstrapbutton:bb_icon_left="fa-android"
+                    bootstrapbutton:bb_roundedCorners="true"
+                    bootstrapbutton:bb_text_gravity="center"
+                    bootstrapbutton:bb_type="success" />
+
+                <ListView
+                    android:id="@+id/weixin_gailan_autoResendSetManager_list"
+                    android:layout_width="fill_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="5dp"
+                    android:divider="#00000000"
+                    android:gravity="center"
+                    android:scrollbars="none" >
+                </ListView>
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/weixin_gailan_wenzhangManager"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="gone" >
+     <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_gailan_wenzhangManager_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="请输入查询名称"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+      <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailan_wenzhangManager_name_query"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="查询"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+          <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_gailan_wenzhangManager_nowpage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="id"
+        android:singleLine="true"
+        android:visibility="gone"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+          
+                <ListView
+                    android:id="@+id/weixin_gailan_wenzhang_list"
+                    android:layout_width="fill_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="5dp"
+                    android:divider="#00000000"
+                    android:gravity="center"
+                    android:scrollbars="none" >
+                </ListView>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

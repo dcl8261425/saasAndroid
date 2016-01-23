@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+  android:orientation="vertical"  
+  android:id="@+id/message_show_layout"
+  android:layout_width="300dp"  
+  android:background="@drawable/dialog_background"
+  android:layout_height="wrap_content" >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+        <TextView android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/message_show"
+            android:textSize="20dp"
+	        android:textStyle="bold"
+	        android:textColor="@color/darksalmon"
+	        android:gravity="center"
+            />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+             >
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/message_show_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="取消"
+                android:layout_weight="1"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

@@ -1,0 +1,86 @@
+package com.herotculb.qunhaichat.group;
+
+import java.util.List;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TableLayout;
+import android.widget.TextView;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.ConpanyGroupDto;
+import com.herotculb.qunhaichat.dto.StoreHouseDto;
+import com.herotculb.qunhaichat.goods.store.window.GetUserInGroupWindow;
+
+public class GetUserInGroupAdapter extends BaseAdapter {
+	private GetUserInGroupWindow  context;
+	private List<ConpanyGroupDto> list;
+	private String classes;
+	private String isGroup;
+	
+	public GetUserInGroupAdapter(GetUserInGroupWindow context,
+			List<ConpanyGroupDto> list, String classes, String isGroup) {
+		super();
+		this.context = context;
+		this.list = list;
+		this.classes = classes;
+		this.isGroup = isGroup;
+	}
+
+	@Override
+	public int getCount() {
+		// TODO 自动生成的方法存根
+		return list.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		// TODO 自动生成的方法存根
+		return list.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		// TODO 自动生成的方法存根
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO 自动生成的方法存根
+		final ConpanyGroupDto dto = (ConpanyGroupDto) getItem(position);
+		LayoutInflater inflater = LayoutInflater.from(context);
+		TableLayout gridLayout = (TableLayout) inflater.inflate(
+				R.layout.user_in_group_list, null);
+		TextView text  = (TextView) gridLayout.findViewById(R.id.group_name);
+		BootstrapButton groupButton =(BootstrapButton) gridLayout.findViewById(R.id.user_in_group_list_button);
+		BootstrapButton search =(BootstrapButton) gridLayout.findViewById(R.id.user_in_group_list_search);
+		text.setText(dto.getGroupName());
+		if(classes.equals("false")){
+			groupButton.setVisibility(View.GONE);
+			search.setVisibility(View.VISIBLE);
+		}
+		groupButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 选中组
+				
+			}
+		});
+		search.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 查看成员
+				
+			}
+		});
+		return gridLayout;
+	}
+
+}

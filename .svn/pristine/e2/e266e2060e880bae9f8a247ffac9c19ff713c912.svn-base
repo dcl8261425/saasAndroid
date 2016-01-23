@@ -1,0 +1,139 @@
+package com.herotculb.qunhaichat.crm.querychance;
+
+import java.util.List;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TableLayout;
+import android.widget.TextView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.ChanceListDto;
+import com.herotculb.qunhaichat.dto.LinkManListDto;
+import com.herotculb.qunhaichat.goods.operationstore.GoodsDeleteStoreHouseHandler;
+import com.herotculb.qunhaichat.goods.operationstore.GoodsDeleteStoreHouseThread;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class QueryLinkManAdapter extends BaseAdapter {
+	private HomeActivity  context;
+	private List<LinkManListDto> list;
+	
+	public QueryLinkManAdapter(HomeActivity context, List<LinkManListDto> list) {
+		super();
+		this.context = context;
+		this.list = list;
+	}
+
+	@Override
+	public int getCount() {
+		// TODO 自动生成的方法存根
+		return list.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		// TODO 自动生成的方法存根
+		return list.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		// TODO 自动生成的方法存根
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO 自动生成的方法存根
+		final LinkManListDto dto = (LinkManListDto) getItem(position);
+		LayoutInflater inflater = LayoutInflater.from(context);
+		TableLayout gridLayout = (TableLayout) inflater.inflate(
+				R.layout.crm_query_linkman_list, null);
+		TextView text  = (TextView) gridLayout.findViewById(R.id.crm_linkman_name);
+		TextView text1 = (TextView) gridLayout.findViewById(R.id.crm_linkman_tel);
+		TextView text2 = (TextView) gridLayout.findViewById(R.id.crm_linkman_sex);
+		TextView text3 = (TextView) gridLayout.findViewById(R.id.crm_linkman_position);
+		BootstrapButton update =(BootstrapButton) gridLayout.findViewById(R.id.crm_linkman_update);
+		BootstrapButton delete =(BootstrapButton) gridLayout.findViewById(R.id.crm_linkman_delete);
+		BootstrapButton check =(BootstrapButton) gridLayout.findViewById(R.id.crm_linkman_check);
+		text.setText("姓名："+dto.getLinkManName());
+		text1.setText("联系人电话："+dto.getLinkManPhone());
+		text2.setText("联系人性别："+dto.getLinkManSex());
+		text3.setText("联系人职位："+dto.getLinkManJob());
+		update.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 修改
+				LoadingDialog dialog = new LoadingDialog(context, "正在获取数据");
+				dialog.show();
+				GetChanceHandler handler = 
+						new GetChanceHandler(context, dialog, "update");
+				GetChanceThread thread = 
+						new GetChanceThread(context, dto.getId()+"", handler);
+				thread.start();
+			}
+		});
+		check.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 查看
+				LoadingDialog dialog = new LoadingDialog(context, "正在获取数据");
+				dialog.show();
+				GetChanceHandler handler = 
+						new GetChanceHandler(context, dialog, "check");
+				GetChanceThread thread = 
+						new GetChanceThread(context, dto.getId()+"", handler);
+				thread.start();
+			}
+		});
+		delete.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+                new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("删除")
+                .setContentText("您确定删除此信息？")
+                .setCancelText("取消")
+                .setConfirmText("确定")
+                .showCancelButton(true)
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        // reuse previous dialog instance, keep widget user state, reset them if you need
+                        sDialog.setTitleText("取消删除")
+                                .setContentText("您的删除已经取消")
+                                .setConfirmText("确定")
+                                .showCancelButton(false)
+                                .setCancelClickListener(null)
+                                .setConfirmClickListener(null)
+                                .changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                    }
+                })
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                    	LoadingDialog dialog = new LoadingDialog(context, "正在获取数据");
+        				dialog.show();
+        				GoodsDeleteStoreHouseHandler handler = 
+        						new GoodsDeleteStoreHouseHandler(context, dialog,sDialog);
+        				GoodsDeleteStoreHouseThread thread = 
+        						new GoodsDeleteStoreHouseThread(context, handler, String.valueOf(dto.getId()));
+        				thread.start();
+                    }
+                })
+                .show();
+			}
+		});
+		return gridLayout;
+	}
+
+}

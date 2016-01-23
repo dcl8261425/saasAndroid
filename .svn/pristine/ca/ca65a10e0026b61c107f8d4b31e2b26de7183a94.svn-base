@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/user_in_group_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+            
+            <TableLayout
+                android:id="@+id/user_in_group_tab"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" >
+                    <TableRow android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.beardedhen.androidbootstrap.BootstrapEditText
+					        android:id="@+id/user_in_group_name"
+					        android:layout_width="match_parent"
+					        android:layout_height="wrap_content"
+					        android:layout_margin="10dp"
+					        android:hint="查找组名"
+					        android:singleLine="true"
+					        bootstrapbutton:be_roundedCorners="true"
+					        bootstrapbutton:be_state="warning" />
+                    </TableRow>
+			     <TableRow android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+			      <com.beardedhen.androidbootstrap.BootstrapButton
+			                        android:id="@+id/user_in_group_name_query"
+			                        android:layout_width="fill_parent"
+			                        android:layout_height="50dp"
+			                        android:layout_margin="5dp"
+			                        android:text="查询"
+			                        android:layout_weight="1"
+			                        bootstrapbutton:bb_icon_left="fa-th-list"
+			                        bootstrapbutton:bb_roundedCorners="true"
+			                        bootstrapbutton:bb_text_gravity="center"
+			                        bootstrapbutton:bb_type="primary" />
+			      <com.beardedhen.androidbootstrap.BootstrapButton
+			                        android:id="@+id/user_in_group_name_exit"
+			                        android:layout_width="fill_parent"
+			                        android:layout_height="50dp"
+			                        android:layout_margin="5dp"
+			                        android:text="退出"
+			                        android:layout_weight="1"
+			                        bootstrapbutton:bb_icon_left="fa-th-list"
+			                        bootstrapbutton:bb_roundedCorners="true"
+			                        bootstrapbutton:bb_text_gravity="center"
+			                        bootstrapbutton:bb_type="primary" />
+			      </TableRow>
+			      <TableRow android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+			      	  <ListView 
+			      	      android:id="@+id/user_in_group_list"
+			                    android:layout_width="match_parent"
+			                    android:layout_height="wrap_content"
+			                    android:layout_margin="5dp"
+			                    android:divider="#00000000"
+			                    android:gravity="center"
+			                    android:scrollbars="none"/>
+			            </TableRow>
+			            </TableLayout>
+        </LinearLayout>
+
+</LinearLayout>

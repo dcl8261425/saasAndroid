@@ -1,0 +1,110 @@
+package com.herotculb.qunhaichat.weixin.order;
+
+import java.util.Date;
+import java.util.List;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TableLayout;
+import android.widget.TextView;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.WeixinOrderDto;
+import com.herotculb.qunhaichat.util.DateUtil;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class WeixinGetOrderAdapter extends BaseAdapter {
+	private HomeActivity  context;
+	private List<WeixinOrderDto> list;
+	private String song;
+	String id;
+	
+	public WeixinGetOrderAdapter(HomeActivity context,
+			List<WeixinOrderDto> list, String song) {
+		super();
+		this.context = context;
+		this.list = list;
+		this.song = song;
+	}
+
+	@Override
+	public int getCount() {
+		// TODO 自动生成的方法存根
+		return list.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		// TODO 自动生成的方法存根
+		return list.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		// TODO 自动生成的方法存根
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO 自动生成的方法存根
+		final WeixinOrderDto dto = (WeixinOrderDto) getItem(position);
+		LayoutInflater inflater = LayoutInflater.from(context);
+		TableLayout gridLayout = (TableLayout) inflater.inflate(
+				R.layout.weixin_order_list, null);
+		TextView text  = (TextView) gridLayout.findViewById(R.id.weixin_order_num);
+		TextView text1 = (TextView) gridLayout.findViewById(R.id.weixin_order_phone);
+		TextView text2 = (TextView) gridLayout.findViewById(R.id.weixin_order_address);
+		TextView text3 = (TextView) gridLayout.findViewById(R.id.weixin_order_username);
+		TextView text4 = (TextView) gridLayout.findViewById(R.id.weixin_order_startDate);
+		BootstrapButton enter = (BootstrapButton) gridLayout.findViewById(R.id.weixin_order_enter);
+		TextView text6 = (TextView) gridLayout.findViewById(R.id.weixin_order_endDate);
+		if(song.equals("false")){
+			enter.setVisibility(View.VISIBLE);
+			text6.setVisibility(View.GONE);
+		}else if(song.equals("true")){
+			enter.setVisibility(View.GONE);
+			text6.setVisibility(View.VISIBLE);
+		}
+		Date date = new Date();
+		Date date1 = new Date();
+		Long sdate = Long.parseLong(dto.getStartDate());
+		date.setTime(sdate);
+		String startDate = DateUtil.formatDateYYYY_MM_DD(date);
+		id = String.valueOf(dto.getId());
+		text.setText("订单号："+dto.getNum());
+		text1.setText("电话："+dto.getPhone());
+		text2.setText("地址："+dto.getAddress());
+		text3.setText("客户名称："+dto.getUsername());
+		text4.setText("订单开始时间："+startDate);
+		if(dto.getEndDate()!=null && !dto.getEndDate().equals("") 
+				&& dto.getEndDate() != "null"){
+			Long edate = Long.parseLong(dto.getEndDate());
+			date1.setTime(edate);
+			String endDate = DateUtil.formatDateYYYY_MM_DD(date1);
+			text6.setText("订单结束时间："+endDate);
+		}
+		enter.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 确认发货
+				LoadingDialog dialog2 = new LoadingDialog(
+						context, "正在获取数据");
+				dialog2.show();
+				WeixinEnterOrderHandler handler = 
+						new WeixinEnterOrderHandler(context, dialog2);
+				WeixinEnterOrderThread thread = 
+						new WeixinEnterOrderThread(context, id, handler);
+				thread.start();
+			}
+		});
+		return gridLayout;
+	}
+
+}

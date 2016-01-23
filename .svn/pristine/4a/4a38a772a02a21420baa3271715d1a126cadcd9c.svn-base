@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.herotculb.qunhaichat"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="8" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+	
+    <!-- 设置手机震动权限 -->
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+	<uses-feature android:name="android.hardware.camera" />
+	<uses-feature android:name="android.hardware.camera.autofocus" />
+    <!-- 开启闪光权限 -->
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <permission
+        android:name="com.herotculb.qunhaichat.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signatureOrSystem" />
+    <!-- 这里com.xiaomi.mipushdemo改成app的包名 -->
+    <uses-permission android:name="com.herotculb.qunhaichat.permission.MIPUSH_RECEIVE" />
+    <!-- 这里com.xiaomi.mipushdemo改成app的包名 -->
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <application
+          android:name="com.herotculb.qunhaichat.homeactiviti.weixin.mapset.LocationApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2" >
+                </action>
+            </intent-filter>
+        </service>
+       <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="XbSAQoGKxUE31ozhHGMtHD9Z" />
+
+        <activity
+            android:name="com.herotculb.qunhaichat.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.activity.SignInActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.HomeActivity"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.weixin.gailan.window.GaiLanMenuUpdateWindowActivity"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+         <activity
+            android:name="com.herotculb.qunhaichat.weixin.gailan.window.ImageResourceWindow"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+         <activity
+            android:name="com.herotculb.qunhaichat.weixin.gailan.window.ImageTextResourceWindow"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+         <activity
+            android:name="com.herotculb.qunhaichat.weixin.gailan.window.MusicResourceWindow"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+         <activity
+            android:name="com.herotculb.qunhaichat.weixin.gailan.window.TextResourceWindow"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+         <activity
+            android:name="com.herotculb.qunhaichat.weixin.gailan.window.VideoResourceWindow"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+         <activity
+            android:name="com.herotculb.qunhaichat.weixin.gailan.window.VoiceResourceWindow"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+      	<activity
+            android:name="com.herotculb.qunhaichat.weixin.gailan.window.AutoResendSetWindow"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.weixin.gailan.window.AutoResendSetItemWindow"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+        <!-- below add by lkx -->
+        <activity
+            android:name="com.herotculb.qunhaichat.weixin.getvip.window.VipUpdateWindowActivity"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.weixin.getvip.window.VipJianMoneyWindowActivity"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.weixin.getvip.window.VipAddScoreWindowActivity"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.weixin.getvip.window.VipJianScoreWindowActivity"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.weixin.getvip.window.VipDiscountWindowActivity"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.weixin.operationvip.window.VipCreateClassWindowActivity"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.weixin.operationvip.window.VipCreateDuiHuanWindowActivity"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.weixin.gailan.window.AutoResendSetItemQueryWindow"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.weixin.operationgame.window.GameAddAwardsToGuaGuaKaWindow"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.weixin.operationgame.window.GameAddAwardsWindow"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.weixin.gailan.wenzhang.WebActivity"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.weixin.operationgame.window.GameAddAwardsToGuaGuaKaQueryWindow"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.widget.DateActivity"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+         <activity
+            android:name="com.herotculb.qunhaichat.homeactiviti.weixin.duihuan.window.HuoDongWindow"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+         <activity
+            android:name="com.herotculb.qunhaichat.homeactiviti.weixin.duihuan.window.JiFenWindow"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+         <activity
+            android:name="com.herotculb.qunhaichat.homeactiviti.weixin.duihuan.window.ErWeiMaWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+       	<activity
+            android:name="com.herotculb.qunhaichat.homeactiviti.weixin.mapset.LoactionListActivity"
+            android:label="@string/title_activity_home" >
+        </activity>
+         <activity
+            android:name="com.herotculb.qunhaichat.homeactiviti.weixin.mapset.ShowMapActivity"
+             android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.homeactiviti.weixin.goods.WeiXinGoodsAddWindow"
+            android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+                <activity
+            android:name="com.herotculb.qunhaichat.homeactiviti.util.window.goodselect.ErWeiMaQueryGoodsWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+                <activity
+            android:name="com.herotculb.qunhaichat.homeactiviti.util.window.goodselect.QueryGoodsWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.goods.source.window.GoodsQuerySourceLinkManWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.goods.source.window.GoodsAddSourceLinkManWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.goods.source.window.GoodsAddSourceWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.homeactiviti.weixin.wifi.AddWeixinWifiWindow"
+               android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.goods.store.window.GoodsAddStoreHouseWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.goods.store.window.GetUserInGroupWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.goods.store.window.GetGroupCompanyUserWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.group.window.CreateGroupWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.group.window.PermissionGetGroupCompanyUserWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.permission.window.LookUpRoleAllWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.permission.window.AddRoleWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.permission.window.LookUpPermissionByRoleWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.permission.window.LookUpRoleByUserWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.permission.window.LookUpRoleAllManagerWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.permission.window.LookUpPermissionMainWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <!-- above add by lkx -->
+        <activity
+            android:name="com.herotculb.qunhaichat.homeactiviti.weixin.wifi.LookWifiWindow"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.herotculb.qunhaichat.homeactiviti.goods.query.updateprice.UpdateGoodsPrice"
+            android:theme="@style/dialog" 
+            android:label="@string/title_activity_home" >
+        </activity>
+    </application>
+
+</manifest>

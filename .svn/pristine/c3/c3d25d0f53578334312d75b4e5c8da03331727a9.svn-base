@@ -1,0 +1,64 @@
+package com.herotculb.qunhaichat.weixin.gailan.huifushezhi.adapter;
+
+import java.util.List;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TableLayout;
+import android.widget.TextView;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.WeiXinAutoReSendMenuDto;
+import com.herotculb.qunhaichat.dto.WeiXinReSendDto;
+
+public class AutoResendSetAdapter extends BaseAdapter{
+	private HomeActivity  context;
+	private List<WeiXinReSendDto> list;
+	public AutoResendSetAdapter(HomeActivity context,List<WeiXinReSendDto> list){
+		this.context=context;
+		this.list=list;
+	}
+	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return list.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		// TODO Auto-generated method stub
+		return list.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		// TODO Auto-generated method stub
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO Auto-generated method stub
+		final WeiXinAutoReSendMenuDto dto=(WeiXinAutoReSendMenuDto) getItem(position);
+		LayoutInflater inflater = LayoutInflater.from(context);
+		TableLayout gridLayout = (TableLayout) inflater.inflate(
+				R.layout.weixin_gailan_autoresouresetitem_layout, null);
+		TextView text=(TextView) gridLayout.findViewById(R.id.weixin_gailan_autoresouresetitem_name);
+		BootstrapButton update=(BootstrapButton) gridLayout.findViewById(R.id.weixin_gailan_autoresouresetitem_update);
+		BootstrapButton delete=(BootstrapButton) gridLayout.findViewById(R.id.weixin_gailan_autoresouresetitem_delete);
+		BootstrapButton additem=(BootstrapButton) gridLayout.findViewById(R.id.weixin_gailan_autoresouresetitem_additem);
+		BootstrapButton open=(BootstrapButton) gridLayout.findViewById(R.id.weixin_gailan_autoresouresetitem_open);
+		
+		if(dto.getName().equals("null")){
+			text.setText("");
+		}else{
+			text.setText(dto.getName());
+		}
+		return gridLayout;
+	}
+
+}

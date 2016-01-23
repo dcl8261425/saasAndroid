@@ -1,0 +1,527 @@
+package com.herotculb.qunhaichat.employee.manager;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.crm.querychance.window.AddLinkmanSexWindow;
+import com.herotculb.qunhaichat.employee.EmployeeUseLoginWindow;
+import com.herotculb.qunhaichat.homeactiviti.employee.QueryCustomerManager;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+/**
+ * 查看员工信息
+ * @author lkx
+ *
+ */
+public class LookCustomerInfoWindow extends Activity {
+	private BootstrapButton enter;
+	private BootstrapButton calcel;
+	private BootstrapButton useLoginBtn;
+	private BootstrapButton sexBtn;	
+	private BootstrapButton imageBtn;	
+	private BootstrapButton idimageBtn;	
+	BootstrapButton nameUpd;
+	BootstrapButton nameEnt;
+	BootstrapButton emailUpd;
+	BootstrapButton emailEnt;
+	BootstrapButton sexUpd;
+	BootstrapButton sexEnt;
+	BootstrapButton priceUpd;
+	BootstrapButton priceEnt;
+	BootstrapButton addressUpd;
+	BootstrapButton addressEnt;
+	BootstrapButton stuteUpd;
+	BootstrapButton stuteEnt;
+	BootstrapButton idnumUpd;
+	BootstrapButton idnumEnt;
+	BootstrapButton useLoginUpd;
+	BootstrapButton useLoginEnt;
+	BootstrapButton phoneUpd;
+	BootstrapButton phoneEnt;
+	BootstrapButton marksUpd;
+	BootstrapButton marksEnt;
+	
+	
+	private BootstrapEditText id;
+	private BootstrapEditText username;
+	private BootstrapEditText password;
+	private BootstrapEditText name;
+	private BootstrapEditText phone;
+	private BootstrapEditText email;
+	private BootstrapEditText useLogin;
+	private BootstrapEditText idnum;
+	private BootstrapEditText sex;
+	private BootstrapEditText stute;
+	private BootstrapEditText address;
+	private BootstrapEditText price;
+	private BootstrapEditText marks;
+	private BootstrapEditText image;
+	private BootstrapEditText idimage;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// 隐藏头
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.employee_update_customer_window);
+		enter =(BootstrapButton)findViewById(R.id.customer_content_enter);
+		calcel = (BootstrapButton)findViewById(R.id.customer_content_cancel);
+		
+		nameUpd = (BootstrapButton)findViewById(R.id.customer_name_update);
+		nameEnt = (BootstrapButton)findViewById(R.id.customer_name_enter);
+		emailUpd = (BootstrapButton)findViewById(R.id.customer_email_update);
+		emailEnt = (BootstrapButton)findViewById(R.id.customer_email_enter);
+		sexUpd = (BootstrapButton)findViewById(R.id.customer_sex_update);
+		sexEnt = (BootstrapButton)findViewById(R.id.customer_sex_enter);
+		priceUpd = (BootstrapButton)findViewById(R.id.customer_price_update);
+		priceEnt = (BootstrapButton)findViewById(R.id.customer_price_enter);
+		addressUpd = (BootstrapButton)findViewById(R.id.customer_address_update);
+		addressEnt = (BootstrapButton)findViewById(R.id.customer_address_enter);
+		stuteUpd = (BootstrapButton)findViewById(R.id.customer_stute_update);
+		stuteEnt = (BootstrapButton)findViewById(R.id.customer_stute_enter);
+		idnumUpd = (BootstrapButton)findViewById(R.id.customer_idnum_update);
+		idnumEnt = (BootstrapButton)findViewById(R.id.customer_idnum_enter);
+		useLoginUpd = (BootstrapButton)findViewById(R.id.customer_useLogin_update);
+		useLoginEnt = (BootstrapButton)findViewById(R.id.customer_useLogin_enter);
+		phoneUpd = (BootstrapButton)findViewById(R.id.customer_phone_update);
+		phoneEnt = (BootstrapButton)findViewById(R.id.customer_phone_enter);
+		marksUpd = (BootstrapButton)findViewById(R.id.customer_marks_update);
+		marksEnt = (BootstrapButton)findViewById(R.id.customer_marks_enter);
+		
+		sexBtn = (BootstrapButton)findViewById(R.id.customer_sex_select);
+		useLoginBtn = (BootstrapButton)findViewById(R.id.customer_useLogin_select);
+		
+		id = (BootstrapEditText)findViewById(R.id.customer_id);
+		username = (BootstrapEditText)findViewById(R.id.customer_username);
+		password = (BootstrapEditText)findViewById(R.id.customer_password);
+		name = (BootstrapEditText)findViewById(R.id.customer_name);
+		phone = (BootstrapEditText)findViewById(R.id.customer_phone);
+		email = (BootstrapEditText)findViewById(R.id.customer_email);
+		useLogin = (BootstrapEditText)findViewById(R.id.customer_useLogin);
+		idnum = (BootstrapEditText)findViewById(R.id.customer_idnum);
+		sex = (BootstrapEditText)findViewById(R.id.customer_sex);
+		stute = (BootstrapEditText)findViewById(R.id.customer_stute);
+		address = (BootstrapEditText)findViewById(R.id.customer_address);
+		price = (BootstrapEditText)findViewById(R.id.customer_price);
+		marks = (BootstrapEditText)findViewById(R.id.customer_marks);
+		image = (BootstrapEditText)findViewById(R.id.customer_image);
+		idimage = (BootstrapEditText)findViewById(R.id.customer_idimage);
+		Bundle bundle = getIntent().getExtras();
+		Object idstr = (Object) bundle.get("id");
+		Object usernamestr = (Object) bundle.get("username");
+		Object passwordstr = (Object) bundle.get("password");
+		Object namestr = (Object) bundle.get("name");
+		Object phonestr = (Object) bundle.get("phone");
+		Object emailstr = (Object) bundle.get("email");
+		Object useLoginstr = (Object) bundle.get("useLogin");
+		Object idnumstr = (Object) bundle.get("idnum");
+		Object sexstr = (Object) bundle.get("sex");
+		Object stutestr = (Object) bundle.get("state");
+		Object addressstr = (Object) bundle.get("address");
+		Object pricestr = (Object) bundle.get("price");
+		Object marksstr = (Object) bundle.get("marks");
+		Object imagestr = (Object) bundle.get("image");
+		Object idimagestr = (Object) bundle.get("idimage");
+		if(idstr!=null&&!idstr.equals("")){
+			id.setText(idstr.toString());
+			username.setText(usernamestr.toString());
+//			password.setText(passwordstr.toString());
+			name.setText(namestr.toString());
+			phone.setText(phonestr.toString());
+			email.setText(emailstr.toString());
+			String useLoginStr = "可用";
+			if(useLoginStr.toString().equals("false")){
+				useLoginStr = "禁用";
+			}
+			useLogin.setText(useLoginStr);
+			idnum.setText(idnumstr.toString());
+			String sexStr = "男";
+			if(sexstr.toString().equals("false")){
+				sexStr = "女";
+			}
+			sex.setText(sexStr);
+			stute.setText(stutestr.toString());
+			address.setText(addressstr.toString());
+			price.setText(pricestr.toString());
+			marks.setText(marksstr.toString());
+//			image.setText(imagestr.toString());
+//			idimage.setText(idimagestr.toString());
+		}
+		
+		sexBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 选择性别
+				Intent i = new Intent(LookCustomerInfoWindow.this,AddLinkmanSexWindow.class);
+				Bundle b = new Bundle();
+				b.putString("classes", "com.herotculb.qunhaichat.employee.manager.LookCustomerInfoWindow");
+				i.putExtras(b);
+				LookCustomerInfoWindow.this.startActivityForResult(i, 0);
+				LookCustomerInfoWindow.this.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+			}
+		});
+		useLoginBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 是否可用
+				Intent i = new Intent(LookCustomerInfoWindow.this,EmployeeUseLoginWindow.class);
+				Bundle b = new Bundle();
+				b.putString("classes", "com.herotculb.qunhaichat.employee.manager.LookCustomerInfoWindow");
+				i.putExtras(b);
+				LookCustomerInfoWindow.this.startActivityForResult(i, 0);
+				LookCustomerInfoWindow.this.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+			}
+		});
+		
+		nameUpd.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 修改姓名
+				name.setEnabled(true);
+				nameEnt.setVisibility(View.VISIBLE);
+				nameUpd.setVisibility(View.GONE);
+			}
+		});
+		nameEnt.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 确定
+				LoadingDialog dialog = new LoadingDialog(
+						LookCustomerInfoWindow.this, "正在获取数据");
+				dialog.show();
+				UpdateCustomerInfoHandler handler =
+						new UpdateCustomerInfoHandler(LookCustomerInfoWindow.this, dialog);
+				UpdateCustomerInfoThread thread = 
+						new UpdateCustomerInfoThread(LookCustomerInfoWindow.this, 
+								id.getText().toString(), "trueName", name.getText().toString(), handler);
+				thread.start();
+				name.setEnabled(false);
+				nameEnt.setVisibility(View.GONE);
+				nameUpd.setVisibility(View.VISIBLE);
+			}
+		});
+		emailUpd.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 修改姓名
+				email.setEnabled(true);
+				emailEnt.setVisibility(View.VISIBLE);
+				emailUpd.setVisibility(View.GONE);
+			}
+		});
+		emailEnt.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 确定
+				LoadingDialog dialog = new LoadingDialog(
+						LookCustomerInfoWindow.this, "正在获取数据");
+				dialog.show();
+				UpdateCustomerInfoHandler handler =
+						new UpdateCustomerInfoHandler(LookCustomerInfoWindow.this, dialog);
+				UpdateCustomerInfoThread thread = 
+						new UpdateCustomerInfoThread(LookCustomerInfoWindow.this, 
+								id.getText().toString(), "email", email.getText().toString(), handler);
+				thread.start();
+				email.setEnabled(false);
+				emailEnt.setVisibility(View.GONE);
+				emailUpd.setVisibility(View.VISIBLE);
+			}
+		});
+		sexUpd.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 修改姓名
+				sex.setEnabled(true);
+				sexEnt.setVisibility(View.VISIBLE);
+				sexUpd.setVisibility(View.GONE);
+			}
+		});
+		sexEnt.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 确定
+				LoadingDialog dialog = new LoadingDialog(
+						LookCustomerInfoWindow.this, "正在获取数据");
+				dialog.show();
+				String sexStr = "true";
+				if(sex.getText().toString().equals("女")){
+					sexStr = "false";
+				}
+				UpdateCustomerInfoHandler handler =
+						new UpdateCustomerInfoHandler(LookCustomerInfoWindow.this, dialog);
+				UpdateCustomerInfoThread thread = 
+						new UpdateCustomerInfoThread(LookCustomerInfoWindow.this, 
+								id.getText().toString(), "sex", sexStr, handler);
+				thread.start();
+				sex.setEnabled(false);
+				sexEnt.setVisibility(View.GONE);
+				sexUpd.setVisibility(View.VISIBLE);
+			}
+		});
+		priceUpd.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 修改薪水
+				price.setEnabled(true);
+				priceEnt.setVisibility(View.VISIBLE);
+				priceUpd.setVisibility(View.GONE);
+			}
+		});
+		priceEnt.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 确定
+				LoadingDialog dialog = new LoadingDialog(
+						LookCustomerInfoWindow.this, "正在获取数据");
+				dialog.show();
+				UpdateCustomerInfoHandler handler =
+						new UpdateCustomerInfoHandler(LookCustomerInfoWindow.this, dialog);
+				UpdateCustomerInfoThread thread = 
+						new UpdateCustomerInfoThread(LookCustomerInfoWindow.this, 
+								id.getText().toString(), "price", price.getText().toString(), handler);
+				thread.start();
+				price.setEnabled(false);
+				priceEnt.setVisibility(View.GONE);
+				priceUpd.setVisibility(View.VISIBLE);
+			}
+		});
+		addressUpd.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 修改地址
+				address.setEnabled(true);
+				addressEnt.setVisibility(View.VISIBLE);
+				addressUpd.setVisibility(View.GONE);
+			}
+		});
+		addressEnt.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 确定
+				LoadingDialog dialog = new LoadingDialog(
+						LookCustomerInfoWindow.this, "正在获取数据");
+				dialog.show();
+				UpdateCustomerInfoHandler handler =
+						new UpdateCustomerInfoHandler(LookCustomerInfoWindow.this, dialog);
+				UpdateCustomerInfoThread thread = 
+						new UpdateCustomerInfoThread(LookCustomerInfoWindow.this, 
+								id.getText().toString(), "address", address.getText().toString(), handler);
+				thread.start();
+				address.setEnabled(false);
+				addressEnt.setVisibility(View.GONE);
+				addressUpd.setVisibility(View.VISIBLE);
+			}
+		});
+		stuteUpd.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 修改地址
+				stute.setEnabled(true);
+				stuteEnt.setVisibility(View.VISIBLE);
+				stuteUpd.setVisibility(View.GONE);
+			}
+		});
+		stuteEnt.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 确定
+				LoadingDialog dialog = new LoadingDialog(
+						LookCustomerInfoWindow.this, "正在获取数据");
+				dialog.show();
+				UpdateCustomerInfoHandler handler =
+						new UpdateCustomerInfoHandler(LookCustomerInfoWindow.this, dialog);
+				UpdateCustomerInfoThread thread = 
+						new UpdateCustomerInfoThread(LookCustomerInfoWindow.this, 
+								id.getText().toString(), "stute", stute.getText().toString(), handler);
+				thread.start();
+				stute.setEnabled(false);
+				stuteEnt.setVisibility(View.GONE);
+				stuteUpd.setVisibility(View.VISIBLE);
+			}
+		});
+		idnumUpd.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 修改地址
+				idnum.setEnabled(true);
+				idnumEnt.setVisibility(View.VISIBLE);
+				idnumUpd.setVisibility(View.GONE);
+			}
+		});
+		idnumEnt.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 确定
+				LoadingDialog dialog = new LoadingDialog(
+						LookCustomerInfoWindow.this, "正在获取数据");
+				dialog.show();
+				UpdateCustomerInfoHandler handler =
+						new UpdateCustomerInfoHandler(LookCustomerInfoWindow.this, dialog);
+				UpdateCustomerInfoThread thread = 
+						new UpdateCustomerInfoThread(LookCustomerInfoWindow.this, 
+								id.getText().toString(), "idnum", idnum.getText().toString(), handler);
+				thread.start();
+				idnum.setEnabled(false);
+				idnumEnt.setVisibility(View.GONE);
+				idnumUpd.setVisibility(View.VISIBLE);
+			}
+		});
+		useLoginUpd.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 修改地址
+				useLogin.setEnabled(true);
+				useLoginEnt.setVisibility(View.VISIBLE);
+				useLoginUpd.setVisibility(View.GONE);
+			}
+		});
+		useLoginEnt.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 确定
+				LoadingDialog dialog = new LoadingDialog(
+						LookCustomerInfoWindow.this, "正在获取数据");
+				dialog.show();
+				String useLoginStr = "true";
+				if(useLogin.getText().toString().equals("不可用")){
+					useLoginStr = "false";
+				}
+				UpdateCustomerInfoHandler handler =
+						new UpdateCustomerInfoHandler(LookCustomerInfoWindow.this, dialog);
+				UpdateCustomerInfoThread thread = 
+						new UpdateCustomerInfoThread(LookCustomerInfoWindow.this, 
+								id.getText().toString(), "useLogin", useLoginStr, handler);
+				thread.start();
+				useLogin.setEnabled(false);
+				useLoginEnt.setVisibility(View.GONE);
+				useLoginUpd.setVisibility(View.VISIBLE);
+			}
+		});
+		phoneUpd.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 修改电话
+				phone.setEnabled(true);
+				phoneEnt.setVisibility(View.VISIBLE);
+				phoneUpd.setVisibility(View.GONE);
+			}
+		});
+		phoneEnt.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 确定
+				LoadingDialog dialog = new LoadingDialog(
+						LookCustomerInfoWindow.this, "正在获取数据");
+				dialog.show();
+				UpdateCustomerInfoHandler handler =
+						new UpdateCustomerInfoHandler(LookCustomerInfoWindow.this, dialog);
+				UpdateCustomerInfoThread thread = 
+						new UpdateCustomerInfoThread(LookCustomerInfoWindow.this, 
+								id.getText().toString(), "phone", phone.getText().toString(), handler);
+				thread.start();
+				phone.setEnabled(false);
+				phoneEnt.setVisibility(View.GONE);
+				phoneUpd.setVisibility(View.VISIBLE);
+			}
+		});
+		marksUpd.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 修改电话
+				marks.setEnabled(true);
+				marksEnt.setVisibility(View.VISIBLE);
+				marksUpd.setVisibility(View.GONE);
+			}
+		});
+		marksEnt.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 确定
+				LoadingDialog dialog = new LoadingDialog(
+						LookCustomerInfoWindow.this, "正在获取数据");
+				dialog.show();
+				UpdateCustomerInfoHandler handler =
+						new UpdateCustomerInfoHandler(LookCustomerInfoWindow.this, dialog);
+				UpdateCustomerInfoThread thread = 
+						new UpdateCustomerInfoThread(LookCustomerInfoWindow.this, 
+								id.getText().toString(), "marks", marks.getText().toString(), handler);
+				thread.start();
+				marks.setEnabled(false);
+				marksEnt.setVisibility(View.GONE);
+				marksUpd.setVisibility(View.VISIBLE);
+			}
+		});
+		calcel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 自动生成的方法存根
+				LookCustomerInfoWindow.this.finish();
+			}
+		});
+	}
+	
+	//弹出框返回的内容在这里接受
+	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
+	        super.onActivityResult(requestCode, resultCode, data); 
+	      //取出字符串  
+	        if(data==null){
+	        	return ;
+	        }
+	        Bundle bundle = data.getExtras();	        
+	        if(bundle==null){
+	        	return ;
+	        }
+	        String type=(String) bundle.get("type");
+	        
+	        BootstrapEditText sex = (BootstrapEditText)findViewById(R.id.customer_sex);
+        	if(type.equals("add_linkman_sex1")){
+	        	sex.setText(bundle.getString("sex1Str"));
+	        }
+        	if(type.equals("add_linkman_sex2")){
+        		sex.setText(bundle.getString("sex2Str"));
+        	}
+        	BootstrapEditText useLogin = (BootstrapEditText)findViewById(R.id.customer_useLogin);
+        	if(type.equals("add_linkman_useLogin1")){
+        		useLogin.setText(bundle.getString("useLogin1Str"));
+	        }
+        	if(type.equals("add_linkman_useLogin2")){
+        		useLogin.setText(bundle.getString("useLogin2Str"));
+        	}
+        	if(type.equals("update_customer_info")){
+        		BootstrapButton query=(BootstrapButton) findViewById(R.id.employee_query_customer_query);
+        		query.performClick();
+        	}
+	 }
+	
+}

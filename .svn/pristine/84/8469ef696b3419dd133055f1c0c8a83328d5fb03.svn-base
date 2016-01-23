@@ -1,0 +1,121 @@
+package com.herotculb.qunhaichat.weixin.getgame.adapter;
+
+import java.util.Date;
+import java.util.List;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TableLayout;
+import android.widget.TextView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.GamesAwardsListDto;
+import com.herotculb.qunhaichat.util.DateUtil;
+import com.herotculb.qunhaichat.weixin.operationgame.WeixinDeleteGuaGuaKaHandler;
+import com.herotculb.qunhaichat.weixin.operationgame.WeixinDeleteGuaGuaKaThread;
+import com.herotculb.qunhaichat.weixin.operationvip.WeixinDelDuiHuanThread;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+/**
+ * 奖品库设置 Adapter
+ * @author lkx
+ *
+ */
+public class WeixinGetGuaGuaKaAdapter extends BaseAdapter {
+	private HomeActivity  context;
+	private List<GamesAwardsListDto> list;
+	
+	public WeixinGetGuaGuaKaAdapter(HomeActivity context, List<GamesAwardsListDto> list) {
+		super();
+		this.context = context;
+		this.list = list;
+	}
+
+	@Override
+	public int getCount() {
+		// TODO 自动生成的方法存根
+		return list.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		// TODO 自动生成的方法存根
+		return list.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		// TODO 自动生成的方法存根
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO 自动生成的方法存根
+		final GamesAwardsListDto dto = (GamesAwardsListDto) getItem(position);
+		LayoutInflater inflater = LayoutInflater.from(context);
+		TableLayout gridLayout = (TableLayout) inflater.inflate(
+				R.layout.game_guaguaka_list, null);
+		TextView text  = (TextView) gridLayout.findViewById(R.id.game_guaguaka_content);
+		TextView text1 = (TextView) gridLayout.findViewById(R.id.game_guaguaka_num);
+		TextView text2 = (TextView) gridLayout.findViewById(R.id.game_guaguaka_start_date);
+		TextView text3 = (TextView) gridLayout.findViewById(R.id.game_guaguaka_end_date);
+		BootstrapButton del =(BootstrapButton) gridLayout.findViewById(R.id.weixin_game_guaguaka_delete);
+		del.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+                new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("删除")
+                .setContentText("您确定删除此信息？")
+                .setCancelText("取消")
+                .setConfirmText("确定")
+                .showCancelButton(true)
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        // reuse previous dialog instance, keep widget user state, reset them if you need
+                        sDialog.setTitleText("取消删除")
+                                .setContentText("您的删除已经取消")
+                                .setConfirmText("确定")
+                                .showCancelButton(false)
+                                .setCancelClickListener(null)
+                                .setConfirmClickListener(null)
+                                .changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                    }
+                })
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                    	LoadingDialog dialog = new LoadingDialog(context, "正在获取数据");
+						dialog.show();
+						WeixinDeleteGuaGuaKaHandler handler = new WeixinDeleteGuaGuaKaHandler(context, dialog,sDialog);
+						WeixinDeleteGuaGuaKaThread thread = new WeixinDeleteGuaGuaKaThread(context,dto.getId(), handler);
+						thread.start();
+                    }
+                })
+                .show();
+			}
+		});
+		text.setText(dto.getContent());
+		text1.setText(String.valueOf(dto.getNum()));
+		Date date = new Date();
+		Date date1 = new Date();
+		Long sdate = Long.parseLong(dto.getStartDate());
+		Long edate = Long.parseLong(dto.getEndDate());
+		date.setTime(sdate);
+		date1.setTime(edate);
+		String startDate = DateUtil.formatDateYYYY_MM_DD(date);
+		String endDate = DateUtil.formatDateYYYY_MM_DD(date1);
+		text2.setText(startDate);
+		text3.setText(endDate);
+		return gridLayout;
+	}
+
+}

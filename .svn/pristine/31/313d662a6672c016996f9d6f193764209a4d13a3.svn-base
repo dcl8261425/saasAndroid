@@ -1,0 +1,2252 @@
+package com.herotculb.qunhaichat.util;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import android.util.Log;
+
+import com.herotculb.qunhaichat.dto.ConpanyDTO;
+import com.herotculb.qunhaichat.dto.PermissionLoadDTO;
+import com.herotculb.qunhaichat.dto.UserDTO;
+import com.herotculb.qunhaichat.dto.weixin.auto.AotuSendImageMessageDto;
+import com.herotculb.qunhaichat.dto.weixin.auto.AotuSendImageTextMessageContentListDto;
+import com.herotculb.qunhaichat.dto.weixin.auto.AotuSendImageTextMessageDto;
+
+public class QNPermissionApiImpl implements QNPermissionApi {
+	/**
+	 * 登录方法  返回list map map内读取两个参数，
+	 * 1.sucess ----false,true
+	 * 2.info--------错误信息，成功信息
+	 */
+	@Override
+	public List<Map<String, Object>> loginAjax(String username, String password) {
+		// TODO Auto-generated method stub
+		List<NameValuePair> params=new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("username",username));
+		params.add(new BasicNameValuePair("password",password));
+		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+		
+		Map map=new HashMap<String, Object>();
+		try {
+			String json=HttpClient.doPost(QNPermissionApi.mainLink+QNPermissionApi.loginAjax, params);
+			 JSONTokener jsonParser = new JSONTokener(json);  
+			 Log.e("json", json);
+			 JSONObject person = (JSONObject) jsonParser.nextValue(); 
+			 Log.e("json", json);
+			 Boolean b=person.getBoolean("success");
+			 String info=person.getString("info");
+			 map.put("success", b);
+			 map.put("info", info);
+			 list.add(map);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 map.put("success", false);
+			 map.put("info", "登录异常");
+			 list.add(map);
+		}
+		return list;
+	}
+	/**
+	 * 获取账户权限，
+	 * 返回类型   List<Map<String, Object>>
+	 * 可读取参数
+	 * 1. success -----false,true
+	 * 2.info-----错误信息，只有错误信息，正确时不需要读取
+	 * 3.map内的get名
+	 * 	3.1 conpany  公司信息 是conpanyDTO类型
+	 *  3.2 user 登录的账户信息 是UserDTO 类型
+	 *  3.3 crm boolean 类型 false true  代表主功能项下是否要子项目 <客户关系管理>
+	 *  3.4 goods  boolean 类型 false true  代表主功能项下是否要子项目 <库存管理>
+	 *  3.5 hr  boolean 类型 false true  代表主功能项下是否要子项目 <员工管理>
+	 *  3.5 system  boolean 类型 false true  代表主功能项下是否要子项目 <系统管理>
+	 *  3.6 weixin  boolean 类型 false true  代表主功能项下是否要子项目 <微信管理>
+	 *  3.7 messageInfo  boolean 类型 false true  代表主功能项下是否要子项目 <短信平台>
+	 *  ps:在以上get名 后加list 则取得大项下的子项 类型为 List<PermissionLoadDTO>
+	 */
+	@Override
+	public List<Map<String, Object>> backManagerajax() {
+		// TODO Auto-generated method stub
+		List<NameValuePair> params=new ArrayList<NameValuePair>();
+		Map map=new HashMap<String, Object>();
+		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+		try {
+			String json=HttpClient.doPost(QNPermissionApi.mainLink+QNPermissionApi.backManagerajax, params);
+			 JSONTokener jsonParser = new JSONTokener(json);  
+			 JSONObject person = (JSONObject) jsonParser.nextValue(); 
+			 JSONObject jsoncrmArr=person.getJSONObject("crm");
+			 JSONObject jsongoodsArr= person.getJSONObject("goods");
+			 JSONObject jsonhrArr=person.getJSONObject("hr");
+			 JSONObject jsonsystemArr=person.getJSONObject("system");
+			 JSONObject jsonweixinArr=person.getJSONObject("weixin");
+			 JSONObject jsonmessageInfoArr=person.getJSONObject("messageInfo");
+			 int msgNum=person.getInt("msgNum");
+			 JSONArray jsonmsg=person.getJSONArray("msg");
+			 JSONObject objuser=person.getJSONObject("user");
+			 JSONObject objconpany=person.getJSONObject("conpany");
+			 ConpanyDTO conpany=new ConpanyDTO();
+			 conpany.setCity(objconpany.getString("city"));
+			 conpany.setConpanyAdminEmail(objconpany.getString("conpanyAdminEmail"));
+			 conpany.setConpanyName(objconpany.getString("conpanyName"));
+			 conpany.setConpanyRigister(objconpany.getString("conpanyRigister"));
+			 conpany.setConpanyType(objconpany.getString("conpanyType"));
+			 conpany.setCountry(objconpany.getString("country"));
+			 conpany.setDistrict(objconpany.getString("district"));
+			 conpany.setEndDate(objconpany.getString("endDate"));
+			 conpany.setHangyeId(objconpany.getLong("endDate"));
+			 conpany.setHangyeName(objconpany.getString("hangyeName"));
+			 conpany.setId(objconpany.getLong("id"));
+			 conpany.setNowUserNum(objconpany.getInt("nowUserNum"));
+			 conpany.setPayConpany(objconpany.getBoolean("payConpany"));
+			 conpany.setProvince(objconpany.getString("province"));
+			 conpany.setSoftAdminName(objconpany.getString("softAdminName"));
+			 conpany.setSoftAdminPhone(objconpany.getString("softAdminPhone"));
+			 conpany.setUseConpany(objconpany.getBoolean("useConpany"));
+			 map.put("conpany", conpany);
+			 Log.e("QN", conpany.getConpanyName());
+			 UserDTO user=new UserDTO();
+			 user.setAccuntEndDate(objuser.getString("accuntEndDate"));
+			 user.setAccuntStartDate(objuser.getString("accuntStartDate"));
+			 user.setAddress(objuser.getString("address"));
+			 user.setConpanyAdmin(objuser.getBoolean("conpanyAdmin"));
+			 user.setConpanyId(objuser.getLong("conpanyId"));
+			 user.setEmail(objuser.getString("email"));
+			 user.setFreeAcccunt(objuser.getBoolean("freeAcccunt"));
+			 user.setId(objuser.getLong("id"));
+			 user.setIdImage(objuser.getString("idImage"));
+			 user.setIdNum(objuser.getString("idNum"));
+			 user.setImage(objuser.getString("image"));
+			 user.setMarks(objuser.getString("marks"));
+			 user.setPassword(objuser.getString("password"));
+			 user.setPhone(objuser.getString("phone"));
+			 user.setPrice(objuser.getInt("price"));
+			 user.setSex(objuser.getBoolean("sex"));
+			 user.setState(objuser.getString("state"));
+			 user.setTrueName(objuser.getString("trueName"));
+			 user.setUseLogin(objuser.getBoolean("useLogin"));
+			 user.setUsername(objuser.getString("username"));
+			 map.put("user", user);
+			 Log.e("QN", user.getPassword());
+			 boolean crmboolean=jsoncrmArr.getBoolean("isuse");
+			 map.put("crm", crmboolean);
+			 if(crmboolean){
+				List<PermissionLoadDTO> crmList=new ArrayList<PermissionLoadDTO>();
+				JSONArray jsonarrcrm=jsoncrmArr.getJSONArray("list");
+				for(int i=0;i<jsonarrcrm.length();i++){
+					PermissionLoadDTO dto=new PermissionLoadDTO();
+					JSONObject jbt=jsonarrcrm.getJSONObject(i);
+					dto.setIsuse(jbt.getBoolean("isuse"));
+					dto.setName(jbt.getString("name"));
+					dto.setMarks(jbt.getString("marks"));
+					Log.e("-------------------------------", dto.getName());
+					crmList.add(dto);
+				}
+				 map.put("crmlist", crmList);
+			 }
+			 boolean goodsboolean=jsongoodsArr.getBoolean("isuse");
+			 map.put("goods", goodsboolean);
+			 if(goodsboolean){
+				 List<PermissionLoadDTO> crmList=new ArrayList<PermissionLoadDTO>();
+					JSONArray jsonarrcrm=jsongoodsArr.getJSONArray("list");
+					for(int i=0;i<jsonarrcrm.length();i++){
+						PermissionLoadDTO dto=new PermissionLoadDTO();
+						JSONObject jbt=jsonarrcrm.getJSONObject(i);
+						dto.setIsuse(jbt.getBoolean("isuse"));
+						dto.setName(jbt.getString("name"));
+						dto.setMarks(jbt.getString("marks"));
+						crmList.add(dto);
+					}
+					 map.put("goodslist", crmList);
+			 }
+			 boolean hrboolean=jsonhrArr.getBoolean("isuse");
+			 map.put("hr", hrboolean);
+			 if(hrboolean){
+				 List<PermissionLoadDTO> crmList=new ArrayList<PermissionLoadDTO>();
+					JSONArray jsonarrcrm=jsonhrArr.getJSONArray("list");
+					for(int i=0;i<jsonarrcrm.length();i++){
+						PermissionLoadDTO dto=new PermissionLoadDTO();
+						JSONObject jbt=jsonarrcrm.getJSONObject(i);
+						dto.setIsuse(jbt.getBoolean("isuse"));
+						dto.setName(jbt.getString("name"));
+						dto.setMarks(jbt.getString("marks"));
+						crmList.add(dto);
+					}
+					 map.put("hrlist", crmList);
+			 }
+			 boolean systemboolean=jsonsystemArr.getBoolean("isuse");
+			 map.put("system", systemboolean);
+			 if(systemboolean){
+				 List<PermissionLoadDTO> crmList=new ArrayList<PermissionLoadDTO>();
+					JSONArray jsonarrcrm=jsonsystemArr.getJSONArray("list");
+					for(int i=0;i<jsonarrcrm.length();i++){
+						PermissionLoadDTO dto=new PermissionLoadDTO();
+						JSONObject jbt=jsonarrcrm.getJSONObject(i);
+						dto.setIsuse(jbt.getBoolean("isuse"));
+						dto.setName(jbt.getString("name"));
+						dto.setMarks(jbt.getString("marks"));
+						crmList.add(dto);
+					}
+					 map.put("systemlist", crmList);
+			 }
+			 boolean weixinboolean=jsonweixinArr.getBoolean("isuse");
+			 map.put("weixin", weixinboolean);
+			 if(weixinboolean){
+				 List<PermissionLoadDTO> crmList=new ArrayList<PermissionLoadDTO>();
+					JSONArray jsonarrcrm=jsonweixinArr.getJSONArray("list");
+					for(int i=0;i<jsonarrcrm.length();i++){
+						PermissionLoadDTO dto=new PermissionLoadDTO();
+						JSONObject jbt=jsonarrcrm.getJSONObject(i);
+						dto.setIsuse(jbt.getBoolean("isuse"));
+						dto.setName(jbt.getString("name"));
+						dto.setMarks(jbt.getString("marks"));
+						crmList.add(dto);
+					}
+					 map.put("weixintemlist", crmList);
+			 }
+			 boolean messageInfoboolean=jsonmessageInfoArr.getBoolean("isuse");
+			 map.put("messageInfo", messageInfoboolean);
+			 if(messageInfoboolean){
+				 List<PermissionLoadDTO> crmList=new ArrayList<PermissionLoadDTO>();
+					JSONArray jsonarrcrm=jsonmessageInfoArr.getJSONArray("list");
+					for(int i=0;i<jsonarrcrm.length();i++){
+						PermissionLoadDTO dto=new PermissionLoadDTO();
+						JSONObject jbt=jsonarrcrm.getJSONObject(i);
+						dto.setIsuse(jbt.getBoolean("isuse"));
+						dto.setName(jbt.getString("name"));
+						dto.setMarks(jbt.getString("marks"));
+						crmList.add(dto);
+					}
+					 map.put("messageInfolist", crmList);
+			 }
+			try{
+			 Object islogin=person.get("stute");
+			}catch(Exception ex){
+					 map.put("login", false);
+					 map.put("success", false);
+					 list.add(map);
+					 return list;
+			}
+			 Log.e("qn", "222");
+			 
+			 map.put("success", true);
+			 list.add(map);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 map.put("success", false);
+			 map.put("info", "获取数据异常");
+			 list.add(map);
+		}
+		return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> getCreateGroup(String groupId,
+			String groupName, String groupMarks) {
+		// TODO Auto-generated method stub
+				List<NameValuePair> params=new ArrayList<NameValuePair>();
+				params.add(new BasicNameValuePair("groupId",groupId));
+				params.add(new BasicNameValuePair("groupName",groupName));
+				params.add(new BasicNameValuePair("groupMarks",groupMarks));
+				List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+				Map map=new HashMap<String, Object>();
+				try {
+					String json=HttpClient.doPost(QNPermissionApi.mainLink+QNPermissionApi.group, params);
+					 JSONTokener jsonParser = new JSONTokener(json);  
+					 Log.e("json", json);
+					 JSONObject person = (JSONObject) jsonParser.nextValue();
+					 Boolean b=person.getBoolean("success");
+					 String info=person.getString("info");
+					 Object islogin=null;
+					 try{
+						 islogin=person.get("stute");
+					 }catch(Exception ex){
+						 map.put("login", false);
+						 map.put("success", false);
+						 list.add(map);
+						 return list;
+					 }
+					
+					
+					 
+					 map.put("success", b);
+					 map.put("info", info);
+					 list.add(map);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					 map.put("success", false);
+					 map.put("info", "登录异常");
+					 list.add(map);
+				}
+				return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> getMyGroup(String groupName) {
+		// TODO Auto-generated method stub
+		List<NameValuePair> params=new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("groupName",groupName));
+		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+		Map map=new HashMap<String, Object>();
+		try {
+			String json=HttpClient.doPost(QNPermissionApi.mainLink+QNPermissionApi.allGroup, params);
+			 JSONTokener jsonParser = new JSONTokener(json);  
+			 Log.e("json", json);
+			 JSONObject person = (JSONObject) jsonParser.nextValue();
+			 Boolean b=person.getBoolean("success");
+			 String info=person.getString("info");
+			 Object islogin=person.get("stute");
+			 Object islogin=null;
+			 try{
+				 islogin=person.get("stute");
+			 }catch(Exception ex){
+				 map.put("login", false);
+				 map.put("success", false);
+				 list.add(map);
+				 return list;
+			 }
+			 map.put("success", b);
+			 map.put("info", info);
+			 list.add(map);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 map.put("success", false);
+			 map.put("info", "登录异常");
+			 list.add(map);
+		}
+		return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> getAllGroup(String nowpage,
+			String countNum, String groupId, String groupName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getGroupConpanyUser(String nowpage,
+			String countNum, String groupId, String groupName, String trueName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> insertConpanyUserToGroup(String userId,
+			String groupId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteConpanyUserFormGroup(String userId,
+			String groupId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteGroup(String groupId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateGroupInfo(String userId,
+			String groupId, String groupName, String groupMarks) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> lookupPremissionAll(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> lookupPremissionMain(String id, String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addPermissionToRole(String isAll,
+			String permissionId, String roleId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deletePermissionToRole(
+			String permissionId, String roleId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addRole(String name, String marks,
+			String groupId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteRole(String roleId, String groupId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> lookupRoleAll(String groupId,
+			String roleName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> lookupRoleByUser(String userid,
+			String groupid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> lookupPremissionByRole(String name,
+			String groupId, String roleId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addRoleToConpanyUser(String roleid,
+			String groupId, String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteRoleToConpanyUser(String roleid,
+			String groupId, String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> createChance(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateChance(String CustomerName,
+			String CustomerAddress, String CustomerType, String CustomerLevel,
+			String CustomerMark, String CreateManMark, String NotesUserId,
+			String State, String ChanceId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> DeleteChance(String ChanceId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> allocationChance(String NotesUserId,
+			String ChanceId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> createFlow(String chanceId, String name,
+			String jsonString) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateFlow(String name, String flowId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteFlow(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> createFlowItem(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateFlowItem(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> forwordFlowItem(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateLinkMan(String id,
+			String linkManName, String linkManSex, String linkManPhone,
+			String linkManJob, String linkManMark, String linkManBirthday) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> changeState(String state, String chanceId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryMyChance(String nowpage,
+			String countNum, String ChanceName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getChance(String ChanceName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateMyCreateChance(String CustomerName,
+			String CustomerAddress, String CustomerType, String CustomerLevel,
+			String CustomerMark, String CreateManMark, String NotesUserId,
+			String State, String ChanceId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> allocationMyCreateChance(
+			String NotesUserId, String ChanceId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> DeleteMyCreateChance(String ChanceId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryLinkMan(String linkManName,
+			String chanceId, String nowpage, String countNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addLinkMan(String chanceId,
+			String linkManName, String linkManSex, String linkManPhone,
+			String linkManJob, String linkManMark, String linkManBirthday) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getLinkManById(String linkmanId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteLinkMan(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryNotes(String linkManName,
+			String chanceId, String nowpage, String countNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> startNotes(String chanceId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addNotesItem(String chanceId,
+			String NotesId, String Title, String notesAddress,
+			String NotesDriver, String Marks) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryNotesItem(String NotesId,
+			String nowpage, String countNum, String chanceId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryAllChance(String nowpage,
+			String countNum, String ChanceName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryFlow(String name, String chanceId,
+			String nowpage, String countNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryFlowItem(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryMyCustemor(String nowpage,
+			String countNum, String ChanceName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryToMyChance(String nowpage,
+			String countNum, String ChanceName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> query(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addGoods(String goodsName,
+			String goodsNum, String goodsType, String Price, String inPrice,
+			String score, String Spell, String goodsModel,
+			String goodsSourceId, String storehouseId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addGoodSource(String name, String address) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryGoodsSource(String name,
+			String nowpage, String countNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteGoodsSource(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getGoodsSource(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateGoodSource(String id, String name,
+			String address) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> createOrder(String Name, String data,
+			String id, String type, String chance) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryOrder(String num, String name,
+			String chanceid, String endDate, String startDate, String nowpage,
+			String countNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteOrder(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryOrderItem(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryInOrderItem(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> OrderInStore(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> InOrderInStore(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> createStoreHouse(String name,
+			String address, String tel, String userid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateStoreHouse(String name,
+			String address, String tel, String userid, String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteStoreHouse(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> StoreHouseToStoreHouse(
+			String storeHouseId, String toStoreHouseId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> createInOrder(String Name, String data,
+			String id, String type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteInOrder(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryInOrder(String num, String name,
+			String endDate, String startDate, String nowpage, String countNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addGoodSourceLinkMan(String id,
+			String linkManBirthday, String linkname, String phone) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryGoodsSourceLinkman(String name,
+			String nowpage, String countNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateGoodSourceLinkMan(String id,
+			String linkManBirthday, String linkname, String phone) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteGoodsSourceLinkman(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getGoodsSourceLinkMan(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryStoreHouse(String name,
+			String nowpage, String countNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getStoreHouse(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryGoods(String name, String spell) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getGoods(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updatePrice(String id, String updateprice) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryGoodsLog(String id, String nowpage,
+			String countNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> querySaleChat(String startDate,
+			String endDate, String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryInGoods(String startDate,
+			String endDate, String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> priceChar(String startDate,
+			String endDate, String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryStoreHouseChat(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getObject(String id, String type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addCustemmer(String username,
+			String password, String name, String phone, String email,
+			String useLogin, String image, String idimage, String stute,
+			String idnum, String sex, String marks, String address, String price) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryCustemmer(String nowpage,
+			String countNum, String trueName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> lookCustemmerInfo(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateCustemmerInfo(String id,
+			String name, String value) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getCustemmerMeetingInfo(String date) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getUpdateMeetingInfo(String type,
+			String value, String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getMeetingSet(String ip, String uptime,
+			String downtime) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getMeetingSetInfo(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getPerForMance(String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> meeting(String marks, String type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> main(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> myCreateCustomChance(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> toMyCustomChance(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> MyCustomManager(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> mainGoods(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryData(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> inGoods(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> outGoods(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> storehouse(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> GoodSource(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> mainHr(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> custemr(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> meetingHr(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> performance(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> systemPermission(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> mainWeiXin(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> weixin_UserId_Set(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> weixin_VIP_set(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> weixin_Game_set(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> weixin_convert_set(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> weixin_Model_set(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> weixin_Model_set_map(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> weixin_model_goodsManager(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> weixin_model_order(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryAllChanceList(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> mainWifi(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> mainMess(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> vipsend(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> messagetemp(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> messagelog(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getWeXinInfo(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateWeXinInfo(String appid,
+			String appSecret, String tokens) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updataMenuToWeiXin(String type,
+			String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getMenu(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addMenu(String id, String name,
+			String url, String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteMenu(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> editMenu(String id, String name,
+			String url, String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getMenuItem(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getImage(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getVoice(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getVideo(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getMusic(String type, String startDate,
+			String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getImageText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addImage(String name, String mediaId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addVideo(String name, String mediaId,
+			String title, String description) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addVoice(String name, String mediaId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addText(String name, String content) {
+		// TODO Auto-generated method stub
+		
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addMusic(String name, String title,
+			String description, String hQMusicUrl, String thumbMediaId,
+			String musicURL) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addImageText(String name, String title,
+			String description, String picUrl, String url) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getWeiXinReSend(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateImage(String id, String name,
+			String mediaId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateVideo(String id, String name,
+			String mediaId, String title, String description) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateVoice(String id, String name,
+			String mediaId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateText(String id, String name,
+			String content) {
+		// TODO Auto-generated method stub
+		
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateMusic(String id, String name,
+			String title, String description, String hQMusicUrl,
+			String thumbMediaId, String musicURL) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateImageText(String id, String name,
+			String title, String description, String picUrl, String url) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteReSend(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getAutoReSend_Text() {
+		// TODO Auto-generated method stub
+		List<NameValuePair> params=new ArrayList<NameValuePair>();
+		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+		Map map=new HashMap<String, Object>();
+		try {
+			String json=HttpClient.doPost(QNPermissionApi.mainLink+QNPermissionApi.getText, params);
+			 JSONTokener jsonParser = new JSONTokener(json);  
+			 Log.e("json", json);
+			 JSONObject person = (JSONObject) jsonParser.nextValue();
+			 JSONObject jsonSuccess=person.getJSONObject("success");
+			 
+			 String info=person.getString("info");
+			
+			 if(!jsonSuccess.getBoolean("success")){
+				 Object islogin=null;
+					 try{
+						 islogin=person.get("stute");
+					 }catch(Exception ex){
+						 map.put("login", false);
+						 map.put("success", false);
+						 list.add(map);
+						 return list;
+					 }
+					 map.put("success", false);
+					 map.put("info", "获取数据失败");
+					 list.add(map);
+					 return list;
+			 }else{
+				 //解析data
+				 List<AotuSendImageTextMessageDto> imageList=new ArrayList<AotuSendImageTextMessageDto>();
+				 JSONArray jsonIMlist=person.getJSONArray("data");
+				 for (int i = 0; i < jsonIMlist.length(); i++) {
+					 AotuSendImageTextMessageDto dto = new AotuSendImageTextMessageDto();
+					 JSONObject jbt=jsonIMlist.getJSONObject(i);
+					 dto.setCreateTime(jbt.getString("createTime"));
+					 dto.setFromUserName(jbt.getString("fromUserName"));
+					 dto.setMsgType(jbt.getString("msgType"));
+					 dto.setToUserName(jbt.getString("toUserName"));
+					 dto.setArticleCount(jbt.getString("articleCount"));
+					 dto.setArticles(new AotuSendImageTextMessageContentListDto());
+					 imageList.add(dto);
+				}
+				 map.put("data", imageList);
+			 }
+			 map.put("success", jsonSuccess);
+			 list.add(map);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 map.put("success", false);
+			 map.put("info", "登录异常");
+			 list.add(map);
+		}
+		return list;
+	}
+	/**
+	 * 自动发送图片，解析json
+	 */
+	@Override
+	public List<Map<String, Object>> getAutoReSend_Image() {
+		// TODO Auto-generated method stub
+		List<NameValuePair> params=new ArrayList<NameValuePair>();
+		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+		Map map=new HashMap<String, Object>();
+		try {
+			String json=HttpClient.doPost(QNPermissionApi.mainLink+QNPermissionApi.getAutoReSend_Image, params);
+			 JSONTokener jsonParser = new JSONTokener(json);  
+			 Log.e("json", json);
+			 JSONObject person = (JSONObject) jsonParser.nextValue();
+			 JSONObject jsonSuccess=person.getJSONObject("success");
+			 
+			 String info=person.getString("info");
+			
+			 if(!jsonSuccess.getBoolean("success")){
+				 Object islogin=null;
+				 try{
+					 islogin=person.get("stute");
+				 }catch(Exception ex){
+					 map.put("login", false);
+					 map.put("success", false);
+					 list.add(map);
+					 return list;
+				 }
+					 map.put("success", false);
+					 map.put("info", "获取数据失败");
+					 list.add(map);
+					 return list;
+			 }else{
+				 //解析data
+				 List<AotuSendImageMessageDto> imageList=new ArrayList<AotuSendImageMessageDto>();
+				 JSONArray jsonIMlist=person.getJSONArray("data");
+				 for (int i = 0; i < jsonIMlist.length(); i++) {
+					 AotuSendImageMessageDto dto = new AotuSendImageMessageDto();
+					 JSONObject jbt=jsonIMlist.getJSONObject(i);
+					 dto.setCreateTime(jbt.getString("createTime"));
+					 dto.setFromUserName(jbt.getString("fromUserName"));
+					 dto.setImage(jbt.getString("image"));
+					 dto.setMsgType(jbt.getString("msgType"));
+					 dto.setToUserName(jbt.getString("toUserName"));
+					 imageList.add(dto);
+				}
+				 map.put("data", imageList);
+			 }
+			 map.put("success", jsonSuccess);
+			 list.add(map);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 map.put("success", false);
+			 map.put("info", "登录异常");
+			 list.add(map);
+		}
+		return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> getAutoReSend_Link() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getAutoReSend_Location() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getAutoReSend_Event() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getAutoReSend_Video() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getAutoReSend_Voice() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addAutoReSend_Text(String name,
+			String content) {
+		// TODO Auto-generated method stub
+		List<NameValuePair> params=new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("name",name));
+		params.add(new BasicNameValuePair("content",content));
+		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+		Map map=new HashMap<String, Object>();
+		try {
+			String json=HttpClient.doPost(QNPermissionApi.mainLink+QNPermissionApi.addText, params);
+			 JSONTokener jsonParser = new JSONTokener(json);  
+			 Log.e("json", json);
+			 JSONObject person = (JSONObject) jsonParser.nextValue();
+			 JSONObject jsonSuccess = person.getJSONObject("success");
+			 String info=person.getString("info");
+			 Object islogin=person.get("stute");
+			 if(!jsonSuccess.getBoolean("success")){
+				 if(islogin!=null){   //状态不为空，登录错误
+					 map.put("login", false);
+				 }else{
+					 map.put("success", false);
+					 map.put("info", info);
+					 list.add(map);
+					 return list;
+				 }
+			 }else{
+				 //解析data
+				 AotuSendImageTextMessageDto dto = new AotuSendImageTextMessageDto();
+				 dto.setCreateTime(person.getString("createTime"));
+				 dto.setFromUserName(person.getString("fromUserName"));
+				 dto.setMsgType(person.getString("msgType"));
+				 dto.setToUserName(person.getString("toUserName"));
+				 dto.setArticleCount(person.getString("articleCount"));
+				 dto.setArticles(new AotuSendImageTextMessageContentListDto());
+				 map.put("addText", dto);
+			 }
+			 
+			 map.put("success", jsonSuccess);
+			 map.put("info", info);
+			 list.add(map);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 map.put("success", false);
+			 map.put("info", "登录异常");
+			 list.add(map);
+		}
+		return list;
+	}
+	/**
+	 * 添加发送图片
+	 */
+	@Override
+	public List<Map<String, Object>> addAutoReSend_Image(String name,
+			String content) {
+		// TODO Auto-generated method stub
+		List<NameValuePair> params=new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("name",name));
+		params.add(new BasicNameValuePair("content",content));
+		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+		Map map=new HashMap<String, Object>();
+		try {
+			String json=HttpClient.doPost(QNPermissionApi.mainLink+QNPermissionApi.addAutoReSend_Image, params);
+			 JSONTokener jsonParser = new JSONTokener(json);  
+			 Log.e("json", json);
+			 JSONObject person = (JSONObject) jsonParser.nextValue();
+			 JSONObject jsonSuccess = person.getJSONObject("success");
+			 String info=person.getString("info");
+			 Object islogin=person.get("stute");
+			 if(!jsonSuccess.getBoolean("success")){
+				 if(islogin!=null){   //状态不为空，登录错误
+					 map.put("login", false);
+				 }else{
+					 map.put("success", false);
+					 map.put("info", info);
+					 list.add(map);
+					 return list;
+				 }
+			 }else{
+				 //解析data
+				 AotuSendImageMessageDto dto = new AotuSendImageMessageDto();
+				 dto.setCreateTime(person.getString("createTime"));
+				 dto.setFromUserName(person.getString("fromUserName"));
+				 dto.setImage(person.getString("image"));
+				 dto.setMsgType(person.getString("msgType"));
+				 dto.setToUserName(person.getString("toUserName"));
+				 map.put("addAutoReSend_Image", dto);
+			 }
+			 
+			 map.put("success", jsonSuccess);
+			 map.put("info", info);
+			 list.add(map);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 map.put("success", false);
+			 map.put("info", "登录异常");
+			 list.add(map);
+		}
+		return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> addAutoReSend_Link(String name,
+			String content) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addAutoReSend_Location(String name,
+			String content) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addAutoReSend_Event(String name,
+			String content, String event) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addAutoReSend_Video(String name,
+			String content) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addAutoReSend_Voice(String name,
+			String content) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getAutoReSend(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addWeiXinInfoToAutoResend(String id,
+			String name, String info_name, String info_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getAutoReSendItem(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteWeiXinInfoToAutoResend(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteWeiXinInfo(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateAutoReSend_Text(String id,
+			String name, String content) {
+		// TODO Auto-generated method stub
+		List<NameValuePair> params=new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("id",id));
+		params.add(new BasicNameValuePair("name",name));
+		params.add(new BasicNameValuePair("content",content));
+		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+		Map map=new HashMap<String, Object>();
+		try {
+			String json=HttpClient.doPost(QNPermissionApi.mainLink+QNPermissionApi.updateText, params);
+			 JSONTokener jsonParser = new JSONTokener(json);  
+			 Log.e("json", json);
+			 JSONObject person = (JSONObject) jsonParser.nextValue();
+			 JSONObject jsonSuccess = person.getJSONObject("success");
+			 String info=person.getString("info");
+			 Object islogin=person.get("stute");
+			 if(!jsonSuccess.getBoolean("success")){
+				 if(islogin!=null){   //状态不为空，登录错误
+					 map.put("login", false);
+				 }else{
+					 map.put("success", false);
+					 map.put("info", info);
+					 list.add(map);
+					 return list;
+				 }
+			 }else{
+				 //解析data
+				 AotuSendImageTextMessageDto dto = new AotuSendImageTextMessageDto();
+				 dto.setCreateTime(person.getString("createTime"));
+				 dto.setFromUserName(person.getString("fromUserName"));
+				 dto.setMsgType(person.getString("msgType"));
+				 dto.setToUserName(person.getString("toUserName"));
+				 dto.setArticleCount(person.getString("articleCount"));
+				 dto.setArticles(new AotuSendImageTextMessageContentListDto());
+				 map.put("updateText", dto);
+			 }
+			 
+			 map.put("success", jsonSuccess);
+			 map.put("info", info);
+			 list.add(map);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 map.put("success", false);
+			 map.put("info", "登录异常");
+			 list.add(map);
+		}
+		return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateAutoReSend_Image(String id,
+			String name, String content) {
+		// TODO Auto-generated method stub
+		List<NameValuePair> params=new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("id",id));
+		params.add(new BasicNameValuePair("name",name));
+		params.add(new BasicNameValuePair("content",content));
+		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+		Map map=new HashMap<String, Object>();
+		try {
+			String json=HttpClient.doPost(QNPermissionApi.mainLink+QNPermissionApi.updateAutoReSend_Image, params);
+			 JSONTokener jsonParser = new JSONTokener(json);  
+			 Log.e("json", json);
+			 JSONObject person = (JSONObject) jsonParser.nextValue();
+			 JSONObject jsonSuccess = person.getJSONObject("success");
+			 String info=person.getString("info");
+			 Object islogin=person.get("stute");
+			 if(!jsonSuccess.getBoolean("success")){
+				 if(islogin!=null){   //状态不为空，登录错误
+					 map.put("login", false);
+				 }else{
+					 map.put("success", false);
+					 map.put("info", info);
+					 list.add(map);
+					 return list;
+				 }
+			 }else{
+				 //解析data
+				 AotuSendImageMessageDto dto = new AotuSendImageMessageDto();
+				 dto.setCreateTime(person.getString("createTime"));
+				 dto.setFromUserName(person.getString("fromUserName"));
+				 dto.setImage(person.getString("image"));
+				 dto.setMsgType(person.getString("msgType"));
+				 dto.setToUserName(person.getString("toUserName"));
+				 map.put("updateAutoReSend_Image", dto);
+			 }
+			 
+			 map.put("success", jsonSuccess);
+			 map.put("info", info);
+			 list.add(map);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			 map.put("success", false);
+			 map.put("info", "登录异常");
+			 list.add(map);
+		}
+		return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateAutoReSend_Link(String id,
+			String name, String content) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateAutoReSend_Location(String id,
+			String name, String content) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateAutoReSend_Event(String id,
+			String name, String content, String event) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateAutoReSend_Video(String id,
+			String name, String content) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateUse(String id, String value) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> sendWenzhang(String wenzhangname,
+			String wenzhangcontent, String strjson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getWenzhang(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateWenzhang(String id,
+			String wenzhangname, String wenzhangcontent, String strjson) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getWenzhangList(String name,
+			String nowpage, String countNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteWenzhang(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addDevice(String name, String tokens,
+			String open) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addWifiRigister(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateDevice(String name, String tokens,
+			String open, String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteDevice(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> lookLinkDevice(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getDeviceList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addMac(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getAwards() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addAwards(String content, String marks) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteAwards(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addDazhuanpan1(String text,
+			String startDate, String endDate, String id, String num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addDazhuanpan2(String text,
+			String startDate, String endDate, String id, String num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addDazhuanpan3(String text,
+			String startDate, String endDate, String id, String num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getDaZhuanpanInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateGameDaZhuanPan(String use,
+			String type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> setDazhuanpanJilv(String value, String type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> setDazhuanpanNum(String value) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> setguaguakaJilv(String value, String type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> setguaguakaNum(String value) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateGameguaguaka(String value,
+			String type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getguaguaka() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addAwardsToguaguaka(String value,
+			String text, String id, String enddate, String startdate, String num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteGuaguaka(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getVip(String nowpage, String countNum,
+			String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getVipList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addVipList(String marks, String sroce,
+			String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addscoreToUser(String id, String sroce) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addpriceToUser(String id, String money) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> jianscoreToUser(String id, String sroce) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> jianpriceToUser(String id, String money) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getHuiyuanxinxi(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getVipInfo(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateVipList(String id, String name,
+			String sroce, String marks) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getScoreDuiHuanList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> addScoreDuiHuanList(String marks,
+			String sroce, String name, String image, String num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getScoreDuiHuan(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> updateScoreDuiHuan(String id, String name,
+			String sroce, String marks, String image, String num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteScoreDuiHuan(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getVoteUserList(String id, String nowpage,
+			String countNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> codeConvert() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> jifenTogoodManager(String num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> huodongTogoodManager(String num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> web() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> saveWeixinWeb() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getWeixinWeb(String nowpage,
+			String countNum, String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> useWeixinWeb(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteWeixinWeb(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> saveMap(String x, String y) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getMaps() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteMap(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> add(String goodsName, String goodsType,
+			String Price, String inPrice, String score, String Spell,
+			String goodsModel) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> delete(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> update(String num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> queryGood(String name, String b,
+			String nowpage, String countNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> shangjia(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> xiajia(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> deleteOrd(String num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> enter(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> look(String num2, String song,
+			String nowpage, String countNum) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> setboolean(String value, String type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> getMessageSet() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> setTemp(String volue, String type,
+			String methed, String phone) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Map<String, Object>> sendVipMessage(String value,
+			String select, String type, String num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
+}

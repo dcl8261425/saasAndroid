@@ -1,0 +1,58 @@
+package com.herotculb.qunhaichat.weixin.gailan.huifushezhi;
+
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.dto.WeiXinAutoReSendMenuDto;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+import android.annotation.SuppressLint;
+import android.os.Handler;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+
+public class AutoResendSetHandler extends Handler{
+	HomeActivity context;
+	LoadingDialog dialog;
+	ListView view;
+	int type;
+	public AutoResendSetHandler(HomeActivity context, int type,ListView view
+			,LoadingDialog dialog) {
+		super();
+		this.context = context;
+		this.type = type;
+		this.dialog = dialog;
+		this.view=view;
+	}
+	@SuppressLint("ResourceAsColor")
+	@Override
+	public void handleMessage(android.os.Message msg) {
+		dialog.hide();
+		dialog.dismiss();
+		switch (type) {
+		case WeiXinAutoReSendMenuDto.TYPE_EVENT:
+			
+			//事件
+			break;
+		case WeiXinAutoReSendMenuDto.TYPE_IMAGE:
+			//图片	
+			break;
+		case WeiXinAutoReSendMenuDto.TYPE_LINK:
+			//链接
+			break;
+		case WeiXinAutoReSendMenuDto.TYPE_LOCATION:
+			//位置
+			break;
+		case WeiXinAutoReSendMenuDto.TYPE_TEXT:
+			//文本
+			break;
+		case WeiXinAutoReSendMenuDto.TYPE_VIDEO:
+			//视频
+			break;
+		case WeiXinAutoReSendMenuDto.TYPE_VOICE:
+			//语音
+			break;
+		default:
+			break;
+		}
+	}
+}

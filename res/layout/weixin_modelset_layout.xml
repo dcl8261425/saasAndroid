@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weixin_modelset_layout_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+      <TextView 
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:gravity="center"
+      android:text="模块设置app模块正在开发中请通过官网设置www.xt12306.com"
+      />
+</LinearLayout>

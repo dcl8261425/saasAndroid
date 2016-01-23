@@ -1,0 +1,84 @@
+package com.herotculb.qunhaichat.goods.store;
+
+import java.util.List;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TextView;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.StoreHouseDto;
+
+public class GoodsQueryStoreHouseAdapter extends BaseAdapter {
+	private HomeActivity  context;
+	private List<StoreHouseDto> list;
+	
+	public GoodsQueryStoreHouseAdapter(HomeActivity context, List<StoreHouseDto> list) {
+		super();
+		this.context = context;
+		this.list = list;
+	}
+
+	@Override
+	public int getCount() {
+		// TODO 自动生成的方法存根
+		return list.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		// TODO 自动生成的方法存根
+		return list.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		// TODO 自动生成的方法存根
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO 自动生成的方法存根
+		final StoreHouseDto dto = (StoreHouseDto) getItem(position);
+		LayoutInflater inflater = LayoutInflater.from(context);
+		TableLayout gridLayout = (TableLayout) inflater.inflate(
+				R.layout.goods_store_house_list, null);
+		TextView text  = (TextView) gridLayout.findViewById(R.id.store_house_name);
+		TextView text1 = (TextView) gridLayout.findViewById(R.id.store_house_address);
+		TextView text2 = (TextView) gridLayout.findViewById(R.id.store_house_manager_username);
+		TextView text3 = (TextView) gridLayout.findViewById(R.id.store_house_tel);
+		BootstrapButton update =(BootstrapButton) gridLayout.findViewById(R.id.store_house_update);
+		BootstrapButton delete =(BootstrapButton) gridLayout.findViewById(R.id.store_house_delete);
+		text.setText(dto.getName());
+		text1.setText(dto.getAddress());
+		text2.setText(dto.getManagerUserName());
+		text3.setText(dto.getTal());
+		update.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 修改
+				
+			}
+		});
+		delete.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 删除
+				
+			}
+		});
+		return gridLayout;
+	}
+
+}

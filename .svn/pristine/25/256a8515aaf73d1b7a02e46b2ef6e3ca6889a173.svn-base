@@ -1,0 +1,72 @@
+package com.herotculb.qunhaichat.dto;
+
+public class WeiXinAutoReSendMenuDto {
+	public static final int TYPE_TEXT=1;
+	public static final int TYPE_IMAGE=2;
+	public static final int TYPE_VOICE=3;
+	public static final int TYPE_VIDEO=4;
+	public static final int TYPE_LOCATION=5;
+	public static final int TYPE_LINK=6;
+	public static final int TYPE_EVENT=7;
+	public static final int EVENT_SUBSCRIBE=1;//关注subscribe
+	public static final int EVENT_UNSUBSCRIB=2;//取消关注
+	public static final int EVENT_LOCATION=3;
+	public static final int EVENT_CLICK=4;
+	private long id;
+	private String name;
+	private long weixin_keys;
+	private String content;
+	private String weixin_events;
+	private int type;
+	private boolean uses;
+	private long conpanyId;
+
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public long getWeixin_keys() {
+		return weixin_keys;
+	}
+	public void setWeixin_keys(long weixin_keys) {
+		this.weixin_keys = weixin_keys;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getWeixin_events() {
+		return weixin_events;
+	}
+	public void setWeixin_events(String weixin_events) {
+		this.weixin_events = weixin_events;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public boolean isUses() {
+		return uses;
+	}
+	public void setUses(boolean uses) {
+		this.uses = uses;
+	}
+	public long getConpanyId() {
+		return conpanyId;
+	}
+	public void setConpanyId(long conpanyId) {
+		this.conpanyId = conpanyId;
+	}
+}

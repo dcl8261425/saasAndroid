@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weixin_vip_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/weixin_vip_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none"
+        android:layout_weight="0.73"
+        android:gravity="center" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                 android:layout_margin="0dp"
+                android:gravity="center" >
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                     android:layout_margin="0dp"
+                    android:gravity="center" >
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_vip_manager"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:text="会员管理"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_vip_class_manager"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:text="会员等级管理"
+                        bootstrapbutton:bb_icon_left="fa-sign-in"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:gravity="center" >
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_score_exchange"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:text="会员积分兑换"
+                        bootstrapbutton:bb_icon_left="fa-pencil-square-o"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="warning" />
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/weixin_vip"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:visibility="gone"
+                android:gravity="center" >
+                   	<TableRow
+                   	    android:id="@+id/weixin_vip_list"
+	                    android:layout_width="fill_parent"
+	                    android:gravity="center" >
+	                    
+	                </TableRow>  					 
+            </TableLayout>
+             <TableLayout
+                android:id="@+id/weixin_vip_class"
+                android:layout_width="fill_parent"
+                android:visibility="gone"
+                 android:layout_height="wrap_content"
+                android:gravity="center" >
+                <TableRow
+                    android:id="@+id/weixin_vip_class_list"
+                    android:layout_width="fill_parent"
+                    android:gravity="center" >
+                    
+                </TableRow>
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_create_class"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="创建新等级"
+                        bootstrapbutton:bb_icon_left="fa-refresh"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+            </TableLayout>
+             <TableLayout
+                android:id="@+id/weixin_score_exchanges"
+                android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:gravity="center" >
+                <TableRow
+                    android:id="@+id/weixin_score_exchanges_list"
+                    android:layout_width="fill_parent"
+                    android:gravity="center" >
+                </TableRow>
+            </TableLayout>            
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

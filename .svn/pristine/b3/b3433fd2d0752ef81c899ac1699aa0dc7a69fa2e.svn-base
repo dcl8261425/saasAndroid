@@ -1,0 +1,94 @@
+package com.herotculb.qunhaichat.homeactiviti.weixin.wifi;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.R;
+
+public class AddWeixinWifiWindow extends Activity{
+	private String id;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// 隐藏头
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.weixin_wifi_add_layout);
+		Intent intent=getIntent();
+		Bundle b=intent.getExtras();
+		String id=b.getString("id");
+		String names=b.getString("name");
+		String tokenses=b.getString("token");
+		String dirces=b.getString("dirce");
+		String rigisters=b.getString("rigister");
+		this.id=id;
+		BootstrapEditText name=(BootstrapEditText) findViewById(R.id.weixin_wifi_add_layout_name);
+		BootstrapEditText tokens=(BootstrapEditText) findViewById(R.id.weixin_wifi_add_layout_name_token);
+		BootstrapButton diceclose=(BootstrapButton) findViewById(R.id.weixin_wifi_add_layout_dirce_close);
+		BootstrapButton rigisterclose=(BootstrapButton) findViewById(R.id.weixin_wifi_add_layout_rigister_close);
+		BootstrapButton enter=(BootstrapButton) findViewById(R.id.weixin_wifi_add_layout_enter);
+		if(id!=null){
+			//是修改
+			name.setText(names);
+			tokens.setText(tokenses);
+			diceclose.setText(dirces.equals("true")?"关闭路由设备":"开启路由设备");
+			diceclose.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			rigisterclose.setText(rigisterclose.equals("true")?"关闭路由设备":"开启路由设备");
+			rigisterclose.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			enter.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+		}else{
+			//是添加
+			diceclose.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			rigisterclose.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			enter.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+		}
+	}
+}

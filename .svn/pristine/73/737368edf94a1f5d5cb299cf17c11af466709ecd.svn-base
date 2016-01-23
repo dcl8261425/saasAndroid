@@ -1,0 +1,69 @@
+package com.herotculb.qunhaichat.homeactiviti.util.window.goodselect;
+
+import java.util.List;
+import java.util.Map;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import cn.pedant.SweetAlert.SweetAlertDialog.OnSweetClickListener;
+
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.WeiXinGoodsDto;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class ErWeiMaQueryGoodsHandler extends Handler{
+	Activity context;
+	LoadingDialog dialog;
+	Class returnclass;
+	public ErWeiMaQueryGoodsHandler(Activity context2,
+			LoadingDialog dialog,Class returnclass) {
+		super();
+		this.context = context2;
+		this.dialog = dialog;
+		this.returnclass=returnclass;
+	}
+	@SuppressLint("ResourceAsColor")
+	@Override
+	public void handleMessage(android.os.Message msg) {
+		Map<String, Object> map = (Map<String, Object>) msg.obj;
+		Boolean b=(Boolean) map.get("success");
+		dialog.hide();
+		dialog.dismiss();
+		BootstrapEditText nowpage=(BootstrapEditText) context.findViewById(R.id.query_goods_nowpage);
+		if(b){
+			 List<WeiXinGoodsDto> list=(List<WeiXinGoodsDto>) map.get("data");
+			 Intent i = new Intent(context,returnclass);
+				Bundle bun = new Bundle();
+				bun.putString("type", "goodsSelect");
+				i.putExtras(bun);
+				context.setResult(context.RESULT_OK, i);
+				context.finish();
+
+		}else{
+			 new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+			 .setTitleText("失败")
+             .setContentText((String) map.get("info"))
+             .setConfirmText("确定")
+             .showCancelButton(false)
+             .setCancelClickListener(new OnSweetClickListener() {
+				
+				@Override
+				public void onClick(SweetAlertDialog sweetAlertDialog) {
+					// TODO Auto-generated method stub
+						Intent i = new Intent(context,returnclass);
+						Bundle bun = new Bundle();
+						i.putExtras(bun);
+						context.setResult(context.RESULT_OK, i);
+						context.finish();
+				}
+			})
+             .setConfirmClickListener(null).show();
+			
+		}
+	}
+}

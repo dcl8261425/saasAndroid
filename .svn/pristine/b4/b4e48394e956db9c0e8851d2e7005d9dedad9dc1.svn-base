@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+         xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+   <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+               <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+             <com.herotculb.qunhaichat.widget.EditTextWithDate
+                        android:id="@+id/good_chart_startDate"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                               android:layout_weight="1"
+                                android:layout_margin="5dp"
+                        android:hint="请点击选择日期"
+                      
+                        />
+             <com.herotculb.qunhaichat.widget.EditTextWithDate
+                        android:id="@+id/good_chart_endDate"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                         android:layout_weight="1"
+                          android:layout_margin="5dp"
+                        android:hint="请点击选择日期"
+                      
+                         />
+             
+              </TableRow>
+                <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+             <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/good_chart_xiaoshou"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="销售统计"
+                android:layout_weight="1"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+              <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/good_chart_jinhuo"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="进货统计"
+                android:layout_weight="1"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+              </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+               <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/good_chart_jiage"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="价格趋势"
+                android:layout_weight="1"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/good_chart_kucun"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="库存存放"
+                android:layout_weight="1"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+            </TableRow>
+             <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/good_chart_close"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="关闭"
+                android:layout_weight="1"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+            </TableLayout>
+    <WebView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/goodChart"/>
+
+</LinearLayout>

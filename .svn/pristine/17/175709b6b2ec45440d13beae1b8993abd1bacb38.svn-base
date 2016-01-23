@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weixin_video_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+      
+	      <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/weixin_video_nowpage"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="id"
+	        android:singleLine="true"
+	        android:visibility="gone"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+             <com.herotculb.qunhaichat.view.listview.updown.XListView
+                 android:id="@+id/weixin_video_list"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="5dp"
+                 android:divider="#00000000"
+                 android:gravity="center"
+                 android:scrollbars="none" />
+      
+
+</LinearLayout>

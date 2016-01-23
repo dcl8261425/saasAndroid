@@ -1,0 +1,108 @@
+package com.herotculb.qunhaichat.dto;
+
+public class WeiXinReSendDto {
+	public static final int IMAGE=2;
+	public static final int VOICE=3;
+	public static final int VIDEO=1;
+	public static final int TEXT=4;
+	public static final int MUSIC=5;
+	public static final int IMAGE_TEXT=6;
+	private long id;
+	private int type;//图片：2，语音 3，视频 1,文本 4,音乐 5，图文 6
+	private String name;
+	private String image;
+	private String title;
+	private String url;
+	private String picUrl;
+	private String musicURL;
+	private String hQMusicUrl;
+	private String thumbMediaId;
+	private String mediaId;
+	private String content;
+	private String description;
+	private long conpanyId;
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public String getPicUrl() {
+		return picUrl;
+	}
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
+	}
+	public String getMusicURL() {
+		return musicURL;
+	}
+	public void setMusicURL(String musicURL) {
+		this.musicURL = musicURL;
+	}
+	public String gethQMusicUrl() {
+		return hQMusicUrl;
+	}
+	public void sethQMusicUrl(String hQMusicUrl) {
+		this.hQMusicUrl = hQMusicUrl;
+	}
+	public String getThumbMediaId() {
+		return thumbMediaId;
+	}
+	public void setThumbMediaId(String thumbMediaId) {
+		this.thumbMediaId = thumbMediaId;
+	}
+	public String getMediaId() {
+		return mediaId;
+	}
+	public void setMediaId(String mediaId) {
+		this.mediaId = mediaId;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public long getConpanyId() {
+		return conpanyId;
+	}
+	public void setConpanyId(long conpanyId) {
+		this.conpanyId = conpanyId;
+	}
+}

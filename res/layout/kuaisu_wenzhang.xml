@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/kuaisu_wenzhang"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+ <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_gailan_wenzhangManager_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="请输入查询名称"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+      <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailan_wenzhangManager_name_query"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="查询"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+          <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_gailan_wenzhangManager_nowpage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="id"
+        android:singleLine="true"
+        android:visibility="gone"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+          <com.herotculb.qunhaichat.view.listview.updown.XListView
+  android:id="@+id/weixin_gailan_wenzhang_list"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="5dp"
+                    android:divider="#00000000"
+                    android:gravity="center"
+                    android:scrollbars="none">
+    </com.herotculb.qunhaichat.view.listview.updown.XListView>
+</LinearLayout>

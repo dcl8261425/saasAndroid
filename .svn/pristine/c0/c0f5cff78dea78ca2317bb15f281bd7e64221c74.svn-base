@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/message_get_message_set_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <ScrollView
+        android:id="@+id/message_get_message_set_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none"
+        android:layout_weight="0.73"
+        android:gravity="center" >
+    
+    <TableLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="向会员发信息-添加积分时"
+                android:textSize="20dp"
+                android:textColor="@color/darksalmon"
+                android:layout_weight="1"/>
+            <com.beardedhen.androidbootstrap.BootstrapButton
+		        android:id="@+id/message_get_message_set_addscore"
+		        android:layout_width="match_parent"
+		        android:layout_height="50dp"
+		        android:layout_margin="10dp"
+		        android:text="开启/关闭"
+		        bootstrapbutton:bb_roundedCorners="true"
+		        bootstrapbutton:bb_text_gravity="center"
+		        bootstrapbutton:bb_type="danger" />
+            <TextView android:id="@+id/message_get_message_set_addscore_num"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_weight="1"/>
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="向会员发信息-添加储值时"
+                android:textSize="20dp"
+                android:textColor="@color/darksalmon"
+                android:layout_weight="1"/>
+            <com.beardedhen.androidbootstrap.BootstrapButton
+		        android:id="@+id/message_get_message_set_addprice"
+		        android:layout_width="match_parent"
+		        android:layout_height="50dp"
+		        android:layout_margin="10dp"
+		        android:text="开启/关闭"
+		        bootstrapbutton:bb_roundedCorners="true"
+		        bootstrapbutton:bb_text_gravity="center"
+		        bootstrapbutton:bb_type="danger" />
+            <TextView android:id="@+id/message_get_message_set_addprice_num"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_weight="1"/>
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="向会员发信息-减少积分时"
+                android:textSize="20dp"
+                android:textColor="@color/darksalmon"
+                android:layout_weight="1"/>
+            <com.beardedhen.androidbootstrap.BootstrapButton
+		        android:id="@+id/message_get_message_set_jianscore"
+		        android:layout_width="match_parent"
+		        android:layout_height="50dp"
+		        android:layout_margin="10dp"
+		        android:text="开启/关闭"
+		        bootstrapbutton:bb_roundedCorners="true"
+		        bootstrapbutton:bb_text_gravity="center"
+		        bootstrapbutton:bb_type="danger" />
+            <TextView android:id="@+id/message_get_message_set_jianscore_num"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_weight="1"/>
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="向会员发信息-减少储值时"
+                android:textSize="20dp"
+                android:textColor="@color/darksalmon"
+                android:layout_weight="1"/>
+            <com.beardedhen.androidbootstrap.BootstrapButton
+		        android:id="@+id/message_get_message_set_jianprice"
+		        android:layout_width="match_parent"
+		        android:layout_height="50dp"
+		        android:layout_margin="10dp"
+		        android:text="开启/关闭"
+		        bootstrapbutton:bb_roundedCorners="true"
+		        bootstrapbutton:bb_text_gravity="center"
+		        bootstrapbutton:bb_type="danger" />
+            <TextView android:id="@+id/message_get_message_set_jianprice_num"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_weight="1"/>
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="向商户发信息-用户下订单时"
+                android:textSize="20dp"
+                android:textColor="@color/darksalmon"
+                android:layout_weight="1"/>
+            <com.beardedhen.androidbootstrap.BootstrapButton
+		        android:id="@+id/message_get_message_set_order"
+		        android:layout_width="match_parent"
+		        android:layout_height="50dp"
+		        android:layout_margin="10dp"
+		        android:text="开启/关闭"
+		        bootstrapbutton:bb_roundedCorners="true"
+		        bootstrapbutton:bb_text_gravity="center"
+		        bootstrapbutton:bb_type="danger" />
+            <TextView android:id="@+id/message_get_message_set_order_num"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_weight="1"/>
+            <TextView android:id="@+id/message_get_message_set_num"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text=""/>
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+		        android:id="@+id/message_get_message_set_qianming"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="10dp"
+		        android:hint="创客精神"
+		        android:singleLine="true"
+		        bootstrapbutton:be_roundedCorners="true"
+		        bootstrapbutton:be_state="warning" />
+            <com.beardedhen.androidbootstrap.BootstrapButton
+		        android:id="@+id/message_get_message_set_qianming_button"
+		        android:layout_width="match_parent"
+		        android:layout_height="50dp"
+		        android:layout_margin="10dp"
+		        android:text="短信签名"
+		        bootstrapbutton:bb_roundedCorners="true"
+		        bootstrapbutton:bb_text_gravity="center"
+		        bootstrapbutton:bb_type="danger" />
+    </TableLayout>
+	</ScrollView>
+</LinearLayout>

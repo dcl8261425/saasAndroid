@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/permission_lookup_role_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+            
+            <TableLayout
+                android:id="@+id/permission_lookup_role_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" >
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                       android:id="@+id/permission_lookup_role_name_add"
+                       android:layout_width="fill_parent"
+                       android:layout_height="50dp"
+                       android:layout_margin="5dp"
+                       android:text="添加角色"
+                       bootstrapbutton:bb_icon_left="fa-th-list"
+                       bootstrapbutton:bb_roundedCorners="true"
+                       bootstrapbutton:bb_text_gravity="center"
+                       bootstrapbutton:bb_type="primary" />
+                    <TableRow android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <com.beardedhen.androidbootstrap.BootstrapEditText
+					        android:id="@+id/permission_lookup_role_id"
+					        android:layout_width="match_parent"
+					        android:layout_height="wrap_content"
+					        android:layout_margin="10dp"
+					        android:visibility="gone"
+					        android:singleLine="true"
+					        bootstrapbutton:be_roundedCorners="true"
+					        bootstrapbutton:be_state="warning" />
+                        <com.beardedhen.androidbootstrap.BootstrapEditText
+					        android:id="@+id/permission_lookup_role_gname"
+					        android:layout_width="match_parent"
+					        android:layout_height="wrap_content"
+					        android:layout_margin="10dp"
+					        android:visibility="gone"
+					        android:singleLine="true"
+					        bootstrapbutton:be_roundedCorners="true"
+					        bootstrapbutton:be_state="warning" />
+                        <com.beardedhen.androidbootstrap.BootstrapEditText
+					        android:id="@+id/permission_lookup_role_name"
+					        android:layout_width="match_parent"
+					        android:layout_height="wrap_content"
+					        android:layout_margin="10dp"
+					        android:hint="通过角色名称查找"
+					        android:layout_weight="1"
+					        android:singleLine="true"
+					        bootstrapbutton:be_roundedCorners="true"
+					        bootstrapbutton:be_state="warning" />
+                    </TableRow>
+                    <TableRow android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+			      <com.beardedhen.androidbootstrap.BootstrapButton
+			                        android:id="@+id/permission_lookup_role_name_query"
+			                        android:layout_width="fill_parent"
+			                        android:layout_height="50dp"
+			                        android:layout_margin="5dp"
+			                        android:text="查询"
+			                        android:layout_weight="4"
+			                        bootstrapbutton:bb_icon_left="fa-th-list"
+			                        bootstrapbutton:bb_roundedCorners="true"
+			                        bootstrapbutton:bb_text_gravity="center"
+			                        bootstrapbutton:bb_type="primary" />
+			      <com.beardedhen.androidbootstrap.BootstrapButton
+			                        android:id="@+id/permission_lookup_role_cancle"
+			                        android:layout_width="fill_parent"
+			                        android:layout_height="50dp"
+			                        android:layout_margin="5dp"
+			                        android:text="取消"
+			                        android:layout_weight="1"
+			                        bootstrapbutton:bb_icon_left="fa-th-list"
+			                        bootstrapbutton:bb_roundedCorners="true"
+			                        bootstrapbutton:bb_text_gravity="center"
+			                        bootstrapbutton:bb_type="primary" />
+			      </TableRow>
+			      	  <ListView
+			      	      android:id="@+id/permission_lookup_role_list"
+			                    android:layout_width="match_parent"
+			                    android:layout_height="wrap_content"
+			                    android:layout_margin="5dp"
+			                    android:divider="#00000000"
+			                    android:gravity="center"
+			                    android:scrollbars="none"/>
+		</TableLayout>
+
+</LinearLayout>

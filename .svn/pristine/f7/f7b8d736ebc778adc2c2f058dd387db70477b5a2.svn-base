@@ -1,0 +1,66 @@
+package com.herotculb.qunhaichat.weixin.getgame;
+
+import java.util.List;
+import java.util.Map;
+
+import android.os.Handler;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.GamesAwardsListDto;
+import com.herotculb.qunhaichat.weixin.getgame.adapter.WeixinGetGuaGuaKaAdapter;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class WeixinGetGuaGuaKaHandler extends Handler {
+	HomeActivity context;
+	ListView view;
+	LoadingDialog dialog;
+	View viewp;
+	public WeixinGetGuaGuaKaHandler(HomeActivity context, ListView view,
+			LoadingDialog dialog, View viewp) {
+		super();
+		this.context = context;
+		this.view = view;
+		this.dialog = dialog;
+		this.viewp = viewp;
+	}
+	@Override
+	public void handleMessage(android.os.Message msg) {
+		super.handleMessage(msg);
+		Map<String, Object> map = (Map<String, Object>)msg.obj;
+		boolean b=(Boolean) map.get("success");
+		dialog.hide();
+		if(b){
+			BootstrapEditText jilv = (BootstrapEditText)
+					context.findViewById(R.id.game_guaguaka_jilv_edit);
+			BootstrapEditText num = (BootstrapEditText)
+					context.findViewById(R.id.game_guaguaka_num_edit);
+			BootstrapButton use = (BootstrapButton)
+					context.findViewById(R.id.game_guaguaka_open_button);
+			BootstrapButton score = (BootstrapButton)
+					context.findViewById(R.id.game_guaguaka_open_score_button);
+			BootstrapEditText scoreNum = (BootstrapEditText)
+					context.findViewById(R.id.game_guaguaka_score_edit);
+			jilv.setText(map.get("jilv").toString());
+			num.setText(map.get("num").toString());
+			scoreNum.setText(map.get("scoreNum").toString());
+			
+			
+			List<GamesAwardsListDto> weiXinList = (List<GamesAwardsListDto>) map
+					.get("data");
+			WeixinGetGuaGuaKaAdapter adapter = new WeixinGetGuaGuaKaAdapter(context, weiXinList);
+			view.setAdapter(adapter);
+			HomeActivity.setListViewHeightBasedOnChildren(view);
+		}else{
+			new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+					.setTitleText("出错了！")
+					.setContentText((String) map.get("info")).show();
+		}
+	}
+}

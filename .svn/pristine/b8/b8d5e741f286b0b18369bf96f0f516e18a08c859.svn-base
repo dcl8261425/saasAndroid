@@ -1,0 +1,36 @@
+package com.herotculb.qunhaichat.location;
+
+import android.app.Activity;
+import android.os.Handler;
+
+import com.herotculb.qunhaichat.util.QNPermissionApiImpl;
+/**
+ * 上传当前地理位置
+ * @author Administrator
+ *
+ */
+public class LocationUpTread extends Thread{
+	String username;
+	String password;
+	String longitude;
+	String latitude;
+	public LocationUpTread(String username,String password,String longitude,String latitude){
+		this.username=username;
+		this.password=password;
+		this.longitude=longitude;
+		this.latitude=latitude;
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		super.run();
+		if(longitude.equals("4.9E-324")||latitude.equals("4.9E-324"))
+		{
+			return ;
+		}
+		QNPermissionApiImpl qnp=new QNPermissionApiImpl(username,password);
+		
+		qnp.locationUp(longitude, latitude);
+	}
+
+}

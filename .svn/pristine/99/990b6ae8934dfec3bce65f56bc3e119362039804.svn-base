@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">青柠协同商户端</string>
+    <string name="action_settings">设置</string>
+    <string name="msg_load_ing">加载中....</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="hello_world">主面板</string>
+      <string name="dialog_default_title">Here\'s a message!</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+        <string name="main_news">短信</string>
+    <string name="main_home">奖品</string>
+    <string name="more">更多</string>
+    <string name="main_manage_date">文章</string>
+    <string name="main_friends">积分</string>
+    <string name = "spin_prompt" > 请选事件类别 </string>
+    <string-array name = "cities">
+
+                   <item> 关注账号事件 </item>
+
+                   <item > 取消关注事件 </item>
+
+                   <item > 用户地理位置 </item>
+
+                   <item > 菜单点击事件 </item>
+    </string-array>
+        <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载...</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+</resources>

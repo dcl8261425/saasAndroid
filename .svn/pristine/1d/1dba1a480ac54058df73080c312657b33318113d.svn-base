@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+  android:orientation="vertical"  
+  android:id="@+id/weixin_vip_add_guaguaka_layout"
+  android:layout_width="300dp"  
+  android:background="@drawable/dialog_background"
+  android:layout_height="wrap_content" >
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_add_guaguaka_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="id"
+        android:singleLine="true"
+        android:visibility="gone"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+        
+    <TableLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <TableRow 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+		        android:id="@+id/weixin_add_guaguaka_text"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="10dp"
+		        android:hint="奖品选择"
+		        android:singleLine="true"
+		        bootstrapbutton:be_roundedCorners="true"
+		        bootstrapbutton:be_state="warning" />
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/weixin_add_guaguaka_text_button"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="选择"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+        </TableRow>
+        <TableRow 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+		        android:id="@+id/weixin_add_guaguaka_start_date"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="10dp"
+		        android:hint="奖品兑换时间-开始"
+		        android:singleLine="true"
+		        bootstrapbutton:be_roundedCorners="true"
+		        bootstrapbutton:be_state="warning" />
+           <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/weixin_add_guaguaka_start_button"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="选择"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />     
+        </TableRow>
+    </TableLayout>
+    <TableLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <TableRow 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+		        android:id="@+id/weixin_add_guaguaka_end_date"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="10dp"
+		        android:hint="奖品兑换时间-结束"
+		        android:singleLine="true"
+		        bootstrapbutton:be_roundedCorners="true"
+		        bootstrapbutton:be_state="warning" />
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/weixin_add_guaguaka_end_button"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="选择"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />  
+        </TableRow>
+    </TableLayout>
+    
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_add_guaguaka_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="数量"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/weixin_add_guaguaka_content_enter"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="确定"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/weixin_add_guaguaka_content_cancel"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:text="取消"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

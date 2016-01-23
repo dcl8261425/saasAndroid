@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/employee_ret_list_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_background"
+    android:orientation="vertical" >
+            <TableLayout
+                android:id="@+id/employee_ret_list_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" >
+                <TableRow android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView android:layout_width="fill_parent"
+	                      android:layout_height="wrap_content"
+	                      android:layout_weight="1"
+	                      android:text="回复"/>
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+	                        android:id="@+id/employee_ret_list_cancle"
+	                        android:layout_width="fill_parent"
+	                        android:layout_height="50dp"
+	                        android:layout_margin="5dp"
+	                        android:text="取消"
+	                        android:layout_weight="1"
+	                        bootstrapbutton:bb_roundedCorners="true"
+	                        bootstrapbutton:bb_text_gravity="center"
+	                        bootstrapbutton:bb_type="primary" />
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_ret_list_speak"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="我要发言"
+                        android:layout_weight="1"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+                </TableRow>
+			      <com.beardedhen.androidbootstrap.BootstrapEditText
+                        android:id="@+id/employee_ret_list_nowpage"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:visibility="gone" />
+			      <com.herotculb.qunhaichat.view.listview.updown.XListView
+	  					android:id="@+id/employee_ret_list"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content"
+	                    android:layout_margin="5dp"
+	                    android:divider="#00000000"
+	                    android:gravity="center"
+	                    android:scrollbars="none"/>
+		</TableLayout>
+
+</LinearLayout>

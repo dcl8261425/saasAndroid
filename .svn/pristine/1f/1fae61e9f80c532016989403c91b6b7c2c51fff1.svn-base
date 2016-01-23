@@ -1,0 +1,61 @@
+package com.herotculb.qunhaichat.weixin.gailan.huifushezhi.autoset.item;
+
+import java.util.Map;
+
+import android.annotation.SuppressLint;
+import android.os.Handler;
+import android.widget.ListView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.weixin.gailan.window.AutoResendSetItemWindow;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class AutoResendItemDeleteHandler extends Handler {
+	AutoResendSetItemWindow context;
+	LoadingDialog dialog;
+	SweetAlertDialog dialog2;
+	
+	public AutoResendItemDeleteHandler(AutoResendSetItemWindow context, 
+			LoadingDialog dialog,SweetAlertDialog dialog2) {
+		super();
+		this.context = context;
+		this.dialog = dialog;
+		this.dialog2=dialog2;
+	}
+	@SuppressLint("ResourceAsColor")
+	@Override
+	public void handleMessage(android.os.Message msg) {
+		Map<String, Object> map = (Map<String, Object>) msg.obj;
+		Boolean b=(Boolean) map.get("success");
+		dialog.hide();
+		dialog.dismiss();
+		if(b){
+			
+			dialog2.setTitleText("删除")
+            .setContentText(String.valueOf(map.get("info")))
+            .setConfirmText("确定")
+            .showCancelButton(false)
+            .setCancelClickListener(null)
+            .setConfirmClickListener(null)
+            .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+			LoadingDialog dialog2 = new LoadingDialog(context, "正在获取数据");
+			dialog2.show();
+			ListView list=(ListView) context.findViewById(R.id.weixin_gailan_autoresoure_item_list);
+			AutoResendSetItemHandler handler=new AutoResendSetItemHandler(context,list,dialog2);
+			BootstrapEditText idedit=(BootstrapEditText) context.findViewById(R.id.weixin_gailan_autoresoure_item_id);
+			
+			AutoResendSetItemThread thread=new AutoResendSetItemThread(context, Long.parseLong(idedit.getText().toString()), handler);
+			thread.start();
+		}else{
+			dialog2.setTitleText("删除")
+             .setContentText(String.valueOf(map.get("info")))
+             .setConfirmText("确定")
+             .showCancelButton(false)
+             .setCancelClickListener(null)
+             .setConfirmClickListener(null)
+             .changeAlertType(SweetAlertDialog.ERROR_TYPE);
+		}
+	}
+}

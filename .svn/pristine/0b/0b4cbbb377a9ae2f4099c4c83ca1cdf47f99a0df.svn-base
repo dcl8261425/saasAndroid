@@ -1,0 +1,92 @@
+package com.herotculb.qunhaichat.group;
+
+import java.util.List;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TableLayout;
+import android.widget.TextView;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.ConpanyGroupDto;
+import com.herotculb.qunhaichat.dto.ConpanyUserDto;
+import com.herotculb.qunhaichat.goods.store.window.GetGroupCompanyUserWindow;
+
+public class GetGroupCompanyUserAdapter extends BaseAdapter {
+	private GetGroupCompanyUserWindow  context;
+	private List<ConpanyUserDto> list;
+	private String classes;
+	private Class clazz;
+	
+	public GetGroupCompanyUserAdapter(GetGroupCompanyUserWindow context,
+			List<ConpanyUserDto> list, String classes) {
+		super();
+		this.context = context;
+		this.list = list;
+		this.classes = classes;
+	}
+
+	@Override
+	public int getCount() {
+		// TODO 自动生成的方法存根
+		return list.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		// TODO 自动生成的方法存根
+		return list.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		// TODO 自动生成的方法存根
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO 自动生成的方法存根
+		final ConpanyUserDto dto = (ConpanyUserDto) getItem(position);
+		LayoutInflater inflater = LayoutInflater.from(context);
+		TableLayout gridLayout = (TableLayout) inflater.inflate(
+				R.layout.user_company_group_list, null);
+		TextView text  = (TextView) gridLayout.findViewById(R.id.user_name);
+		TextView text1  = (TextView) gridLayout.findViewById(R.id.user_phone);
+		BootstrapButton userButton =(BootstrapButton) gridLayout.findViewById(R.id.user_company_group_list_button);
+		text.setText(dto.getUsername());
+		text1.setText(dto.getPhone());
+		try {
+			Class clazz1 = Class.forName(classes);
+			clazz = clazz1;
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		userButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 选中组
+				Intent i = new Intent(context, clazz);  
+				Bundle b = new Bundle(); 
+				b.putString("type", "select_username");
+				b.putString("userName", dto.getUsername());
+				b.putString("userId", String.valueOf(dto.getId()));
+				i.putExtras(b);  
+				context.setResult(context.RESULT_OK, i);
+				context.finish();
+			}
+		});
+		return gridLayout;
+	}
+
+}

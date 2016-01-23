@@ -1,0 +1,56 @@
+package com.herotculb.qunhaichat.weixin.getgame;
+
+import java.util.List;
+import java.util.Map;
+
+import android.os.Handler;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager.LayoutParams;
+import android.widget.Button;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.dto.AwardsDto;
+import com.herotculb.qunhaichat.dto.GamesAwardsListDto;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class WeixinGetDaZhuanPanInfoHandler extends Handler {
+	HomeActivity context;
+	ViewGroup view;
+	LoadingDialog dialog;
+	View viewp;
+	public WeixinGetDaZhuanPanInfoHandler(HomeActivity context, ViewGroup view,
+			LoadingDialog dialog, View viewp) {
+		super();
+		this.context = context;
+		this.view = view;
+		this.dialog = dialog;
+		this.viewp = viewp;
+	}
+	@Override
+	public void handleMessage(android.os.Message msg) {
+		super.handleMessage(msg);
+		Map<String, Object> map = (Map<String, Object>)msg.obj;
+		boolean b=(Boolean) map.get("success");
+		if(b){
+			List<GamesAwardsListDto> weiXinList = (List<GamesAwardsListDto>) map
+					.get("data");
+			view.removeAllViews();
+			for (int i = 0; i < weiXinList.size(); i++) {
+				GamesAwardsListDto dto = weiXinList.get(i);
+				Button bootstrapButton = new Button(context);
+				bootstrapButton.setLayoutParams(new LayoutParams(
+						LayoutParams.FILL_PARENT, 80));
+				bootstrapButton.setText(String.valueOf(dto.getValue()));
+				bootstrapButton.setPadding(5, 5, 5, 5);
+				view.addView(bootstrapButton);
+			}
+		}else{
+			dialog.hide();
+			new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+					.setTitleText("出错了！")
+					.setContentText((String) map.get("info")).show();
+		}
+	}
+}

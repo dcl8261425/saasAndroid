@@ -1,0 +1,49 @@
+package com.herotculb.qunhaichat.homeactiviti.weixin.wifi;
+
+import java.util.Map;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class AddWifiHandler extends Handler{
+	Activity context;
+	LoadingDialog dialog;
+	public AddWifiHandler(Activity context2,
+			LoadingDialog dialog) {
+		super();
+		this.context = context2;
+		this.dialog = dialog;
+	}
+	@SuppressLint("ResourceAsColor")
+	@Override
+	public void handleMessage(android.os.Message msg) {
+		Map<String, Object> map = (Map<String, Object>) msg.obj;
+		Boolean b=(Boolean) map.get("success");
+		dialog.hide();
+		dialog.dismiss();
+		if(b){
+			Intent i = new Intent(context, HomeActivity.class);  
+	        Bundle b2 = new Bundle();
+	        b2.putString("type", "addwifi");
+	        i.putExtras(b2);
+	        context.setResult(context.RESULT_OK, i);  
+	        context.finish();
+		}else{
+			 new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+			 .setTitleText("失败")
+             .setContentText((String) map.get("info"))
+             .setConfirmText("确定")
+             .showCancelButton(false)
+             .setCancelClickListener(null)
+             .setConfirmClickListener(null).show();
+		}
+	}
+}

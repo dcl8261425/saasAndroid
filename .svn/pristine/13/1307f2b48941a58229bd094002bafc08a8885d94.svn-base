@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">青柠协同商户端</string>
+    <string name="action_settings">设置</string>
+    <string name="msg_load_ing">加载中....</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="hello_world">Hello world!</string>
+
+  <string name="content_hint">Content</string>
+  <string name="drawer_hint">Drawer</string>
+  <string name="rounded">See Rounded</string>
+  <string name="squared">See Squared</string>
+</resources>

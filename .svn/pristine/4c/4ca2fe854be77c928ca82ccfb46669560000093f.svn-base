@@ -1,0 +1,257 @@
+package com.herotculb.qunhaichat.crm;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.crm.querychance.window.CustomerLevelWindow;
+import com.herotculb.qunhaichat.crm.querychance.window.CustomerStateWindow;
+import com.herotculb.qunhaichat.goods.store.window.GetUserInGroupWindow;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class CreateChanceWindow extends Activity {
+	private BootstrapButton enter;
+	private BootstrapButton cancle;
+	private BootstrapButton select;
+	private BootstrapButton clear;
+	
+	private BootstrapEditText id;
+	private BootstrapEditText name;
+	private BootstrapEditText address;
+	private BootstrapEditText category;
+	private BootstrapEditText chanceClass;
+	private BootstrapEditText marks;
+	private BootstrapEditText description;
+	private BootstrapEditText userid;
+	private BootstrapEditText username;
+	private BootstrapEditText glass;
+	
+	private String type;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// 隐藏头
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.crm_create_chance_window);
+		enter = (BootstrapButton)findViewById(
+				R.id.create_chance_content_enter);
+		cancle = (BootstrapButton)findViewById(
+				R.id.create_chance_cancle);
+		select = (BootstrapButton)findViewById(
+				R.id.create_chance_select);
+		clear = (BootstrapButton)findViewById(
+				R.id.create_chance_clear);
+		
+		id = (BootstrapEditText)findViewById(R.id.create_chance_id);
+		name = (BootstrapEditText)findViewById(R.id.create_chance_name);
+		address = (BootstrapEditText)findViewById(R.id.create_chance_address);
+		category = (BootstrapEditText)findViewById(R.id.create_chance_category);
+		chanceClass = (BootstrapEditText)findViewById(R.id.create_chance_class);
+		marks = (BootstrapEditText)findViewById(R.id.create_chance_marks);
+		description = (BootstrapEditText)findViewById(R.id.create_chance_description);
+		userid = (BootstrapEditText)findViewById(R.id.create_chance_userid);
+		username = (BootstrapEditText)findViewById(R.id.create_chance_username);
+		glass = (BootstrapEditText)findViewById(R.id.create_chance_glass);
+		chanceClass.setFocusable(true);
+		glass.setFocusable(true);
+		chanceClass.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 客户级别
+				Intent i = new Intent(CreateChanceWindow.this,CustomerLevelWindow.class);
+				Bundle b = new Bundle();
+				i.putExtras(b);
+				CreateChanceWindow.this.startActivityForResult(i, 0);
+				CreateChanceWindow.this.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+			}
+		});
+		glass.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 客户状态
+				Intent i = new Intent(CreateChanceWindow.this,CustomerStateWindow.class);
+				Bundle b = new Bundle();
+				i.putExtras(b);
+				CreateChanceWindow.this.startActivityForResult(i, 0);
+				CreateChanceWindow.this.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+			}
+		});
+		
+		Bundle bundle = getIntent().getExtras();
+		Object idstr = (Object) bundle.get("id");
+		Object namestr = (Object) bundle.get("name");
+		Object addressstr = (Object) bundle.get("address");
+		Object categorystr = (Object) bundle.get("category");
+		Object chanceClassstr = (Object) bundle.get("chanceClass");
+		Object marksstr = (Object) bundle.get("marks");
+		Object descriptionstr = (Object) bundle.get("description");
+		Object useridstr = (Object) bundle.get("userid");
+		Object usernamestr = (Object) bundle.get("username");
+		Object glassstr = (Object) bundle.get("glass");
+		Object typestr = (Object) bundle.get("type");
+		type = typestr.toString();
+		if(type.equals("check") || type.equals("appoint")){
+			name.setEnabled(false);
+			address.setEnabled(false);
+			category.setEnabled(false);
+			chanceClass.setEnabled(false);
+			marks.setEnabled(false);
+			description.setEnabled(false);
+			username.setEnabled(false);
+			glass.setEnabled(false);
+			select.setEnabled(false);
+			clear.setEnabled(false);
+		}
+		if(type.equals("check")){
+			enter.setVisibility(View.GONE);
+			cancle.setText("确定");
+		}
+		
+		if(idstr!=null&&!idstr.equals("")){
+			id.setText(idstr.toString());
+			name.setText(namestr.toString());
+			address.setText(addressstr.toString());
+			category.setText(categorystr.toString());
+			if(chanceClassstr.toString().equals("1")){
+				chanceClass.setText("普通客户");
+			}
+			if(chanceClassstr.toString().equals("2")){
+				chanceClass.setText("中等客户");
+			}
+			if(chanceClassstr.toString().equals("3")){
+				chanceClass.setText("重级客户");
+			}
+			if(chanceClassstr.toString().equals("4")){
+				chanceClass.setText("特级客户");
+			}
+			
+			marks.setText(marksstr.toString());
+			description.setText(descriptionstr.toString());
+			userid.setText(useridstr.toString());
+			username.setText(usernamestr.toString());
+			if(glassstr.toString().equals("1")){
+				glass.setText("普通机会");
+			}
+			if(glassstr.toString().equals("2")){
+				glass.setText("优质机会");
+			}
+			if(glassstr.toString().equals("3")){
+				glass.setText("已成客户");
+			}
+			
+		}else{
+			enter.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO 确认添加
+					LoadingDialog dialog = new LoadingDialog(CreateChanceWindow.this,"正在保存数据！");
+					dialog.show();
+					CreateChanceHandler handler = 
+							new CreateChanceHandler(CreateChanceWindow.this, dialog);
+					CreateChanceThread thread = 
+							new CreateChanceThread(CreateChanceWindow.this, handler);
+					thread.start();
+				}
+			});
+		}
+		
+		cancle.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 取消
+				CreateChanceWindow.this.finish();
+			}
+		});
+		
+		select.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 选择指派人
+				Intent i = new Intent(CreateChanceWindow.this, GetUserInGroupWindow.class);  
+				Bundle b = new Bundle(); 
+				b.putString("classes", "com.herotculb.qunhaichat.crm.CreateChanceWindow");
+				i.putExtras(b);  
+				CreateChanceWindow.this.startActivityForResult(i,0);
+				CreateChanceWindow.this.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+			}
+		});
+		
+		clear.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 清空
+				userid.setText("");
+				username.setText("");
+			}
+		});
+	}
+	
+	//弹出框返回的内容在这里接受
+	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
+	        super.onActivityResult(requestCode, resultCode, data);
+	      //取出字符串  
+	        if(data==null){
+	        	return ;
+	        }
+	        Bundle bundle = data.getExtras();	        
+	        if(bundle==null){
+	        	return ;
+	        }
+	        String type=(String) bundle.get("type");
+	        BootstrapEditText level = (BootstrapEditText)findViewById(R.id.create_chance_level);
+        	BootstrapEditText chanceClass = (BootstrapEditText)findViewById(R.id.create_chance_class);
+        	BootstrapEditText state = (BootstrapEditText)findViewById(R.id.create_chance_state);
+        	BootstrapEditText glass = (BootstrapEditText)findViewById(R.id.create_chance_glass);
+        	BootstrapEditText userId = (BootstrapEditText)findViewById(R.id.create_chance_userid);
+        	BootstrapEditText userName = (BootstrapEditText)findViewById(R.id.create_chance_username);
+        	
+        	if(type.equals("customer_level1")){
+	        	level.setText(bundle.getString("level1"));
+	    		chanceClass.setText(bundle.getString("level1Str"));
+	        }
+        	if(type.equals("customer_level2")){
+        		level.setText(bundle.getString("level2"));
+        		chanceClass.setText(bundle.getString("level2Str"));
+        	}
+        	if(type.equals("customer_level3")){
+        		level.setText(bundle.getString("level3"));
+        		chanceClass.setText(bundle.getString("level3Str"));
+        	}
+        	if(type.equals("customer_level4")){
+        		level.setText(bundle.getString("level4"));
+        		chanceClass.setText(bundle.getString("level4Str"));
+        	}
+        	if(type.equals("customer_state1")){
+	        	state.setText(bundle.getString("state1"));
+	    		glass.setText(bundle.getString("state1Str"));
+	        }
+        	if(type.equals("customer_state2")){
+        		state.setText(bundle.getString("state2"));
+        		glass.setText(bundle.getString("state2Str"));
+        	}
+        	if(type.equals("customer_state3")){
+        		state.setText(bundle.getString("state3"));
+        		glass.setText(bundle.getString("state3Str"));
+        	}
+        	if(type.equals("select_username_group")){
+        		userId.setText(bundle.getString("userId"));
+        		userName.setText(bundle.getString("userName"));
+        	}
+	 }
+}

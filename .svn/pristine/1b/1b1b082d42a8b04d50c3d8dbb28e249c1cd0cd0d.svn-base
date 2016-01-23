@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<LinearLayout  
+  xmlns:android="http://schemas.android.com/apk/res/android"  
+  xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+  android:orientation="vertical"  
+  android:layout_width="300dp"  
+  android:background="@drawable/dialog_background"
+  android:layout_height="wrap_content">  
+  <com.beardedhen.androidbootstrap.BootstrapEditText
+     android:id="@+id/weixin_gailan_menu_update_id"  
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_margin="10dp"
+             android:visibility="gone"
+            android:hint="id"
+            bootstrapbutton:be_roundedCorners="true"
+            bootstrapbutton:be_state="warning"/>
+  <com.beardedhen.androidbootstrap.BootstrapEditText
+     android:id="@+id/weixin_gailan_menu_update_pid"  
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:hint="pid"
+            bootstrapbutton:be_roundedCorners="true"
+            bootstrapbutton:be_state="warning"/>
+<com.beardedhen.androidbootstrap.BootstrapEditText
+     android:id="@+id/weixin_gailan_menu_update_name"  
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_margin="10dp"
+            android:hint="菜单名称"
+            bootstrapbutton:be_roundedCorners="true"
+            bootstrapbutton:be_state="warning"/>
+<com.beardedhen.androidbootstrap.BootstrapEditText
+     android:id="@+id/weixin_gailan_menu_update_key"  
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_margin="10dp"
+            android:hint="如返回定义好的内容，请输入预先检测的key"
+            bootstrapbutton:be_roundedCorners="true"
+            bootstrapbutton:be_state="warning"/>
+<com.beardedhen.androidbootstrap.BootstrapEditText
+     android:id="@+id/weixin_gailan_menu_update_url"  
+            android:layout_width="match_parent"
+            android:hint="如打开网页再此输入地址url"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:singleLine="true"
+            bootstrapbutton:be_roundedCorners="true"
+            bootstrapbutton:be_state="warning"/>
+<TableLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+     android:gravity="center"
+    >
+    
+    <TableRow android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+       		 	<com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailan_menu_update_enters"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:text="确定"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+				<com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_gailan_menu_update_cancel"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:text="取消"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="warning" />
+        
+    </TableRow>
+</TableLayout>
+				
+</LinearLayout>  

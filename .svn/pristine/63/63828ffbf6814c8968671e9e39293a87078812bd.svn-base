@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+      android:background="@drawable/dialog_background"
+    android:orientation="vertical" >
+
+    <DatePicker
+        android:id="@+id/dataActivity_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.56" />
+  <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/dataActivity_enter"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="确定"
+               
+                android:layout_margin="5dp"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="primary" />
+</LinearLayout>

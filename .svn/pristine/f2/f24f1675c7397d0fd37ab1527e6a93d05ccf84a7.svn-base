@@ -1,0 +1,94 @@
+package com.herotculb.qunhaichat.weixin.gailan.huifushezhi;
+
+import java.util.List;
+import java.util.Map;
+
+import android.annotation.SuppressLint;
+import android.os.Handler;
+import android.widget.ListView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.dto.WeiXinAutoReSendMenuDto;
+import com.herotculb.qunhaichat.weixin.gailan.huifushezhi.adapter.AutoResendSetAdapter;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class AutoResendSetHandler extends Handler{
+	HomeActivity context;
+	LoadingDialog dialog;
+	ListView view;
+	int type;
+	public AutoResendSetHandler(HomeActivity context, int type,ListView view
+			,LoadingDialog dialog) {
+		super();
+		this.context = context;
+		this.type = type;
+		this.dialog = dialog;
+		this.view=view;
+	}
+	@SuppressLint("ResourceAsColor")
+	@Override
+	public void handleMessage(android.os.Message msg) {
+		Map<String, Object> map = (Map<String, Object>) msg.obj;
+		Boolean b=(Boolean) map.get("success");
+		dialog.hide();
+		dialog.dismiss();
+		if(b){
+			List<WeiXinAutoReSendMenuDto> list=(List<WeiXinAutoReSendMenuDto>) map.get("data");
+			switch (type) {
+			case WeiXinAutoReSendMenuDto.TYPE_EVENT:
+				//事件
+				AutoResendSetAdapter adapter = new AutoResendSetAdapter(context,list);
+				 view.setAdapter(adapter);
+				 HomeActivity.setListViewHeightBasedOnChildren(view);
+				break;
+			case WeiXinAutoReSendMenuDto.TYPE_IMAGE:
+				//图片	
+				AutoResendSetAdapter adapter1 = new AutoResendSetAdapter(context,list);
+				 view.setAdapter(adapter1);
+				 HomeActivity.setListViewHeightBasedOnChildren(view);
+				break;
+			case WeiXinAutoReSendMenuDto.TYPE_LINK:
+				//链接
+				AutoResendSetAdapter adapter2 = new AutoResendSetAdapter(context,list);
+				 view.setAdapter(adapter2);
+				 HomeActivity.setListViewHeightBasedOnChildren(view);
+				break;
+			case WeiXinAutoReSendMenuDto.TYPE_LOCATION:
+				//位置
+				AutoResendSetAdapter adapter3 = new AutoResendSetAdapter(context,list);
+				 view.setAdapter(adapter3);
+				 HomeActivity.setListViewHeightBasedOnChildren(view);
+				break;
+			case WeiXinAutoReSendMenuDto.TYPE_TEXT:
+				//文本
+				AutoResendSetAdapter adapter4= new AutoResendSetAdapter(context,list);
+				 view.setAdapter(adapter4);
+				 HomeActivity.setListViewHeightBasedOnChildren(view);
+				break;
+			case WeiXinAutoReSendMenuDto.TYPE_VIDEO:
+				//视频
+				AutoResendSetAdapter adapter5 = new AutoResendSetAdapter(context,list);
+				 view.setAdapter(adapter5);
+				 HomeActivity.setListViewHeightBasedOnChildren(view);
+				break;
+			case WeiXinAutoReSendMenuDto.TYPE_VOICE:
+				//语音
+				AutoResendSetAdapter adapter6 = new AutoResendSetAdapter(context,list);
+				 view.setAdapter(adapter6);
+				 HomeActivity.setListViewHeightBasedOnChildren(view);
+				break;
+			default:
+				break;
+			}
+		}else{
+			 new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+			 .setTitleText("失败")
+             .setContentText((String) map.get("info"))
+             .setConfirmText("确定")
+             .showCancelButton(false)
+             .setCancelClickListener(null)
+             .setConfirmClickListener(null).show();
+		}
+	}
+}

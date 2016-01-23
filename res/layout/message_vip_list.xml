@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+	    <TextView android:id="@+id/message_linkManName"
+	        android:layout_width="wrap_content"
+	        android:layout_height="50dp"
+	        android:textSize="20dp"
+	        android:textStyle="bold"
+	                android:dividerHeight="0dp"
+	        android:textColor="@color/darksalmon"
+	        android:gravity="center"
+	        />
+	    <CheckBox android:id="@+id/message_vip_linkManPhone"
+	        android:layout_width="wrap_content"
+	        android:layout_height="50dp"
+	        android:textSize="20dp"
+	        android:textStyle="bold"
+	        android:layout_weight="1"
+	                android:dividerHeight="0dp"
+	        android:textColor="@color/darksalmon"
+	        android:gravity="center"
+	        />
+
+</TableLayout>

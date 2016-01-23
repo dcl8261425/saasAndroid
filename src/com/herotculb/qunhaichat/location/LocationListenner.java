@@ -1,0 +1,72 @@
+package com.herotculb.qunhaichat.location;
+
+import java.util.Date;
+
+import android.app.Activity;
+import android.util.Log;
+
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.model.LatLng;
+
+public class LocationListenner implements BDLocationListener{
+	String username;
+	String password;
+	BaiduMap map;
+	Activity content;
+	static long upTime=0;
+	public LocationListenner(String username,String password,BaiduMap map,Activity content) {
+		// TODO Auto-generated constructor stub
+		this.username=username;
+		this.password=password;
+		this.map=map;
+		this.content=content;
+	}
+	public void onReceiveLocation(BDLocation location) {
+		// map view 销毁后不在处理新接收的位置
+		MyLocationData locData = new MyLocationData.Builder()
+				.accuracy(location.getRadius())
+				// 此处设置开发者获取到的方向信息，顺时针0-360
+				.direction(100).latitude(location.getLatitude())
+				.longitude(location.getLongitude()).build();
+		
+		if(map==null){
+			if(upTime==0){
+				upTime=new Date().getTime();
+				LocationUpTread up=new LocationUpTread(username, password, location.getLongitude()+"", location.getLatitude()+"",content);
+				Log.e("上传定位", "getLatitude "+location.getLatitude()+" getLongitude"+location.getLongitude()+"");
+				up.start();
+			}else{
+				long newtime=new Date().getTime();
+				long num=newtime-upTime;
+				Log.e("时间", newtime+"|||"+upTime+"||"+num);
+				if(num>=170000){
+					upTime=newtime;
+					LocationUpTread up=new LocationUpTread(username, password, location.getLongitude()+"", location.getLatitude()+"",content);
+					Log.e("上传定位", "getLatitude "+location.getLatitude()+" getLongitude"+location.getLongitude()+"");
+					up.start();
+				}
+			}
+			
+		}else{	
+			try{
+				map.setMyLocationData(locData);
+				LatLng ll = new LatLng(location.getLatitude(),
+						location.getLongitude());
+				MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
+				Log.e("不上传", "getLatitude "+location.getLatitude()+" getLongitude"+location.getLongitude()+"");
+				map.animateMapStatus(u);
+			}catch(Exception exception){
+				
+			}
+		}
+	}
+
+	public void onReceivePoi(BDLocation poiLocation) {
+		
+	}
+}

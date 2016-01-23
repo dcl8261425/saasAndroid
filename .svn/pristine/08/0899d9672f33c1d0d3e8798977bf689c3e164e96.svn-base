@@ -1,0 +1,520 @@
+package com.herotculb.qunhaichat.homeactiviti.weixin.gailan;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TableLayout;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.WeiXinAutoReSendMenuDto;
+import com.herotculb.qunhaichat.dto.WeiXinReSendDto;
+import com.herotculb.qunhaichat.weixin.gailan.WeixinMenuManagerHandler;
+import com.herotculb.qunhaichat.weixin.gailan.WeixinMenuManagerThread;
+import com.herotculb.qunhaichat.weixin.gailan.huifushezhi.AutoResendSetHandler;
+import com.herotculb.qunhaichat.weixin.gailan.huifushezhi.AutoResendSetThread;
+import com.herotculb.qunhaichat.weixin.gailan.huifuziyuanku.AutoResendHandler;
+import com.herotculb.qunhaichat.weixin.gailan.huifuziyuanku.AutoResendThread;
+import com.herotculb.qunhaichat.weixin.gailan.window.AutoResendSetWindow;
+import com.herotculb.qunhaichat.weixin.gailan.window.GaiLanMenuUpdateWindowActivity;
+import com.herotculb.qunhaichat.weixin.gailan.window.ImageResourceWindow;
+import com.herotculb.qunhaichat.weixin.gailan.window.ImageTextResourceWindow;
+import com.herotculb.qunhaichat.weixin.gailan.window.MusicResourceWindow;
+import com.herotculb.qunhaichat.weixin.gailan.window.TextResourceWindow;
+import com.herotculb.qunhaichat.weixin.gailan.window.VideoResourceWindow;
+import com.herotculb.qunhaichat.weixin.gailan.window.VoiceResourceWindow;
+import com.herotculb.qunhaichat.weixin.info.WeixinMenuUpdMenuHandler;
+import com.herotculb.qunhaichat.weixin.info.WeixinMenuUpdMenuThread;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class WeixinGailan {
+	public HomeActivity home;
+	public LinearLayout linearLayout;
+	public WeixinGailan(HomeActivity home,LinearLayout linearLayout){
+		this.home=home;
+		this.linearLayout=linearLayout;
+		Log.e("---------------------", "weixin1");
+		LinearLayout gridLayout = (LinearLayout) home.inflater.inflate(
+				R.layout.weixin_gailan_layout, null)
+				.findViewById(R.id.weixin_gailan_main);
+		linearLayout.removeAllViews();
+		linearLayout.addView(gridLayout);
+		BootstrapButton menuManage=(BootstrapButton) linearLayout.findViewById(R.id.weixin_menu_manager);
+		BootstrapButton autoResendSet=(BootstrapButton) linearLayout.findViewById(R.id.weixin_auto_manager);
+		BootstrapButton autoResendResoursManager=(BootstrapButton) linearLayout.findViewById(R.id.weixin_auto_definition);
+		BootstrapButton wenzhangManager=(BootstrapButton) linearLayout.findViewById(R.id.weixin_create_article);
+		menuManage.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// 菜单点击事件
+				weixin_gailan_closeBeforItem();
+				LoadingDialog dialog = new LoadingDialog(WeixinGailan.this.home, "正在获取数据");
+				dialog.show();
+				TableLayout layout=(TableLayout) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_menuManager);
+				layout.setVisibility(View.VISIBLE);
+				ViewGroup viewGroup=(ViewGroup) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_menuManager_list);
+				WeixinMenuManagerHandler weixinmenuManagerHandler=new WeixinMenuManagerHandler(WeixinGailan.this.home,viewGroup,dialog,v);
+				WeixinMenuManagerThread weixinmenuthread=new WeixinMenuManagerThread(WeixinGailan.this.home, "0", weixinmenuManagerHandler);
+				weixinmenuthread.start();
+				BootstrapButton weixin_menu_add=(BootstrapButton) WeixinGailan.this.home.findViewById(R.id.weixin_menu_add);
+				BootstrapButton weixin_menu_reflash=(BootstrapButton) WeixinGailan.this.home.findViewById(R.id.weixin_menu_reflash);
+				weixin_menu_add.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						//点击添加新主菜单
+						Intent i = new Intent(WeixinGailan.this.home, GaiLanMenuUpdateWindowActivity.class);  
+						Bundle b = new Bundle();  
+		                b.putString("pid", String.valueOf("0"));  
+		                i.putExtras(b);  
+		                WeixinGailan.this.home.startActivityForResult(i, 0);  
+		                WeixinGailan.this.home.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+					}
+				});
+				weixin_menu_reflash.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						LoadingDialog dialog = new LoadingDialog(WeixinGailan.this.home, "正在获取数据");
+						dialog.show();
+						WeixinMenuUpdMenuHandler up=new WeixinMenuUpdMenuHandler(dialog,WeixinGailan.this.home);
+						WeixinMenuUpdMenuThread upthread=new WeixinMenuUpdMenuThread(WeixinGailan.this.home, up);
+						upthread.start();
+					}
+				});
+			}
+		});
+		autoResendSet.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				weixin_gailan_closeBeforItem();
+				// 回复资源管理
+				
+				TableLayout layout=(TableLayout) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendResoursManager);
+				layout.setVisibility(View.VISIBLE);
+				BootstrapButton textbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_huifuziyuan_pager_text);
+				BootstrapButton textimagebutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_huifuziyuan_pager_image);
+				BootstrapButton imagetextbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_huifuziyuan_pager_imagetext);
+				BootstrapButton musicbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_huifuziyuan_pager_music);
+				BootstrapButton videobutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_huifuziyuan_pager_video);
+				BootstrapButton voicebutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_huifuziyuan_pager_voice);
+				BootstrapButton addbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_huifuziyuan_pager_add);
+				addbutton.setVisibility(View.GONE);
+				textbutton.setOnClickListener(new OnClickListener() {
+					//文本
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						BootstrapButton addbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_huifuziyuan_pager_add);
+						addbutton.setVisibility(View.VISIBLE);
+						addbutton.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Intent i = new Intent(WeixinGailan.this.home, TextResourceWindow.class);  
+								Bundle b = new Bundle();  
+				                i.putExtras(b);  
+				                WeixinGailan.this.home.startActivityForResult(i, 0);  
+								WeixinGailan.this.home.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+							}
+						});
+						LoadingDialog dialog = new LoadingDialog(WeixinGailan.this.home, "正在获取数据");
+						dialog.show();
+						ListView view=(ListView) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendResoursManager_list);
+						AutoResendHandler handler=new AutoResendHandler(WeixinGailan.this.home,WeiXinReSendDto.TEXT, view, dialog);
+						AutoResendThread thread=new AutoResendThread(WeixinGailan.this.home, WeiXinReSendDto.TEXT, handler);
+						thread.start();
+					}
+				});
+				textimagebutton.setOnClickListener(new OnClickListener() {
+					//图片
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						BootstrapButton addbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_huifuziyuan_pager_add);
+						addbutton.setVisibility(View.VISIBLE);
+						addbutton.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Intent i = new Intent(WeixinGailan.this.home, ImageResourceWindow.class);  
+								Bundle b = new Bundle();  
+				                i.putExtras(b);  
+				                WeixinGailan.this.home.startActivityForResult(i, 0);  
+								WeixinGailan.this.home.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+							}
+						});
+						LoadingDialog dialog = new LoadingDialog(WeixinGailan.this.home, "正在获取数据");
+						dialog.show();
+						ListView view=(ListView) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendResoursManager_list);
+						AutoResendHandler handler=new AutoResendHandler(WeixinGailan.this.home,WeiXinReSendDto.IMAGE, view, dialog);
+						AutoResendThread thread=new AutoResendThread(WeixinGailan.this.home, WeiXinReSendDto.IMAGE, handler);
+						thread.start();
+					}
+				});
+				imagetextbutton.setOnClickListener(new OnClickListener() {
+					//图文
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						BootstrapButton addbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_huifuziyuan_pager_add);
+						addbutton.setVisibility(View.VISIBLE);
+						addbutton.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Intent i = new Intent(WeixinGailan.this.home, ImageTextResourceWindow.class);  
+								Bundle b = new Bundle();  
+
+				                i.putExtras(b);  
+				                WeixinGailan.this.home.startActivityForResult(i, 0);  
+								WeixinGailan.this.home.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+							}
+						});
+						LoadingDialog dialog = new LoadingDialog(WeixinGailan.this.home, "正在获取数据");
+						dialog.show();
+						ListView view=(ListView) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendResoursManager_list);
+						AutoResendHandler handler=new AutoResendHandler(WeixinGailan.this.home,WeiXinReSendDto.IMAGE_TEXT, view, dialog);
+						AutoResendThread thread=new AutoResendThread(WeixinGailan.this.home, WeiXinReSendDto.IMAGE_TEXT, handler);
+						thread.start();
+					}
+				});
+				musicbutton.setOnClickListener(new OnClickListener() {
+					//音乐
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						BootstrapButton addbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_huifuziyuan_pager_add);
+						addbutton.setVisibility(View.VISIBLE);
+						addbutton.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Intent i = new Intent(WeixinGailan.this.home, MusicResourceWindow.class);  
+								Bundle b = new Bundle();  
+
+				                i.putExtras(b);  
+				                WeixinGailan.this.home.startActivityForResult(i, 0);  
+								WeixinGailan.this.home.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+							}
+						});
+						LoadingDialog dialog = new LoadingDialog(WeixinGailan.this.home, "正在获取数据");
+						dialog.show();
+						ListView view=(ListView) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendResoursManager_list);
+						AutoResendHandler handler=new AutoResendHandler(WeixinGailan.this.home,WeiXinReSendDto.MUSIC, view, dialog);
+						AutoResendThread thread=new AutoResendThread(WeixinGailan.this.home, WeiXinReSendDto.MUSIC, handler);
+						thread.start();
+					}
+				});
+				videobutton.setOnClickListener(new OnClickListener() {
+					//视频
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						BootstrapButton addbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_huifuziyuan_pager_add);
+						addbutton.setVisibility(View.VISIBLE);
+						addbutton.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Intent i = new Intent(WeixinGailan.this.home, VideoResourceWindow.class);  
+								Bundle b = new Bundle();  
+
+				                i.putExtras(b);  
+				                WeixinGailan.this.home.startActivityForResult(i, 0);  
+								WeixinGailan.this.home.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+							}
+						});
+						LoadingDialog dialog = new LoadingDialog(WeixinGailan.this.home, "正在获取数据");
+						dialog.show();
+						ListView view=(ListView) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendResoursManager_list);
+						AutoResendHandler handler=new AutoResendHandler(WeixinGailan.this.home,WeiXinReSendDto.VIDEO, view, dialog);
+						AutoResendThread thread=new AutoResendThread(WeixinGailan.this.home, WeiXinReSendDto.VIDEO, handler);
+						thread.start();
+					}
+				});
+				voicebutton.setOnClickListener(new OnClickListener() {
+					//语音
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						BootstrapButton addbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_huifuziyuan_pager_add);
+						addbutton.setVisibility(View.VISIBLE);
+						addbutton.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Intent i = new Intent(WeixinGailan.this.home, VoiceResourceWindow.class);  
+								Bundle b = new Bundle();  
+
+				                i.putExtras(b);  
+				                WeixinGailan.this.home.startActivityForResult(i, 0);  
+								WeixinGailan.this.home.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+							}
+						});
+						LoadingDialog dialog = new LoadingDialog(WeixinGailan.this.home, "正在获取数据");
+						dialog.show();
+						ListView view=(ListView) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendResoursManager_list);
+						
+						AutoResendHandler handler=new AutoResendHandler(WeixinGailan.this.home,WeiXinReSendDto.VOICE, view, dialog);
+						AutoResendThread thread=new AutoResendThread(WeixinGailan.this.home, WeiXinReSendDto.VOICE, handler);
+						thread.start();
+					}
+				});
+		
+			}
+		});
+		autoResendResoursManager.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// 自动回复管理
+				weixin_gailan_closeBeforItem();
+				TableLayout layout=(TableLayout) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSet);
+				layout.setVisibility(View.VISIBLE);
+				BootstrapButton textbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSet_pager_text);
+				BootstrapButton textimagebutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailanautoResendSet_pager_image);
+				BootstrapButton eventbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSet_pager_event);
+				BootstrapButton Locationbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSet_pager_location);
+				BootstrapButton videobutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSet_pager_video);
+				BootstrapButton voicebutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSet_pager_voice);
+				BootstrapButton linkbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSet_pager_link);
+				
+				
+				//文本设置
+				textbutton.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						BootstrapButton addbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSet_pager_add);
+						addbutton.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Intent i = new Intent(WeixinGailan.this.home, AutoResendSetWindow.class);  
+								Bundle b = new Bundle();b.putString("type",null);
+								
+				                i.putExtras(b); 
+				                WeixinGailan.this.home.startActivityForResult(i, 0);  
+				                WeixinGailan.this.home.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+							}
+						});
+						LoadingDialog dialog = new LoadingDialog(WeixinGailan.this.home, "正在获取数据");
+						dialog.show();
+						ListView view=(ListView) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSetManager_list);
+						
+						AutoResendSetHandler handler=new AutoResendSetHandler(WeixinGailan.this.home,WeiXinAutoReSendMenuDto.TYPE_TEXT, view, dialog);
+						AutoResendSetThread thread=new AutoResendSetThread(WeixinGailan.this.home, WeiXinAutoReSendMenuDto.TYPE_TEXT, handler);
+						thread.start();
+					}
+				});
+				//图片设置
+				textimagebutton.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						BootstrapButton addbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSet_pager_add);
+						addbutton.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Intent i = new Intent(WeixinGailan.this.home, AutoResendSetWindow.class);  
+								Bundle b = new Bundle();b.putString("type",null);
+								
+				                i.putExtras(b); 
+				                WeixinGailan.this.home.startActivityForResult(i, 0);  
+				                WeixinGailan.this.home.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+							}
+						});
+						LoadingDialog dialog = new LoadingDialog(WeixinGailan.this.home, "正在获取数据");
+						dialog.show();
+						ListView view=(ListView) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSetManager_list);
+						
+						AutoResendSetHandler handler=new AutoResendSetHandler(WeixinGailan.this.home,WeiXinAutoReSendMenuDto.TYPE_IMAGE, view, dialog);
+						AutoResendSetThread thread=new AutoResendSetThread(WeixinGailan.this.home, WeiXinAutoReSendMenuDto.TYPE_IMAGE, handler);
+						thread.start();
+					}
+				});
+				//事件设置
+				eventbutton.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						BootstrapButton addbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSet_pager_add);
+						addbutton.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Intent i = new Intent(WeixinGailan.this.home, AutoResendSetWindow.class);  
+								Bundle b = new Bundle();b.putString("type","1");
+								
+				                i.putExtras(b); 
+				                WeixinGailan.this.home.startActivityForResult(i, 0);  
+				                WeixinGailan.this.home.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+							}
+						});
+						LoadingDialog dialog = new LoadingDialog(WeixinGailan.this.home, "正在获取数据");
+						dialog.show();
+						ListView view=(ListView) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSetManager_list);
+						
+						AutoResendSetHandler handler=new AutoResendSetHandler(WeixinGailan.this.home,WeiXinAutoReSendMenuDto.TYPE_EVENT, view, dialog);
+						AutoResendSetThread thread=new AutoResendSetThread(WeixinGailan.this.home, WeiXinAutoReSendMenuDto.TYPE_EVENT, handler);
+						thread.start();
+					}
+				});
+				//位置设置
+				Locationbutton.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						BootstrapButton addbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSet_pager_add);
+						addbutton.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Intent i = new Intent(WeixinGailan.this.home, AutoResendSetWindow.class);  
+								Bundle b = new Bundle();b.putString("type",null);
+								
+				                i.putExtras(b); 
+				                WeixinGailan.this.home.startActivityForResult(i, 0);  
+				                WeixinGailan.this.home.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+							}
+						});
+						LoadingDialog dialog = new LoadingDialog(WeixinGailan.this.home, "正在获取数据");
+						dialog.show();
+						ListView view=(ListView) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSetManager_list);
+						
+						AutoResendSetHandler handler=new AutoResendSetHandler(WeixinGailan.this.home,WeiXinAutoReSendMenuDto.TYPE_LOCATION, view, dialog);
+						AutoResendSetThread thread=new AutoResendSetThread(WeixinGailan.this.home, WeiXinAutoReSendMenuDto.TYPE_LOCATION, handler);
+						thread.start();
+					}
+				});
+				//视频设置
+				videobutton.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						BootstrapButton addbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSet_pager_add);
+						addbutton.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Intent i = new Intent(WeixinGailan.this.home, AutoResendSetWindow.class);  
+								Bundle b = new Bundle();b.putString("type",null);
+								
+				                i.putExtras(b); 
+				                WeixinGailan.this.home.startActivityForResult(i, 0);  
+				                WeixinGailan.this.home.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+							}
+						});
+						LoadingDialog dialog = new LoadingDialog(WeixinGailan.this.home, "正在获取数据");
+						dialog.show();
+						ListView view=(ListView) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSetManager_list);
+						
+						AutoResendSetHandler handler=new AutoResendSetHandler(WeixinGailan.this.home,WeiXinAutoReSendMenuDto.TYPE_VIDEO, view, dialog);
+						AutoResendSetThread thread=new AutoResendSetThread(WeixinGailan.this.home, WeiXinAutoReSendMenuDto.TYPE_VIDEO, handler);
+						thread.start();
+					}
+				});
+				//语音设置
+				voicebutton.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						BootstrapButton addbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSet_pager_add);
+						addbutton.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Intent i = new Intent(WeixinGailan.this.home, AutoResendSetWindow.class);  
+								Bundle b = new Bundle();b.putString("type",null);
+								
+				                i.putExtras(b); 
+				                WeixinGailan.this.home.startActivityForResult(i, 0);  
+				                WeixinGailan.this.home.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+							}
+						});
+						LoadingDialog dialog = new LoadingDialog(WeixinGailan.this.home, "正在获取数据");
+						dialog.show();
+						ListView view=(ListView) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSetManager_list);
+						
+						AutoResendSetHandler handler=new AutoResendSetHandler(WeixinGailan.this.home,WeiXinAutoReSendMenuDto.TYPE_VOICE, view, dialog);
+						AutoResendSetThread thread=new AutoResendSetThread(WeixinGailan.this.home, WeiXinAutoReSendMenuDto.TYPE_VOICE, handler);
+						thread.start();
+					}
+				});
+				//链接设置
+				linkbutton.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						BootstrapButton addbutton=(BootstrapButton)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSet_pager_add);
+						addbutton.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								Intent i = new Intent(WeixinGailan.this.home, AutoResendSetWindow.class);  
+								Bundle b = new Bundle();b.putString("type",null);
+				                i.putExtras(b); 
+				                WeixinGailan.this.home.startActivityForResult(i, 0);  
+				                WeixinGailan.this.home.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+							}
+						});
+						LoadingDialog dialog = new LoadingDialog(WeixinGailan.this.home, "正在获取数据");
+						dialog.show();
+						ListView view=(ListView) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSetManager_list);
+						
+						AutoResendSetHandler handler=new AutoResendSetHandler(WeixinGailan.this.home,WeiXinAutoReSendMenuDto.TYPE_LINK, view, dialog);
+						AutoResendSetThread thread=new AutoResendSetThread(WeixinGailan.this.home, WeiXinAutoReSendMenuDto.TYPE_LINK, handler);
+						thread.start();
+					}
+				});
+				
+			}
+		});
+		wenzhangManager.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//文章管理
+				weixin_gailan_closeBeforItem();
+				TableLayout layout=(TableLayout) WeixinGailan.this.home.findViewById(R.id.weixin_gailan_wenzhangManager);
+				layout.setVisibility(View.VISIBLE);
+				
+			}
+		});
+	}
+	public void weixin_gailan_closeBeforItem(){
+		 TableLayout t=(TableLayout)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_menuManager);
+		 TableLayout  t2=(TableLayout)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendResoursManager);
+		 TableLayout t3=(TableLayout)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_autoResendSet);
+		 TableLayout t4=(TableLayout)WeixinGailan.this.home.findViewById(R.id.weixin_gailan_wenzhangManager);
+		 t.setVisibility(View.GONE);
+		 t2.setVisibility(View.GONE);
+		 t3.setVisibility(View.GONE);
+		 t4.setVisibility(View.GONE);
+	 }
+}

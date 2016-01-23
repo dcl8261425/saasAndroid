@@ -1,0 +1,80 @@
+package com.herotculb.qunhaichat.weixin.gailan.window;
+
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+
+public class GaiLanMenuUpdateWindowActivity extends Activity {
+	private BootstrapButton enter;  
+	private BootstrapButton cancel;
+    private BootstrapEditText name;  
+    private BootstrapEditText url;  
+    private BootstrapEditText key;  
+    private BootstrapEditText id;
+    private BootstrapEditText pid;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);  
+		requestWindowFeature(Window.FEATURE_NO_TITLE);//隐藏头
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.windowlayout_weixin_gailan_menu_update);
+          
+        enter = (BootstrapButton)findViewById(R.id.weixin_gailan_menu_update_enter);  
+        cancel = (BootstrapButton)findViewById(R.id.weixin_gailan_menu_update_cancel);  
+        name = (BootstrapEditText)findViewById(R.id.weixin_gailan_menu_update_name);  
+        url = (BootstrapEditText)findViewById(R.id.weixin_gailan_menu_update_url);  
+        key = (BootstrapEditText)findViewById(R.id.weixin_gailan_menu_update_key);  
+        id=(BootstrapEditText)findViewById(R.id.weixin_gailan_menu_update_id);  
+        pid=(BootstrapEditText)findViewById(R.id.weixin_gailan_menu_update_pid);  
+        Bundle bundle = getIntent().getExtras();
+       
+        String idstr=(String) bundle.get("id");
+        String pidstr=(String) bundle.get("pid");
+        
+       
+        if(id!=null){
+        	 String namestr=(String) bundle.get("name");
+             String keystr=(String) bundle.get("key");
+             String urlstr=(String) bundle.get("url");
+             name.setText(namestr);
+             id.setText(idstr);
+             if(urlstr==null||urlstr.equals("null")){
+             	urlstr="";
+             }
+             if(keystr==null||keystr.equals("null")){
+             	keystr="";
+             }
+        	 key.setText(keystr);
+             url.setText(urlstr);
+        }
+        if(pid!=null){
+        	pid.setText(pidstr);
+        }
+        //和前面一样，只是用到了返回式Activity的基本方法，虽然这里已经是个Dialog了，但却和普通Activity无异  
+        enter.setOnClickListener(new OnClickListener() {  
+            public void onClick(View v) {  
+              String namestr = name.getText().toString();  
+              String urlstr = url.getText().toString();  
+              String keystr = key.getText().toString();  
+                Intent i = new Intent(GaiLanMenuUpdateWindowActivity.this, HomeActivity.class);  
+                Bundle b = new Bundle();  
+                b.putString("name", namestr);  
+                b.putString("url", urlstr);  
+                b.putString("key", keystr);  
+                i.putExtras(b);  
+                GaiLanMenuUpdateWindowActivity.this.setResult(RESULT_OK, i);  
+                GaiLanMenuUpdateWindowActivity.this.finish();  
+            }  
+        });  
+	}
+}

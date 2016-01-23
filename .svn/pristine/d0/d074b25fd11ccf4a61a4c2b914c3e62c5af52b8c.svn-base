@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+      android:layout_width="300dp"  
+  android:background="@drawable/dialog_background"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+     <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_wifi_add_layout_id"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="id"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+      <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_wifi_add_layout_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="设备名"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+      <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_wifi_add_layout_name_token"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="tokens"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+	  <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_wifi_add_layout_dirce_close"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="关闭路由设备"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="warning" />
+	   <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_wifi_add_layout_rigister_close"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="关闭路由页面注册"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="warning" />
+	    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_wifi_add_layout_enter"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="确定"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="success" />
+</LinearLayout>

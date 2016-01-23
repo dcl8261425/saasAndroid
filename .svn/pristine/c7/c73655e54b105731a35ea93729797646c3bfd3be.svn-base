@@ -1,0 +1,145 @@
+package com.herotculb.qunhaichat.crm;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.goods.store.window.GetUserInGroupWindow;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class CreateChanceWindow extends Activity {
+	private BootstrapButton enter;
+	private BootstrapButton cancle;
+	private BootstrapButton select;
+	private BootstrapButton clear;
+	
+	private BootstrapEditText id;
+	private BootstrapEditText name;
+	private BootstrapEditText address;
+	private BootstrapEditText category;
+	private BootstrapEditText chanceClass;
+	private BootstrapEditText marks;
+	private BootstrapEditText description;
+	private BootstrapEditText userid;
+	private BootstrapEditText username;
+	private BootstrapEditText glass;
+	
+	private String type;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// 隐藏头
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.crm_create_chance_window);
+		enter = (BootstrapButton)findViewById(
+				R.id.create_chance_content_enter);
+		cancle = (BootstrapButton)findViewById(
+				R.id.create_chance_cancle);
+		select = (BootstrapButton)findViewById(
+				R.id.create_chance_select);
+		clear = (BootstrapButton)findViewById(
+				R.id.create_chance_clear);
+		
+		id = (BootstrapEditText)findViewById(R.id.create_chance_id);
+		name = (BootstrapEditText)findViewById(R.id.create_chance_name);
+		address = (BootstrapEditText)findViewById(R.id.create_chance_address);
+		category = (BootstrapEditText)findViewById(R.id.create_chance_category);
+		chanceClass = (BootstrapEditText)findViewById(R.id.create_chance_class);
+		marks = (BootstrapEditText)findViewById(R.id.create_chance_marks);
+		description = (BootstrapEditText)findViewById(R.id.create_chance_description);
+		userid = (BootstrapEditText)findViewById(R.id.create_chance_userid);
+		username = (BootstrapEditText)findViewById(R.id.create_chance_username);
+		glass = (BootstrapEditText)findViewById(R.id.create_chance_glass);
+		Bundle bundle = getIntent().getExtras();
+		Object idstr = (Object) bundle.get("id");
+		Object namestr = (Object) bundle.get("name");
+		Object addressstr = (Object) bundle.get("address");
+		Object categorystr = (Object) bundle.get("category");
+		Object chanceClassstr = (Object) bundle.get("chanceClass");
+		Object marksstr = (Object) bundle.get("marks");
+		Object descriptionstr = (Object) bundle.get("description");
+		Object useridstr = (Object) bundle.get("userid");
+		Object usernamestr = (Object) bundle.get("username");
+		Object glassstr = (Object) bundle.get("glass");
+		type = bundle.getString("type");
+		if(type.equals("check")){
+			name.setEnabled(false);
+			address.setEnabled(false);
+			category.setEnabled(false);
+			chanceClass.setEnabled(false);
+			marks.setEnabled(false);
+			description.setEnabled(false);
+			username.setEnabled(false);
+			glass.setEnabled(false);
+		}
+		if(idstr!=null&&!idstr.equals("")){
+			id.setText(idstr.toString());
+			name.setText(namestr.toString());
+			address.setText(addressstr.toString());
+			category.setText(categorystr.toString());
+			chanceClass.setText(chanceClassstr.toString());
+			marks.setText(marksstr.toString());
+			description.setText(descriptionstr.toString());
+			userid.setText(useridstr.toString());
+			username.setText(usernamestr.toString());
+			glass.setText(glassstr.toString());
+		}else{
+			enter.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO 确认添加
+					LoadingDialog dialog = new LoadingDialog(CreateChanceWindow.this,"正在保存数据！");
+					dialog.show();
+					CreateChanceHandler handler = 
+							new CreateChanceHandler(CreateChanceWindow.this, dialog);
+					CreateChanceThread thread = 
+							new CreateChanceThread(CreateChanceWindow.this, handler);
+					thread.start();
+				}
+			});
+		}
+		
+		cancle.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 取消
+				CreateChanceWindow.this.finish();
+			}
+		});
+		
+		select.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 选择指派人
+				Intent i = new Intent(CreateChanceWindow.this, GetUserInGroupWindow.class);  
+				Bundle b = new Bundle(); 
+				b.putString("classes", "com.herotculb.qunhaichat.crm.CreateChanceWindow");
+				i.putExtras(b);  
+				CreateChanceWindow.this.startActivityForResult(i,0);
+				CreateChanceWindow.this.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+			}
+		});
+		
+		clear.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 清空
+				userid.setText("");
+				username.setText("");
+			}
+		});
+	}
+}

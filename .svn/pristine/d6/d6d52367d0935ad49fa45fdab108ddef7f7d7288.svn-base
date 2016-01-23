@@ -1,0 +1,271 @@
+package com.herotculb.qunhaichat;
+
+import static android.view.Gravity.START;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+
+import com.herotculb.qunhaichat.dto.ConpanyDTO;
+import com.herotculb.qunhaichat.dto.PermissionLoadDTO;
+import com.herotculb.qunhaichat.dto.UserDTO;
+import com.herotculb.qunhaichat.util.QNPermissionApiImpl;
+
+/**
+ * 主要用于获取用户权限
+ * 
+ * @author Administrator
+ * 
+ */
+public class HomeActivity extends Activity {
+
+	private DrawerArrowDrawable drawerArrowDrawable;
+	private float offset;
+	private boolean flipped;
+	private ListView mLv;
+	private Handler handler;
+	private String[] crmList;
+	private String[] hrList;
+	private String[] weixinList;
+	private String[] systemList;
+	private String[] messageList;
+	private String[] goodList;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.activity_home);
+
+		final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		final ImageView imageView = (ImageView) findViewById(R.id.drawer_indicator);
+		final Resources resources = getResources();
+		mLv = (ListView) findViewById(R.id.id_lv);
+
+		drawerArrowDrawable = new DrawerArrowDrawable(resources);
+		drawerArrowDrawable.setStrokeColor(resources
+				.getColor(R.color.light_gray));
+		imageView.setImageDrawable(drawerArrowDrawable);
+
+		drawer.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+			@Override
+			public void onDrawerSlide(View drawerView, float slideOffset) {
+				offset = slideOffset;
+
+				// Sometimes slideOffset ends up so close to but not quite 1 or
+				// 0.
+				if (slideOffset >= .995) {
+					flipped = true;
+					drawerArrowDrawable.setFlip(flipped);
+				} else if (slideOffset <= .005) {
+					flipped = false;
+					drawerArrowDrawable.setFlip(flipped);
+				}
+
+				drawerArrowDrawable.setParameter(offset);
+			}
+		});
+
+		imageView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (drawer.isDrawerVisible(START)) {
+					drawer.closeDrawer(START);
+				} else {
+					drawer.openDrawer(START);
+				}
+			}
+		});
+		handler = new Handler() {
+			@Override
+			public void handleMessage(android.os.Message msg) {
+				super.handleMessage(msg);
+				Map<String, Object> map = (Map<String, Object>) msg.obj;
+				boolean issuccess = (Boolean) map.get("success");
+				if (issuccess) {
+					// 获取成功
+					boolean iscrm = (Boolean) map.get("crm");
+					boolean hr = (Boolean) map.get("hr");
+					boolean goods = (Boolean) map.get("goods");
+					boolean weixin = (Boolean) map.get("weixin");
+					boolean system = (Boolean) map.get("system");
+					boolean messageInfo = (Boolean) map.get("messageInfo");
+					UserDTO user = (UserDTO) map.get("user");
+					Log.e("home", "1");
+					List<HashMap<String,String>>data = new ArrayList<HashMap<String,String>>();
+					ConpanyDTO conpany = (ConpanyDTO) map.get("conpany");
+					if (iscrm) {
+						Log.e("home", "2");
+						List<PermissionLoadDTO> pldcrm=(List<PermissionLoadDTO>) map.get("crmlist");
+						Log.e("home", "3");
+						 HashMap<String,String> map2 = new HashMap<String, String>();
+						String name="客户管理";
+						map2.put("name", name);
+						map2.put("index", "1");
+						crmList=new String[pldcrm.size()];
+						for(int i=0;i<pldcrm.size();i++){
+							PermissionLoadDTO pldcrmobj=pldcrm.get(i);
+							crmList[i]=pldcrmobj.getMarks();
+						}
+					}
+					if (weixin) {
+						List<PermissionLoadDTO> pldcrm=(List<PermissionLoadDTO>) map.get("weixintemlist");
+						String name="微信管理";
+						HashMap<String,String> map2 = new HashMap<String, String>();
+						map2.put("name", name);
+						map2.put("index", "0");
+						data.add(map2);
+						weixinList=new String[pldcrm.size()];
+						for(int i=0;i<pldcrm.size();i++){
+							PermissionLoadDTO pldcrmobj=pldcrm.get(i);
+							weixinList[i]=pldcrmobj.getMarks();
+						}
+					}
+					if (goods) {
+						List<PermissionLoadDTO> pldcrm=(List<PermissionLoadDTO>) map.get("goodslist");
+						String name="库存管理";
+						HashMap<String,String> map2 = new HashMap<String, String>();
+						map2.put("name", name);
+						map2.put("index", "2");
+						data.add(map2);
+						goodList=new String[pldcrm.size()];
+						for(int i=0;i<pldcrm.size();i++){
+							PermissionLoadDTO pldcrmobj=pldcrm.get(i);
+							goodList[i]=pldcrmobj.getMarks();
+						}
+					}
+					if (hr) {
+						List<PermissionLoadDTO> pldcrm=(List<PermissionLoadDTO>) map.get("hrlist");
+						String name="员工管理";
+						HashMap<String,String> map2 = new HashMap<String, String>();
+						map2.put("name", name);
+						map2.put("index", "3");
+						data.add(map2);
+						hrList=new String[pldcrm.size()];
+						for(int i=0;i<pldcrm.size();i++){
+							PermissionLoadDTO pldcrmobj=pldcrm.get(i);
+							hrList[i]=pldcrmobj.getMarks();
+						}
+					}
+					if (system) {
+						List<PermissionLoadDTO> pldcrm=(List<PermissionLoadDTO>) map.get("systemlist");
+						String name="系统管理";
+						HashMap<String,String> map2 = new HashMap<String, String>();
+						map2.put("name", name);
+						map2.put("index", "5");
+						data.add(map2);
+						systemList=new String[pldcrm.size()];
+						for(int i=0;i<pldcrm.size();i++){
+							PermissionLoadDTO pldcrmobj=pldcrm.get(i);
+							systemList[i]=pldcrmobj.getMarks();
+						}
+					}
+					if (messageInfo) {
+						List<PermissionLoadDTO> pldcrm=(List<PermissionLoadDTO>) map.get("messageInfolist");
+						String name="短信管理";
+						HashMap<String,String> map2 = new HashMap<String, String>();
+						map2.put("name", name);
+						map2.put("index", "4");
+						data.add(map2);
+						messageList=new String[pldcrm.size()];
+						for(int i=0;i<pldcrm.size();i++){
+							PermissionLoadDTO pldcrmobj=pldcrm.get(i);
+							messageList[i]=pldcrmobj.getMarks();
+						}
+					}
+					String name="账户管理";
+					HashMap<String,String> map2 = new HashMap<String, String>();
+					map2.put("name", name);
+					map2.put("index", "6");
+					data.add(map2);
+					String[] from = {"name"};
+					int[] to={R.id.menuItemName};
+					 SimpleAdapter adapter = new SimpleAdapter(HomeActivity.this, data, R.layout.menuitem, from, to);
+					mLv.setAdapter(adapter);
+				} else {
+					Object login = map.get("login");
+					if (login != null) {
+						// 登录超时
+					}
+					// 其他错误
+				}
+			};
+		};
+		mLv.setOnItemClickListener(new OnItemClickListener(){
+			 
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+            	     int position, long id) {
+                ListView listView = (ListView)parent;
+                HashMap<String, String> map = (HashMap<String, String>) listView.getItemAtPosition(position);
+                String index = map.get("index");
+                
+                if(index.equals("0")){
+                	//微信管理
+                	Log.e("微信", "message");
+                	weixin
+                	
+                }
+                if(index.equals("1")){
+                	//客户管理
+                	Log.e("客户", "message");
+                }
+                if(index.equals("2")){
+                	//库存管理
+                	Log.e("库存", "message");
+                }
+                if(index.equals("3")){
+                	//员工管理
+                	Log.e("员工", "message");
+                }
+                if(index.equals("4")){
+                	//短信管理
+                	Log.e("短信", "message");
+                }
+                if(index.equals("5")){
+                	//系统管理
+                	Log.e("系统", "message");
+                }
+                if(index.equals("6")){
+                	//账户管理
+                	Log.e("账户", "message");
+                }
+            }
+             
+        });
+		HomeActivityPermissionThread thread = new HomeActivityPermissionThread(
+				handler, this);
+		thread.start();
+		
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+         xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/good_ingoods_main"
+    android:orientation="vertical" >
+      <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+             <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+   	     <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/good_ingoods_main_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="名称查询"
+                        android:layout_weight="1"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+      <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/good_ingoods_main_pinyin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="拼音查询"
+                        android:layout_weight="1"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+       <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/good_ingoods_main_query"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="查询"
+                        android:layout_weight="1"
+                        bootstrapbutton:bb_icon_left="fa-pencil-square-o"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="warning" />
+      </TableRow>
+            
+        <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/good_ingoods_main_erweima"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="扫描"
+                        bootstrapbutton:bb_icon_left="fa-pencil-square-o"
+                        bootstrapbutton:bb_roundedCorners="true"
+                       	android:layout_weight="1"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="warning" />
+                  </TableLayout>
+</LinearLayout>

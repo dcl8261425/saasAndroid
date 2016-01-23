@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/good_ingoods_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/orderId"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/good_ingoods_main_erweima"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="扫描货物"
+                bootstrapbutton:bb_icon_left="fa-pencil-square-o"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/good_ingoods_main_query"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="查询货物"
+                bootstrapbutton:bb_icon_left="fa-pencil-square-o"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/good_ingoods_main_query_order"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="查询订单"
+                bootstrapbutton:bb_icon_left="fa-pencil-square-o"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/good_order_manager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone" >
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/good_ingoods_main_save"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="保存"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/good_ingoods_main_ruku"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="入库"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/good_ingoods_main_print"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="打印"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+
+            
+        </TableRow>
+        <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/good_ingoods_main_newOrder"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:text="新建"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+    </TableLayout>
+
+    <ScrollView
+        android:id="@+id/good_ingoods_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:scrollbars="none" >
+    </ScrollView>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:scrollbars="none" >
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TableLayout
+                android:id="@+id/good_ingoods_data_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical" >
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/good_ingoods_zongjia"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="10dp" />
+        </TableLayout>
+    </ScrollView>
+
+</LinearLayout>

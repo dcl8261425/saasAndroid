@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+  <!-- Action-bar looking view -->
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/actionbar_dimen"
+      android:background="@color/dark_gray"
+      >
+
+    <ImageView
+        android:id="@+id/drawer_indicator"
+        android:layout_width="@dimen/actionbar_dimen"
+        android:layout_height="@dimen/actionbar_dimen"
+        android:scaleType="centerInside"
+        android:background="@drawable/drawer_selector"
+        android:layout_gravity="start"
+        />
+
+   
+  </FrameLayout>
+
+  <!-- Content -->
+  <android.support.v4.widget.DrawerLayout
+      android:id="@+id/drawer_layout"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      >
+
+       <FrameLayout  
+        android:id="@+id/id_framelayout"  
+        android:layout_width="match_parent"  
+        android:layout_height="match_parent" >  
+        <Button  
+            android:id="@+id/id_btn1"  
+            android:layout_width="wrap_content"  
+            android:layout_height="wrap_content"  
+            android:text="1111" />  
+    </FrameLayout>  
+    <LinearLayout  
+        android:id="@+id/id_drawer"  
+        android:layout_width="240dp"  
+        android:layout_height="match_parent"  
+        android:layout_gravity="start"  
+        android:background="#E0EEE0"  
+        android:orientation="vertical" >  
+            <ListView  
+            android:id="@+id/id_lv"  
+            android:layout_width="match_parent"  
+            android:layout_height="wrap_content"  
+            android:divider="#CD853F"  
+            android:dividerHeight="2dp" >  
+             
+        </ListView>  
+    </LinearLayout> 
+
+  </android.support.v4.widget.DrawerLayout>
+
+</LinearLayout>
+

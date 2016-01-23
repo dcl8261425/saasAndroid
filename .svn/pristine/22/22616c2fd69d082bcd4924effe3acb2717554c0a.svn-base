@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/message_model_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                 android:layout_margin="0dp"
+                android:gravity="center" >
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                     android:layout_margin="0dp"
+                    android:gravity="center" >
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/message_model_add_score"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="添加积分时"
+                        android:layout_weight="1"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/message_model_add_price"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="添加储值时"
+                        android:layout_weight="1"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+                 </TableRow>
+                 <TableRow
+                    android:layout_width="fill_parent"
+                     android:layout_margin="0dp"
+                    android:gravity="center" >
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/message_model_jian_score"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="减少积分时"
+                        android:layout_weight="1"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/message_model_jian_price"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="减少储值时"
+                        android:layout_weight="1"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+                 </TableRow>
+                 <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/message_model_order"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="用户下订单时发送给商户"
+                        android:layout_weight="1"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+            </TableLayout>
+            <LinearLayout android:id="@+id/message_model_container"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+
+</LinearLayout>

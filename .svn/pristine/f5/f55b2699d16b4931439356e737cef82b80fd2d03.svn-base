@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+     <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/good_Data_back"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="关闭"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+     <TextView 
+                  android:id="@+id/good_query_item_jinhuozongjia"
+                  android:layout_width="fill_parent"
+                  android:gravity="center"
+                  />
+      <TextView 
+                  android:id="@+id/good_query_item_xiaoshouzongjia"
+                  android:layout_width="fill_parent"
+                  android:gravity="center"
+                  />
+       <TextView 
+                  android:id="@+id/good_query_item_jinhuojiage"
+                  android:layout_width="fill_parent"
+                  android:gravity="center"
+                  />
+        <TextView 
+                  android:id="@+id/good_query_item_xiaoshouzongliang"
+                  android:layout_width="fill_parent"
+                  android:gravity="center"
+                  />
+
+</LinearLayout>

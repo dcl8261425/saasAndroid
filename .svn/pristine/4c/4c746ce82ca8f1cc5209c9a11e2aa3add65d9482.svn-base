@@ -1,0 +1,38 @@
+package com.herotculb.qunhaichat.weixin.gailan.huifushezhi.item;
+
+import java.util.List;
+import java.util.Map;
+
+import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+
+import com.herotculb.qunhaichat.util.QNPermissionApiImpl;
+
+public class AutoResendThreadAddItem extends Thread {
+	private Context context;
+	private long id;
+	private Handler handler;
+	private String name;
+	private long pid;
+	public AutoResendThreadAddItem(Context context, long pid,long id,String name, Handler handler) {
+		super();
+		this.context = context;
+		this.id = id;
+		this.handler = handler;
+		this.name=name;
+		this.pid=pid;
+	}
+
+	@Override
+	public void run() {
+		QNPermissionApiImpl qnpAPi=new QNPermissionApiImpl(context);
+		List<Map<String, Object>> list=null;
+		list=qnpAPi.addWeiXinInfoToAutoResend(String.valueOf(pid), name, name, String.valueOf(id));
+
+		Map<String,Object> map=list.iterator().next();
+		Message sendmsg = Message.obtain();  
+        sendmsg.obj = map;   //利用Message.obj把子线程的handle传递给主线程。  
+        handler.sendMessage(sendmsg);  
+	}
+}

@@ -1,0 +1,29 @@
+package com.herotculb.qunhaichat.hr;
+
+import java.util.List;
+import java.util.Map;
+
+import com.herotculb.qunhaichat.util.QNPermissionApiImpl;
+
+import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+
+public class MeetingThread extends Thread{
+	Context content;
+	Handler uihandler;
+	public MeetingThread(Handler handler,Context content){
+		uihandler=handler;
+		this.content=content;
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		super.run();
+		Looper.prepare();
+		QNPermissionApiImpl qnpAPi=new QNPermissionApiImpl(content);
+		List<Map<String, Object>> list=qnpAPi.meeting("", "text");
+	}
+
+}

@@ -1,0 +1,37 @@
+package com.herotculb.qunhaichat.weixin.gailan.huifuziyuanku;
+
+import java.util.Map;
+
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+import android.annotation.SuppressLint;
+import android.os.Handler;
+import android.widget.ListView;
+
+public class AutoResendDeleteHandler extends Handler {
+	HomeActivity context;
+	ListView view;
+	LoadingDialog dialog;
+	int type;
+	
+	public AutoResendDeleteHandler(HomeActivity context,int type, 
+			LoadingDialog dialog) {
+		super();
+		this.context = context;
+		this.view = view;
+		this.dialog = dialog;
+		this.type=type;
+	}
+	@SuppressLint("ResourceAsColor")
+	@Override
+	public void handleMessage(android.os.Message msg) {
+		Map<String, Object> map = (Map<String, Object>) msg.obj;
+		Boolean b=(Boolean) map.get("success");
+		dialog.hide();
+		
+		if(b){
+			
+		}
+	}
+}

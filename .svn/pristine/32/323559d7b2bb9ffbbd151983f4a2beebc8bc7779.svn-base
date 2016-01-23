@@ -1,0 +1,46 @@
+package com.herotculb.qunhaichat.hr.qiandao;
+
+import java.util.Map;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+
+public class MeetingHandler extends Handler{
+
+	SweetAlertDialog sDialog;
+	Context context;
+	public MeetingHandler(SweetAlertDialog sDialog,Context context){
+		this.context=context;
+		this.sDialog=sDialog;
+	}
+	@Override 
+	public void handleMessage(android.os.Message msg) {
+		super.handleMessage(msg);
+		Map<String, Object> map = (Map<String, Object>) msg.obj;
+		
+		boolean issuccess = (Boolean) map.get("success");
+		if (issuccess) {
+			sDialog.setTitleText("签到成功")
+	        .setContentText((String)map.get("info"))
+	        .setConfirmText("确定")
+	        .showCancelButton(false)
+	        .setCancelClickListener(null)
+	        .setConfirmClickListener(null)
+	        .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+		}else{
+
+			sDialog.setTitleText("签到失败")
+	        .setContentText((String)map.get("info"))
+	       
+	        .setConfirmText("确定")
+	        .showCancelButton(false)
+	        .setCancelClickListener(null)
+	        .setConfirmClickListener(null)
+	        .changeAlertType(SweetAlertDialog.ERROR_TYPE);
+		}
+	}
+	
+}

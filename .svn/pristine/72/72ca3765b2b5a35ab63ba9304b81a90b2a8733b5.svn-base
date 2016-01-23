@@ -1,0 +1,51 @@
+package com.herotculb.qunhaichat.weixin.gailan.huifuziyuanku.adapter;
+
+import java.util.List;
+
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.dto.WeiXinReSendDto;
+
+public class HuiFuZiYuanKu extends BaseAdapter {
+	private HomeActivity context;
+	private List<WeiXinReSendDto> listItems;
+	public final class ListItemView{                //自定义控件集合    
+         public ImageView image;    
+         public TextView title;    
+         public TextView info;  
+         public CheckBox check;  
+         public Button detail;         
+ 	}    
+	public HuiFuZiYuanKu(HomeActivity context,List<WeiXinReSendDto> listItems){
+		this.context=context;
+		this.listItems=listItems;
+	}
+	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
+		 return (listItems==null)?0:listItems.size();  
+	}
+	@Override
+	public Object getItem(int position) {
+		// TODO Auto-generated method stub
+		return listItems.get(position);  
+	}
+	@Override
+	public long getItemId(int position) {
+		// TODO Auto-generated method stub
+		return position;
+	}
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

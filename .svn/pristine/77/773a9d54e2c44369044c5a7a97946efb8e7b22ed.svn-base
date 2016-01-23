@@ -1,0 +1,352 @@
+package com.herotculb.qunhaichat.weixin.gailan;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Handler;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.SimpleAdapter;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.WeiXinMenuTableDto;
+import com.herotculb.qunhaichat.weixin.gailan.window.GaiLanMenuUpdateWindowActivity;
+import com.herotculb.qunhaichat.weixin.getvip.WeixinGetDuiHuanListHandler;
+import com.herotculb.qunhaichat.weixin.getvip.WeixinGetDuiHuanListThread;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class WeixinMenuManagerHandler extends Handler {
+	HomeActivity context;
+	ViewGroup view;
+	LoadingDialog dialog;
+	View viewp;
+	
+	public WeixinMenuManagerHandler(HomeActivity context, ViewGroup view,
+			LoadingDialog dialog,View viewp) {
+		super();
+		this.context = context;
+		this.view = view;
+		this.dialog = dialog;
+		this.viewp=viewp;
+	}
+
+	@SuppressLint("ResourceAsColor")
+	@Override
+	public void handleMessage(android.os.Message msg) {
+		super.handleMessage(msg);
+		Map<String, Object> map = (Map<String, Object>) msg.obj;
+		boolean b = (Boolean) map.get("success");
+		if (b) {
+
+			List<WeiXinMenuTableDto> weiXinList = (List<WeiXinMenuTableDto>) map
+					.get("data");
+			view.removeAllViews();
+			for (int i = 0; i < weiXinList.size(); i++) {
+				WeiXinMenuTableDto dat = weiXinList.get(i);
+				if (dat.getPid() == 0) {
+					// 是主菜单
+					Button bootstrapButton = new Button(context);
+					bootstrapButton.setLayoutParams(new LayoutParams(
+							LayoutParams.FILL_PARENT, 80));
+					bootstrapButton.setText(dat.getName());
+					bootstrapButton.setPadding(5, 5, 5, 5);
+					view.addView(bootstrapButton);
+					bootstrapButton.setOnClickListener(new MenuChile(dat,context,viewp));
+					bootstrapButton.setLongClickable(true);
+					bootstrapButton.setOnLongClickListener(new MenuLongChile(dat,context,viewp));
+					
+				} else {
+					// 子菜单
+					Button bootstrapButton = new Button(context);
+					bootstrapButton.setLayoutParams(new LayoutParams(
+							LayoutParams.FILL_PARENT, 10,2));
+					bootstrapButton.setPadding(5, 5, 5, 5);
+					bootstrapButton.setText(dat.getName());
+					bootstrapButton.setLongClickable(true);
+					view.addView(bootstrapButton);
+					bootstrapButton.setOnLongClickListener(new MenuLongChile(dat,context,viewp));
+					bootstrapButton.setOnClickListener(new MenuChile(dat,context,viewp));
+					
+				}
+			}
+			dialog.hide();
+			
+		} else {
+			dialog.hide();
+			new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+					.setTitleText("出错了！")
+					.setContentText((String) map.get("info")).show();
+		}
+	}
+	//点击主菜单时展开的
+			public class MenuChile implements OnClickListener {
+				private HomeActivity content;
+				private WeiXinMenuTableDto dat;
+				List<Map<String, String>> moreList;
+				private PopupWindow pwMyPopWindow;// popupwindow
+				private ListView lvPopupList;// popupwindow中的ListView
+				private int NUM_OF_VISIBLE_LIST_ROWS = 2;// 指定popupwindow中Item的数量
+				private View viewp;
+				public MenuChile(WeiXinMenuTableDto dat,HomeActivity content,View viewp) {
+					this.dat = dat;
+					this.content=content;
+					this.viewp=viewp;
+				}
+
+				@Override
+				public void onClick(View v) {
+
+					if(dat.getPid()==0){
+						LoadingDialog dialog2 = new LoadingDialog(content, "正在获取数据");
+						dialog2.show();
+						ViewGroup viewGroup=(ViewGroup) content.findViewById(R.id.weixin_gailan_menuManager_list_item);
+						WeixinMenuManagerHandler weixinmenuManagerHandler=new WeixinMenuManagerHandler(content,viewGroup,dialog2,v);
+						WeixinMenuManagerThread weixinmenuthread=new WeixinMenuManagerThread(content, String.valueOf(dat.getId()), weixinmenuManagerHandler);
+						weixinmenuthread.start();
+					}else{
+						boolean isp=dat.getPid()==0;
+						iniData(isp,dat.getId());
+						iniPopupWindow(dat,viewp);
+						pwMyPopWindow.showAsDropDown(v);// 显示
+						
+					}
+				}
+				private void iniData(boolean isp,long id) {
+
+					moreList = new ArrayList<Map<String, String>>();
+					Map<String, String> map;
+					map = new HashMap<String, String>();
+					map.put("share_key", "修改");
+					moreList.add(map);
+					map = new HashMap<String, String>();
+					map.put("share_key", "删除");
+					moreList.add(map);
+					if(isp){
+					map = new HashMap<String, String>();
+					map.put("share_key", "添加子项");
+					moreList.add(map);
+					}
+				}
+
+				private void iniPopupWindow(final WeiXinMenuTableDto dat,final View v2) {
+
+					LayoutInflater inflater = (LayoutInflater) content
+							.getSystemService(content.LAYOUT_INFLATER_SERVICE);
+					View layout = inflater.inflate(R.layout.task_detail_popupwindow, null);
+					lvPopupList = (ListView) layout.findViewById(R.id.lv_popup_list);
+					pwMyPopWindow = new PopupWindow(layout);
+					pwMyPopWindow.setFocusable(true);// 加上这个popupwindow中的ListView才可以接收点击事件
+
+					lvPopupList.setAdapter(new SimpleAdapter(content, moreList,
+							R.layout.list_item_popupwindow, new String[] { "share_key" },
+							new int[] { R.id.tv_list_item }));
+					lvPopupList.setOnItemClickListener(new OnItemClickListener() {
+							
+						@Override
+						public void onItemClick(AdapterView<?> parent, View view,
+								int position, long id) {
+							String name= moreList.get(position).get("share_key");
+							
+							if(name.equals("修改")){
+								
+								Intent i = new Intent(content, GaiLanMenuUpdateWindowActivity.class);  
+								content.startActivityForResult(i, 0);  
+							}
+							if(name.equals("删除")){
+								new SweetAlertDialog(content, SweetAlertDialog.WARNING_TYPE)
+		                        .setTitleText("删除?")
+		                        .setContentText("你确定要删除此菜单?删除后不可恢复!")
+		                        .setCancelText("取消")
+		                        .setConfirmText("删除")
+		                        .showCancelButton(true)
+		                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+		                            @Override
+		                            public void onClick(SweetAlertDialog sDialog) {
+		                                // reuse previous dialog instance, keep widget user state, reset them if you need
+		                                sDialog.setTitleText("删除!")
+		                                        .setContentText("您取消了删除此信息")
+		                                        .setConfirmText("确定")
+		                                        .showCancelButton(false)
+		                                        .setCancelClickListener(null)
+		                                        .setConfirmClickListener(null)
+		                                        .changeAlertType(SweetAlertDialog.ERROR_TYPE);
+
+		                               
+		                                
+		                            }
+		                        })
+		                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+		                            @Override
+		                            public void onClick(SweetAlertDialog sDialog) {
+		                            	LoadingDialog dialog2 = new LoadingDialog(content, "正在删除。。。");
+		        						dialog2.show();
+		                            	WeixinMenuManagerDelHandler dhListHandler = 
+												new WeixinMenuManagerDelHandler(sDialog, content,dialog2,v2);
+		                            	WeixinMenuManagerDelThread dhListThread = new WeixinMenuManagerDelThread(content,dat.getId(), dhListHandler);
+										dhListThread.start();		
+		                            }
+		                        })
+		                        .show();
+							}
+							if(name.equals("修改子项")){
+								
+							}
+						}
+					});
+
+					// 控制popupwindow的宽度和高度自适应
+					lvPopupList.measure(View.MeasureSpec.UNSPECIFIED,
+							View.MeasureSpec.UNSPECIFIED);
+					pwMyPopWindow.setWidth(lvPopupList.getMeasuredWidth());
+					pwMyPopWindow.setHeight((lvPopupList.getMeasuredHeight() + 20)
+							* NUM_OF_VISIBLE_LIST_ROWS);
+
+					// 控制popupwindow点击屏幕其他地方消失
+					pwMyPopWindow.setBackgroundDrawable(content.getResources().getDrawable(
+							R.drawable.bg_popupwindow));// 设置背景图片，不能在布局中设置，要通过代码来设置
+					pwMyPopWindow.setOutsideTouchable(true);// 触摸popupwindow外部，popupwindow消失。这个要求你的popupwindow要有背景图片才可以成功，如上
+				}
+
+			}
+			public class MenuLongChile implements OnLongClickListener {
+
+				List<Map<String, String>> moreList;
+				private PopupWindow pwMyPopWindow;// popupwindow
+				private ListView lvPopupList;// popupwindow中的ListView
+				private int NUM_OF_VISIBLE_LIST_ROWS = 2;// 指定popupwindow中Item的数量
+				private HomeActivity content;
+				private WeiXinMenuTableDto dat;
+				private View v2;
+				
+				public MenuLongChile(WeiXinMenuTableDto dat,HomeActivity content,View v2) {
+					this.dat = dat;
+					this.content=content;
+					this.v2=v2;
+				}
+
+				@Override
+				public boolean onLongClick(View v) {
+					// TODO Auto-generated method stub
+					Log.e("长按键事件", "=====");
+					boolean isp=dat.getPid()==0;
+					iniData(isp,dat.getId());
+
+					iniPopupWindow(dat,v2);
+					pwMyPopWindow.showAsDropDown(v);// 显示
+					return false;
+				}
+				private void iniData(boolean isp,long id) {
+
+					moreList = new ArrayList<Map<String, String>>();
+					Map<String, String> map;
+					map = new HashMap<String, String>();
+					map.put("share_key", "修改");
+					moreList.add(map);
+					map = new HashMap<String, String>();
+					map.put("share_key", "删除");
+					moreList.add(map);
+					if(isp){
+					map = new HashMap<String, String>();
+					map.put("share_key", "添加子项");
+					moreList.add(map);
+					}
+				}
+
+				private void iniPopupWindow(final WeiXinMenuTableDto dat,final View v2) {
+
+					LayoutInflater inflater = (LayoutInflater) content
+							.getSystemService(content.LAYOUT_INFLATER_SERVICE);
+					View layout = inflater.inflate(R.layout.task_detail_popupwindow, null);
+					lvPopupList = (ListView) layout.findViewById(R.id.lv_popup_list);
+					pwMyPopWindow = new PopupWindow(layout);
+					pwMyPopWindow.setFocusable(true);// 加上这个popupwindow中的ListView才可以接收点击事件
+
+					lvPopupList.setAdapter(new SimpleAdapter(content, moreList,
+							R.layout.list_item_popupwindow, new String[] { "share_key" },
+							new int[] { R.id.tv_list_item }));
+					lvPopupList.setOnItemClickListener(new OnItemClickListener() {
+							
+						@Override
+						public void onItemClick(AdapterView<?> parent, View view,
+								int position, long id) {
+							String name= moreList.get(position).get("share_key");
+							if(name.equals("修改")){
+								Intent i = new Intent(content, GaiLanMenuUpdateWindowActivity.class);  
+								content.startActivityForResult(i, 0);  
+							}
+							if(name.equals("删除")){
+								new SweetAlertDialog(content, SweetAlertDialog.WARNING_TYPE)
+		                        .setTitleText("删除?")
+		                        .setContentText("你确定要删除此菜单?删除后不可恢复!")
+		                        .setCancelText("取消")
+		                        .setConfirmText("删除")
+		                        .showCancelButton(true)
+		                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+		                            @Override
+		                            public void onClick(SweetAlertDialog sDialog) {
+		                                // reuse previous dialog instance, keep widget user state, reset them if you need
+		                                sDialog.setTitleText("删除!")
+		                                        .setContentText("您取消了删除此信息")
+		                                        .setConfirmText("确定")
+		                                        .showCancelButton(false)
+		                                        .setCancelClickListener(null)
+		                                        .setConfirmClickListener(null)
+		                                        .changeAlertType(SweetAlertDialog.ERROR_TYPE);
+
+		                               
+		                                
+		                            }
+		                        })
+		                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+		                            @Override
+		                            public void onClick(SweetAlertDialog sDialog) {
+		                            	LoadingDialog dialog2 = new LoadingDialog(content, "正在删除。。。");
+		        						dialog2.show();
+		                            	WeixinMenuManagerDelHandler dhListHandler = 
+												new WeixinMenuManagerDelHandler(sDialog, content,dialog2,v2);
+		                            	WeixinMenuManagerDelThread dhListThread = new WeixinMenuManagerDelThread(content,dat.getId(), dhListHandler);
+										dhListThread.start();					
+		                            }
+		                        })
+		                        .show();
+							}
+							if(name.equals("修改子项")){
+								
+							}
+						}
+					});
+
+					// 控制popupwindow的宽度和高度自适应
+					lvPopupList.measure(View.MeasureSpec.UNSPECIFIED,
+							View.MeasureSpec.UNSPECIFIED);
+					pwMyPopWindow.setWidth(lvPopupList.getMeasuredWidth());
+					pwMyPopWindow.setHeight((lvPopupList.getMeasuredHeight() + 20)
+							* NUM_OF_VISIBLE_LIST_ROWS);
+
+					// 控制popupwindow点击屏幕其他地方消失
+					pwMyPopWindow.setBackgroundDrawable(content.getResources().getDrawable(
+							R.drawable.bg_popupwindow));// 设置背景图片，不能在布局中设置，要通过代码来设置
+					pwMyPopWindow.setOutsideTouchable(true);// 触摸popupwindow外部，popupwindow消失。这个要求你的popupwindow要有背景图片才可以成功，如上
+				}
+				
+
+			}
+			
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weixin_mapset_all_layout_item_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+ 	<com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/mapItem_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="查看此位置"
+        bootstrapbutton:bb_roundedCorners="true"
+        bootstrapbutton:bb_text_gravity="center"
+        bootstrapbutton:bb_type="danger"
+        />
+</LinearLayout>

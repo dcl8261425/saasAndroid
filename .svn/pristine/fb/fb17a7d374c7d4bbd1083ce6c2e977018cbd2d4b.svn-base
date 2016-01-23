@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <TableRow 
+                            android:layout_width="fill_parent"
+                     android:layout_margin="0dp"
+                    android:gravity="center" 
+                     android:paddingBottom="16.0dip"
+                        android:paddingTop="8.0dip"
+                         android:layout_marginLeft="2.0dip"
+                        android:layout_marginRight="2.0dip"
+        >
+        <TextView android:id="@+id/crm_group_name"
+	        android:layout_width="match_parent"
+	        android:layout_height="50dp"
+	        android:textSize="20dp"
+	        android:textStyle="bold"
+	                android:dividerHeight="0dp"
+	        android:textColor="@color/darksalmon"
+	        android:gravity="center"
+	        />
+        </TableRow>
+	    <TableRow 
+                            android:layout_width="fill_parent"
+                     android:layout_margin="0dp"
+                    android:gravity="center" 
+                     android:paddingBottom="16.0dip"
+                        android:paddingTop="8.0dip"
+                         android:layout_marginLeft="2.0dip"
+                        android:layout_marginRight="2.0dip"
+        >
+	    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/crm_user_in_group_list_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_margin="2dp"
+                        android:text="选中"
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+	    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/crm_user_in_group_list_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_margin="2dp"
+                        android:text="查看组员"
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+    </TableRow>
+</TableLayout>

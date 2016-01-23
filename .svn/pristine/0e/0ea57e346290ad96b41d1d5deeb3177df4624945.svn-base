@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg2" >
+
+    <LinearLayout
+         android:id="@+id/login_main_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical" >
+
+        <com.herotculb.qunhaichat.widget.RoundedCornerImageView
+            android:id="@+id/image_icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_launcher" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/shape_rounded_miaobian"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/login_user_edit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#0000"
+                android:hint="用户名"
+                android:padding="8dp"
+                android:singleLine="true" />
+
+            <include layout="@layout/layout_line" />
+
+            <EditText
+                android:id="@+id/login_passwd_edit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#0000"
+                android:hint="密码"
+                android:padding="8dp"
+                android:password="true"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/login_login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_denglu"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="登 录"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</RelativeLayout>

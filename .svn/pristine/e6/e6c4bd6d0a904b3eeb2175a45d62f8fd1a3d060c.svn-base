@@ -1,0 +1,22 @@
+package com.herotculb.qunhaichat.weixin.gailan;
+
+import java.util.Map;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import android.content.Context;
+import android.os.Handler;
+
+public class WeixinMenuManagerDelHandler extends Handler {
+	SweetAlertDialog sDialog;
+	Context context;
+	public WeixinMenuManagerDelHandler(SweetAlertDialog sDialog, Context context) {
+		super();
+		this.sDialog = sDialog;
+		this.context = context;
+	}
+	@Override
+	public void handleMessage(android.os.Message msg) {
+		super.handleMessage(msg);
+		Map<String, Object> map = (Map<String, Object>) msg.obj;
+	}
+}

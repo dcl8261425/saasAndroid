@@ -1,0 +1,26 @@
+package com.herotculb.qunhaichat.homeactiviti.weixin.goods;
+
+import android.widget.LinearLayout;
+import android.widget.ListView;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+
+public class WeiXinGoods {
+	public HomeActivity home;
+	public LinearLayout linearLayout;
+	public WeiXinGoods(HomeActivity home,LinearLayout linearLayout){
+		this.home=home;
+		this.linearLayout=linearLayout;
+		LinearLayout gridLayout = (LinearLayout) home.inflater.inflate(
+				R.layout.weixin_goods_layout, null)
+				.findViewById(R.id.weixin_goods_main);
+		linearLayout.removeAllViews();
+		linearLayout.addView(gridLayout);
+		BootstrapButton up=(BootstrapButton) home.findViewById(R.id.weixin_goods_up_list);
+		BootstrapButton down=(BootstrapButton) home.findViewById(R.id.weixin_goods_down_list);
+		BootstrapButton add=(BootstrapButton) home.findViewById(R.id.weixin_goods_add_list);
+		ListView list=(ListView) home.findViewById(R.id.weixin_goods_list);
+	}
+}

@@ -1,0 +1,52 @@
+package com.herotculb.qunhaichat.homeactiviti.messageinfo;
+
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.homeactiviti.weixin.game.GameManager;
+
+public class VipSendManager {
+	public HomeActivity home;
+	public LinearLayout linearLayout;
+	public VipSendManager(HomeActivity home, LinearLayout linearLayout) {
+		this.home = home;
+		this.linearLayout = linearLayout;
+		
+		//会员发信
+		LinearLayout gridLayout = (LinearLayout) home.inflater.inflate(
+				R.layout.message_vip_send_layout, null)
+				.findViewById(R.id.message_vip_send_main);
+		linearLayout.removeAllViews();
+		linearLayout.addView(gridLayout);
+		BootstrapButton duiHuan = (BootstrapButton) linearLayout.findViewById(R.id.message_vip_send_duihuan);
+		BootstrapButton ordinary = (BootstrapButton) linearLayout.findViewById(R.id.message_vip_send_ordinary);
+		duiHuan.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 发送兑换券
+				LinearLayout linearLayout = (LinearLayout)
+						VipSendManager.this.home.findViewById(R.id.message_vip_send_list);
+				TableLayout gridLayout = (TableLayout) VipSendManager.this.home.inflater.inflate(
+						R.layout.message_vip_send_duihuan, null)
+						.findViewById(R.id.message_vip_send_main);
+				linearLayout.removeAllViews();
+				linearLayout.addView(gridLayout);
+				linearLayout.setVisibility(View.VISIBLE);
+			}
+		});
+		ordinary.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 发送普通短信
+				
+			}
+		});
+	}
+}

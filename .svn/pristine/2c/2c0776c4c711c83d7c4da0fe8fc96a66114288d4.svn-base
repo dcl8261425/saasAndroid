@@ -1,0 +1,908 @@
+package com.herotculb.qunhaichat;
+
+import static android.view.Gravity.START;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.SimpleAdapter;
+import android.widget.TableLayout;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.dto.ConpanyDTO;
+import com.herotculb.qunhaichat.dto.PermissionLoadDTO;
+import com.herotculb.qunhaichat.dto.UserDTO;
+import com.herotculb.qunhaichat.dto.WeiXinMenuTableDto;
+import com.herotculb.qunhaichat.hr.qiandao.MeetingHandler;
+import com.herotculb.qunhaichat.hr.qiandao.MeetingThread;
+import com.herotculb.qunhaichat.weixin.gailan.WeixinMenuManagerHandler;
+import com.herotculb.qunhaichat.weixin.gailan.WeixinMenuManagerThread;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+/**
+ * 主要用于获取用户权限
+ * 
+ * @author Administrator
+ * 
+ */
+public class HomeActivity extends Activity {
+
+	private DrawerArrowDrawable drawerArrowDrawable;
+	private float offset;
+	private boolean flipped;
+	private ListView mLv;
+	private Handler handler;
+	private List<Map<String, String>> crmList;
+	private List<Map<String, String>> hrList;
+	private List<Map<String, String>> weixinList;
+	private List<Map<String, String>> systemList;
+	private List<Map<String, String>> messageList;
+	private List<Map<String, String>> goodList;
+	private LinearLayout linearLayout;
+	private LayoutInflater inflater;
+	private BootstrapButton qiandao;
+	private RadioButton moreKuaijie;
+	private RadioButton jiangpin;
+	private RadioButton duanxin;
+	private RadioButton dingdan;
+	private RadioButton jifen;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.activity_home);
+		/*new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+        .setTitleText("Are you sure?")
+        .setContentText("Won't be able to recover this file!")
+        .setConfirmText("Yes,delete it!")
+        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+        @Override
+        public void onClick(SweetAlertDialog sDialog) {
+            // reuse previous dialog instance
+            sDialog.setTitleText("Deleted!")
+                    .setContentText("Your imaginary file has been deleted!")
+                    .setConfirmText("OK")
+                    .setConfirmClickListener(null)
+                    .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+        }
+        })
+        .show();*/
+
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	/**
+	 * 动态设置ListView的高度
+	 * 
+	 * @param listView
+	 */
+	public static void setListViewHeightBasedOnChildren(ListView listView) {
+		if (listView == null)
+			return;
+
+		ListAdapter listAdapter = listView.getAdapter();
+		if (listAdapter == null) {
+			// pre-condition
+			return;
+		}
+
+		int totalHeight = 0;
+		for (int i = 0; i < listAdapter.getCount(); i++) {
+			View listItem = listAdapter.getView(i, null, listView);
+			listItem.measure(0, 0);
+			totalHeight += listItem.getMeasuredHeight();
+		}
+
+		ViewGroup.LayoutParams params = listView.getLayoutParams();
+		params.height = totalHeight
+				+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+		listView.setLayoutParams(params);
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if(mLv!=null){
+			return ;
+		}
+		inflater = LayoutInflater.from(this);
+		final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		final ImageView imageView = (ImageView) findViewById(R.id.drawer_indicator);
+		final Resources resources = getResources();
+		mLv = (ListView) findViewById(R.id.id_lv);
+		moreKuaijie=(RadioButton)findViewById(R.id.radio_button4);
+		jiangpin=(RadioButton)findViewById(R.id.radio_button0);
+		duanxin=(RadioButton)findViewById(R.id.radio_button1);
+		dingdan=(RadioButton)findViewById(R.id.radio_button2);
+		jifen=(RadioButton)findViewById(R.id.radio_button3);
+		//更多快速 按钮
+		moreKuaijie.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				init_kuaisu(drawer);
+			}
+		});
+		//签到按钮的事件
+		qiandao=(BootstrapButton)findViewById(R.id.qiandao);
+		qiandao.setOnClickListener(new OnClickListener() {
+		
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+                new SweetAlertDialog(HomeActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("签到")
+                .setContentText("您确定在当前位置进行签到？")
+                .setCancelText("取消")
+                .setConfirmText("确定")
+                .showCancelButton(true)
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        // reuse previous dialog instance, keep widget user state, reset them if you need
+                        sDialog.setTitleText("签到取消")
+                                .setContentText("您的签到已经取消")
+                                .setConfirmText("确定")
+                                .showCancelButton(false)
+                                .setCancelClickListener(null)
+                                .setConfirmClickListener(null)
+                                .changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                    }
+                })
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                    	Handler handler = new MeetingHandler(sDialog,HomeActivity.this);
+                    	MeetingThread thread = new MeetingThread(
+                				handler, HomeActivity.this);
+                		thread.start();
+                    }
+                })
+                .show();
+			}
+		});
+		linearLayout = (LinearLayout) findViewById(R.id.id_framelayout);
+		drawerArrowDrawable = new DrawerArrowDrawable(resources);
+		drawerArrowDrawable.setStrokeColor(resources
+				.getColor(R.color.light_gray));
+		imageView.setImageDrawable(drawerArrowDrawable);
+
+		drawer.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+			@Override
+			public void onDrawerSlide(View drawerView, float slideOffset) {
+				offset = slideOffset;
+
+				// Sometimes slideOffset ends up so close to but not quite 1 or
+				// 0.
+				if (slideOffset >= .995) {
+					flipped = true;
+					drawerArrowDrawable.setFlip(flipped);
+				} else if (slideOffset <= .005) {
+					flipped = false;
+					drawerArrowDrawable.setFlip(flipped);
+				}
+
+				drawerArrowDrawable.setParameter(offset);
+			}
+		});
+
+		imageView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (drawer.isDrawerVisible(START)) {
+					drawer.closeDrawer(START);
+				} else {
+					drawer.openDrawer(START);
+				}
+			}
+		});
+		handler = new Handler() {
+			@Override
+			public void handleMessage(android.os.Message msg) {
+				super.handleMessage(msg);
+				Map<String, Object> map = (Map<String, Object>) msg.obj;
+				
+				boolean issuccess = (Boolean) map.get("success");
+				if (issuccess) {
+					// 获取成功
+					LinearLayout gridLayout = (LinearLayout) inflater.inflate(
+							R.layout.kuaisu_main, null)
+							.findViewById(R.id.kuaisu_main);
+					linearLayout.removeAllViews();
+					linearLayout.addView(gridLayout);
+					boolean iscrm = (Boolean) map.get("crm");
+					boolean hr = (Boolean) map.get("hr");
+					boolean goods = (Boolean) map.get("goods");
+					boolean weixin = (Boolean) map.get("weixin");
+					boolean system = (Boolean) map.get("system");
+					boolean messageInfo = (Boolean) map.get("messageInfo");
+					UserDTO user = (UserDTO) map.get("user");
+					List<HashMap<String, String>> data = new ArrayList<HashMap<String, String>>();
+					ConpanyDTO conpany = (ConpanyDTO) map.get("conpany");
+					HashMap<String, String> map3 = new HashMap<String, String>();
+					String name1 = "快捷操作";
+					map3.put("name", name1);
+					map3.put("index", "-1");
+					data.add(map3);
+					if (iscrm) {
+						List<PermissionLoadDTO> pldcrm = (List<PermissionLoadDTO>) map
+								.get("crmlist");
+						HashMap<String, String> map2 = new HashMap<String, String>();
+						String name = "客户管理";
+						map2.put("name", name);
+						map2.put("index", "1");
+						data.add(map2);
+						crmList = new ArrayList<Map<String, String>>();
+						for (int i = 0; i < pldcrm.size(); i++) {
+							PermissionLoadDTO pldcrmobj = pldcrm.get(i);
+							Map<String, String> crmmap = new HashMap<String, String>();
+							if (pldcrmobj.isIsuse()) {
+								crmmap.put("name", pldcrmobj.getMarks());
+								crmmap.put("tag", pldcrmobj.getName());
+								crmmap.put("use",
+										String.valueOf(pldcrmobj.isIsuse()));
+								crmList.add(crmmap);
+							}
+						}
+					}
+					if (weixin) {
+						List<PermissionLoadDTO> pldcrm = (List<PermissionLoadDTO>) map
+								.get("weixintemlist");
+						String name = "微信管理";
+						HashMap<String, String> map2 = new HashMap<String, String>();
+						map2.put("name", name);
+						map2.put("index", "0");
+						data.add(map2);
+						weixinList = new ArrayList<Map<String, String>>();
+						for (int i = 0; i < pldcrm.size(); i++) {
+							PermissionLoadDTO pldcrmobj = pldcrm.get(i);
+							Map<String, String> crmmap = new HashMap<String, String>();
+							if (pldcrmobj.isIsuse()) {
+								crmmap.put("name", pldcrmobj.getMarks());
+								crmmap.put("tag", pldcrmobj.getName());
+								crmmap.put("use",
+										String.valueOf(pldcrmobj.isIsuse()));
+								weixinList.add(crmmap);
+							}
+						}
+					}
+					if (goods) {
+						List<PermissionLoadDTO> pldcrm = (List<PermissionLoadDTO>) map
+								.get("goodslist");
+						String name = "库存管理";
+						HashMap<String, String> map2 = new HashMap<String, String>();
+						map2.put("name", name);
+						map2.put("index", "2");
+						data.add(map2);
+						goodList = new ArrayList<Map<String, String>>();
+						for (int i = 0; i < pldcrm.size(); i++) {
+							PermissionLoadDTO pldcrmobj = pldcrm.get(i);
+							Map<String, String> crmmap = new HashMap<String, String>();
+							if (pldcrmobj.isIsuse()) {
+								crmmap.put("name", pldcrmobj.getMarks());
+								crmmap.put("tag", pldcrmobj.getName());
+								crmmap.put("use",
+										String.valueOf(pldcrmobj.isIsuse()));
+								goodList.add(crmmap);
+							}
+						}
+					}
+					if (hr) {
+						List<PermissionLoadDTO> pldcrm = (List<PermissionLoadDTO>) map
+								.get("hrlist");
+						String name = "员工管理";
+						HashMap<String, String> map2 = new HashMap<String, String>();
+						map2.put("name", name);
+						map2.put("index", "3");
+						data.add(map2);
+						hrList = new ArrayList<Map<String, String>>();
+						for (int i = 0; i < pldcrm.size(); i++) {
+							PermissionLoadDTO pldcrmobj = pldcrm.get(i);
+							if (pldcrmobj.isIsuse()) {
+								Map<String, String> crmmap = new HashMap<String, String>();
+								crmmap.put("name", pldcrmobj.getMarks());
+								crmmap.put("tag", pldcrmobj.getName());
+								crmmap.put("use",
+										String.valueOf(pldcrmobj.isIsuse()));
+								hrList.add(crmmap);
+							}
+						}
+					}
+					if (system) {
+						List<PermissionLoadDTO> pldcrm = (List<PermissionLoadDTO>) map
+								.get("systemlist");
+						String name = "系统管理";
+						HashMap<String, String> map2 = new HashMap<String, String>();
+						map2.put("name", name);
+						map2.put("index", "5");
+						data.add(map2);
+						systemList = new ArrayList<Map<String, String>>();
+						for (int i = 0; i < pldcrm.size(); i++) {
+							PermissionLoadDTO pldcrmobj = pldcrm.get(i);
+							Map<String, String> crmmap = new HashMap<String, String>();
+							if (pldcrmobj.isIsuse()) {
+								crmmap.put("name", pldcrmobj.getMarks());
+								crmmap.put("tag", pldcrmobj.getName());
+								crmmap.put("use",
+										String.valueOf(pldcrmobj.isIsuse()));
+								systemList.add(crmmap);
+							}
+						}
+					}
+					if (messageInfo) {
+						List<PermissionLoadDTO> pldcrm = (List<PermissionLoadDTO>) map
+								.get("messageInfolist");
+						String name = "短信管理";
+						HashMap<String, String> map2 = new HashMap<String, String>();
+						map2.put("name", name);
+						map2.put("index", "4");
+						data.add(map2);
+						messageList = new ArrayList<Map<String, String>>();
+						for (int i = 0; i < pldcrm.size(); i++) {
+							PermissionLoadDTO pldcrmobj = pldcrm.get(i);
+							Map<String, String> crmmap = new HashMap<String, String>();
+							if (pldcrmobj.isIsuse()) {
+								crmmap.put("name", pldcrmobj.getMarks());
+								crmmap.put("tag", pldcrmobj.getName());
+								crmmap.put("use",
+										String.valueOf(pldcrmobj.isIsuse()));
+								messageList.add(crmmap);
+							}
+						}
+					}
+					String name = "账户管理";
+					HashMap<String, String> map2 = new HashMap<String, String>();
+					map2.put("name", name);
+					map2.put("index", "6");
+					data.add(map2);
+					String[] from = { "name" };
+					int[] to = { R.id.menuItemName };
+					SimpleAdapter adapter = new SimpleAdapter(
+							HomeActivity.this, data, R.layout.menuitem, from,
+							to);
+					mLv.setAdapter(adapter);
+				} else {
+					Object login = map.get("login");
+					if (login != null) {
+						// 登录超时
+					}
+					// 其他错误
+				}
+			};
+		};
+		mLv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				ListView listView = (ListView) parent;
+				HashMap<String, String> map = (HashMap<String, String>) listView
+						.getItemAtPosition(position);
+				String index = map.get("index");
+				if (index.equals("-1")) {
+					//快捷首页
+					init_kuaisu(drawer);
+				}
+				if (index.equals("0")) {
+					// 微信管理
+					Log.e("微信", "message");
+					LinearLayout gridLayout = (LinearLayout) inflater.inflate(
+							R.layout.weixin_item_menu_layout, null)
+							.findViewById(R.id.weixin_item_menu_layout_List);
+					linearLayout.removeAllViews();
+					linearLayout.addView(gridLayout);
+					ListView list = (ListView) linearLayout
+							.findViewById(R.id.weixin_item_menu_layout_List_listView);
+					String[] from = { "name" };
+					int[] to = { R.id.menuItemName };
+					SimpleAdapter adapter = new SimpleAdapter(
+							HomeActivity.this, weixinList, R.layout.menuitem,
+							from, to);
+					list.setAdapter(adapter);
+					setListViewHeightBasedOnChildren(list);
+					drawer.closeDrawer(START);
+					list.setOnItemClickListener(new OnItemClickListener() {
+						@Override
+						public void onItemClick(
+								android.widget.AdapterView<?> parent,
+								View view, int position, long id) {
+							ListView listView = (ListView) parent;
+							HashMap<String, String> map = (HashMap<String, String>) listView
+									.getItemAtPosition(position);
+							String tag = map.get("tag");
+							if (tag.equals("weixin1")) {
+								// 概览
+								Log.e("---------------------", "weixin1");
+								LinearLayout gridLayout = (LinearLayout) inflater.inflate(
+										R.layout.weixin_gailan_layout, null)
+										.findViewById(R.id.weixin_gailan_main);
+								linearLayout.removeAllViews();
+								linearLayout.addView(gridLayout);
+								BootstrapButton menuManage=(BootstrapButton) linearLayout.findViewById(R.id.weixin_menu_manager);
+								BootstrapButton autoResendSet=(BootstrapButton) linearLayout.findViewById(R.id.weixin_auto_manager);
+								BootstrapButton autoResendResoursManager=(BootstrapButton) linearLayout.findViewById(R.id.weixin_auto_definition);
+								BootstrapButton wenzhangManager=(BootstrapButton) linearLayout.findViewById(R.id.weixin_create_article);
+								menuManage.setOnClickListener(new OnClickListener() {
+									@Override
+									public void onClick(View v) {
+										// 菜单点击事件
+										LoadingDialog dialog = new LoadingDialog(HomeActivity.this, "正在获取数据");
+										dialog.show();
+										TableLayout layout=(TableLayout) HomeActivity.this.findViewById(R.id.weixin_gailan_menuManager);
+										layout.setVisibility(View.VISIBLE);
+										ViewGroup viewGroup=(ViewGroup) HomeActivity.this.findViewById(R.id.weixin_gailan_menuManager_list);
+										WeixinMenuManagerHandler weixinmenuManagerHandler=new WeixinMenuManagerHandler(HomeActivity.this,viewGroup,dialog);
+										WeixinMenuManagerThread weixinmenuthread=new WeixinMenuManagerThread(HomeActivity.this, "0", weixinmenuManagerHandler);
+										weixinmenuthread.start();
+									}
+								});
+								autoResendSet.setOnClickListener(new OnClickListener() {
+									
+									@Override
+									public void onClick(View v) {
+										// 自动回复设置
+										TableLayout layout=(TableLayout) HomeActivity.this.findViewById(R.id.weixin_gailan_autoResendSet);
+										layout.setVisibility(View.VISIBLE);
+										
+									}
+								});
+								autoResendResoursManager.setOnClickListener(new OnClickListener() {
+									
+									@Override
+									public void onClick(View v) {
+										// 自动回复资源管理
+										TableLayout layout=(TableLayout) HomeActivity.this.findViewById(R.id.weixin_gailan_autoResendResoursManager);
+										layout.setVisibility(View.VISIBLE);
+										
+									}
+								});
+								wenzhangManager.setOnClickListener(new OnClickListener() {
+									
+									@Override
+									public void onClick(View v) {
+										//文章管理
+										TableLayout layout=(TableLayout) HomeActivity.this.findViewById(R.id.weixin_gailan_wenzhangManager);
+										layout.setVisibility(View.VISIBLE);
+										
+									}
+								});
+							}
+							if (tag.equals("weixin2")) {
+								// 微信公众账号设置
+								Log.e("---------------------", "weixin2");
+							}
+							if (tag.equals("weixin3")) {
+								// 会员管理
+								Log.e("---------------------", "weixin3");
+							}
+							if (tag.equals("weixin4")) {
+								// 活动与游戏管理
+								Log.e("---------------------", "weixin4");
+							}
+							if (tag.equals("weixin5")) {
+								// 序列号兑换
+								Log.e("---------------------", "weixin5");
+							}
+							if (tag.equals("weixin6")) {
+								// 模板设置
+								Log.e("---------------------", "weixin6");
+							}
+							if (tag.equals("weixin7")) {
+								// 店铺地址设置
+								Log.e("---------------------", "weixin7");
+							}
+							if (tag.equals("weixin8")) {
+								// 微信商品管理
+								Log.e("---------------------", "weixin8");
+							}
+							if (tag.equals("weixin9")) {
+								// 微信订单管理
+								Log.e("---------------------", "weixin9");
+							}
+							if (tag.equals("weixin10")) {
+								// 会员wifi功能
+								Log.e("---------------------", "weixin10");
+							}
+						};
+					});
+				}
+				if (index.equals("1")) {
+					// 客户管理
+					Log.e("客户", "message");
+					LinearLayout gridLayout = (LinearLayout) inflater.inflate(
+							R.layout.weixin_item_menu_layout, null)
+							.findViewById(R.id.weixin_item_menu_layout_List);
+					linearLayout.removeAllViews();
+					linearLayout.addView(gridLayout);
+					ListView list = (ListView) linearLayout
+							.findViewById(R.id.weixin_item_menu_layout_List_listView);
+					String[] from = { "name" };
+					int[] to = { R.id.menuItemName };
+					SimpleAdapter adapter = new SimpleAdapter(
+							HomeActivity.this, crmList, R.layout.menuitem,
+							from, to);
+					list.setAdapter(adapter);
+					setListViewHeightBasedOnChildren(list);
+					drawer.closeDrawer(START);
+					list.setOnItemClickListener(new OnItemClickListener() {
+						@Override
+						public void onItemClick(
+								android.widget.AdapterView<?> parent,
+								View view, int position, long id) {
+							ListView listView = (ListView) parent;
+							HashMap<String, String> map = (HashMap<String, String>) listView
+									.getItemAtPosition(position);
+							String tag = map.get("tag");
+							if (tag.equals("crm1")) {
+								// 客户机会概览
+							}
+							if (tag.equals("crm2")) {
+								// 我创建客户机会
+							}
+							if (tag.equals("crm3")) {
+								// 分配给我的客户机会
+							}
+							if (tag.equals("crm4")) {
+								// 我的客户管理
+							}
+							if (tag.equals("crm5")) {
+								// 全部客户机
+							}
+						};
+					});
+				}
+				if (index.equals("2")) {
+					// 库存管理
+					Log.e("库存", "message");
+					LinearLayout gridLayout = (LinearLayout) inflater.inflate(
+							R.layout.weixin_item_menu_layout, null)
+							.findViewById(R.id.weixin_item_menu_layout_List);
+					linearLayout.removeAllViews();
+					linearLayout.addView(gridLayout);
+					ListView list = (ListView) linearLayout
+							.findViewById(R.id.weixin_item_menu_layout_List_listView);
+					String[] from = { "name" };
+					int[] to = { R.id.menuItemName };
+					SimpleAdapter adapter = new SimpleAdapter(
+							HomeActivity.this, goodList, R.layout.menuitem,
+							from, to);
+					list.setAdapter(adapter);
+					setListViewHeightBasedOnChildren(list);
+					drawer.closeDrawer(START);
+					list.setOnItemClickListener(new OnItemClickListener() {
+						@Override
+						public void onItemClick(
+								android.widget.AdapterView<?> parent,
+								View view, int position, long id) {
+							ListView listView = (ListView) parent;
+							HashMap<String, String> map = (HashMap<String, String>) listView
+									.getItemAtPosition(position);
+							String tag = map.get("tag");
+							if (tag.equals("good1")) {
+								// 库存概况
+							}
+							if (tag.equals("good2")) {
+								// 库存查询
+							}
+							if (tag.equals("good3")) {
+								// 进货管理
+							}
+							if (tag.equals("good4")) {
+								// 销售管理
+							}
+							if (tag.equals("good5")) {
+								// 进货商信息
+							}
+							if (tag.equals("good6")) {
+								// 仓库信息
+							}
+
+						};
+					});
+				}
+				if (index.equals("3")) {
+					// 员工管理
+					Log.e("员工", "message");
+					LinearLayout gridLayout = (LinearLayout) inflater.inflate(
+							R.layout.weixin_item_menu_layout, null)
+							.findViewById(R.id.weixin_item_menu_layout_List);
+					linearLayout.removeAllViews();
+					linearLayout.addView(gridLayout);
+					ListView list = (ListView) linearLayout
+							.findViewById(R.id.weixin_item_menu_layout_List_listView);
+					String[] from = { "name" };
+					int[] to = { R.id.menuItemName };
+					SimpleAdapter adapter = new SimpleAdapter(
+							HomeActivity.this, hrList, R.layout.menuitem, from,
+							to);
+					list.setAdapter(adapter);
+					setListViewHeightBasedOnChildren(list);
+					drawer.closeDrawer(START);
+					list.setOnItemClickListener(new OnItemClickListener() {
+						@Override
+						public void onItemClick(
+								android.widget.AdapterView<?> parent,
+								View view, int position, long id) {
+							ListView listView = (ListView) parent;
+							HashMap<String, String> map = (HashMap<String, String>) listView
+									.getItemAtPosition(position);
+							String tag = map.get("tag");
+							if (tag.equals("hr1")) {
+								// 概览
+							}
+							if (tag.equals("hr2")) {
+								// 员工账号管理
+							}
+							if (tag.equals("hr3")) {
+								// 绩效管理
+							}
+							if (tag.equals("hr4")) {
+								// 签到管理
+							}
+
+						};
+					});
+				}
+				if (index.equals("4")) {
+					// 短信管理
+					Log.e("短信", "message");
+					LinearLayout gridLayout = (LinearLayout) inflater.inflate(
+							R.layout.weixin_item_menu_layout, null)
+							.findViewById(R.id.weixin_item_menu_layout_List);
+					linearLayout.removeAllViews();
+					linearLayout.addView(gridLayout);
+					ListView list = (ListView) linearLayout
+							.findViewById(R.id.weixin_item_menu_layout_List_listView);
+					String[] from = { "name" };
+					int[] to = { R.id.menuItemName };
+					SimpleAdapter adapter = new SimpleAdapter(
+							HomeActivity.this, messageList, R.layout.menuitem,
+							from, to);
+					list.setAdapter(adapter);
+					setListViewHeightBasedOnChildren(list);
+					drawer.closeDrawer(START);
+					list.setOnItemClickListener(new OnItemClickListener() {
+						@Override
+						public void onItemClick(
+								android.widget.AdapterView<?> parent,
+								View view, int position, long id) {
+							ListView listView = (ListView) parent;
+							HashMap<String, String> map = (HashMap<String, String>) listView
+									.getItemAtPosition(position);
+							String tag = map.get("tag");
+							if (tag.equals("message1")) {
+								// 短信设置
+							}
+							if (tag.equals("message2")) {
+								// 会员发信
+							}
+							if (tag.equals("message3")) {
+								// 短信模板
+							}
+							if (tag.equals("message4")) {
+								// 历史信息
+							}
+
+						};
+					});
+				}
+				if (index.equals("5")) {
+					// 系统管理
+					Log.e("系统", "message");
+					LinearLayout gridLayout = (LinearLayout) inflater.inflate(
+							R.layout.weixin_item_menu_layout, null)
+							.findViewById(R.id.weixin_item_menu_layout_List);
+					linearLayout.removeAllViews();
+					linearLayout.addView(gridLayout);
+					ListView list = (ListView) linearLayout
+							.findViewById(R.id.weixin_item_menu_layout_List_listView);
+					String[] from = { "name" };
+					int[] to = { R.id.menuItemName };
+					SimpleAdapter adapter = new SimpleAdapter(
+							HomeActivity.this, systemList, R.layout.menuitem,
+							from, to);
+					list.setAdapter(adapter);
+					setListViewHeightBasedOnChildren(list);
+					drawer.closeDrawer(START);
+					list.setOnItemClickListener(new OnItemClickListener() {
+						@Override
+						public void onItemClick(
+								android.widget.AdapterView<?> parent,
+								View view, int position, long id) {
+							ListView listView = (ListView) parent;
+							HashMap<String, String> map = (HashMap<String, String>) listView
+									.getItemAtPosition(position);
+							String tag = map.get("tag");
+							if (tag.equals("sys1")) {
+								// 权限管理
+							}
+						};
+					});
+				}
+				if (index.equals("6")) {
+					// 账户管理
+					Log.e("账户", "message");
+					LinearLayout gridLayout = (LinearLayout) inflater.inflate(
+							R.layout.weixin_item_menu_layout, null)
+							.findViewById(R.id.weixin_item_menu_layout_List);
+					linearLayout.removeAllViews();
+					linearLayout.addView(gridLayout);
+					ListView list = (ListView) linearLayout
+							.findViewById(R.id.weixin_item_menu_layout_List_listView);
+					String[] from = { "name" };
+					int[] to = { R.id.menuItemName };
+					List<Map<String, String>> usermanage = new ArrayList<Map<String, String>>();
+					Map<String, String> crmmap = new HashMap<String, String>();
+					crmmap.put("name", "修改密码");
+					crmmap.put("tag", "message1");
+					crmmap.put("use", String.valueOf(true));
+					usermanage.add(crmmap);
+					SimpleAdapter adapter = new SimpleAdapter(
+							HomeActivity.this, usermanage, R.layout.menuitem,
+							from, to);
+					list.setAdapter(adapter);
+					setListViewHeightBasedOnChildren(list);
+					drawer.closeDrawer(START);
+					list.setOnItemClickListener(new OnItemClickListener() {
+						@Override
+						public void onItemClick(
+								android.widget.AdapterView<?> parent,
+								View view, int position, long id) {
+							ListView listView = (ListView) parent;
+							HashMap<String, String> map = (HashMap<String, String>) listView
+									.getItemAtPosition(position);
+							String tag = map.get("tag");
+							if (tag.equals("message1")) {
+								// 修改密码
+							}
+						};
+					});
+				}
+			}
+
+		});
+		HomeActivityPermissionThread thread = new HomeActivityPermissionThread(
+				handler, this);
+		thread.start();
+	}
+	private void init_kuaisu(DrawerLayout drawer){
+		LinearLayout gridLayout = (LinearLayout) inflater.inflate(
+				R.layout.kuaisu_main, null)
+				.findViewById(R.id.kuaisu_main);
+		linearLayout.removeAllViews();
+		linearLayout.addView(gridLayout);
+		drawer.closeDrawer(START);
+	}
+	
+	//alert 控件
+/*	@Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.basic_test:
+                // default title "Here's a message!"
+                new SweetAlertDialog(this)
+                        .show();
+                break;
+            case R.id.under_text_test:
+                new SweetAlertDialog(this)
+                        .setContentText("It's pretty, isn't it?")
+                        .show();
+                break;
+            case R.id.error_text_test:
+                new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText("Something went wrong!")
+                        .show();
+                break;
+            case R.id.success_text_test:
+                new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("Good job!")
+                        .setContentText("You clicked the button!")
+                        .show();
+                break;
+            case R.id.warning_confirm_test:
+                new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Are you sure?")
+                        .setContentText("Won't be able to recover this file!")
+                        .setConfirmText("Yes,delete it!")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            // reuse previous dialog instance
+                            sDialog.setTitleText("Deleted!")
+                                    .setContentText("Your imaginary file has been deleted!")
+                                    .setConfirmText("OK")
+                                    .setConfirmClickListener(null)
+                                    .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                        }
+                        })
+                        .show();
+                break;
+            case R.id.warning_cancel_test:
+                new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Are you sure?")
+                        .setContentText("Won't be able to recover this file!")
+                        .setCancelText("No,cancel plx!")
+                        .setConfirmText("Yes,delete it!")
+                        .showCancelButton(true)
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                // reuse previous dialog instance, keep widget user state, reset them if you need
+                                sDialog.setTitleText("Cancelled!")
+                                        .setContentText("Your imaginary file is safe :)")
+                                        .setConfirmText("OK")
+                                        .showCancelButton(false)
+                                        .setCancelClickListener(null)
+                                        .setConfirmClickListener(null)
+                                        .changeAlertType(SweetAlertDialog.ERROR_TYPE);
+
+                                // or you can new a SweetAlertDialog to show
+                                sDialog.dismiss();
+                                new SweetAlertDialog(SampleActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                        .setTitleText("Cancelled!")
+                                        .setContentText("Your imaginary file is safe :)")
+                                        .setConfirmText("OK")
+                                        .show();
+                            }
+                        })
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.setTitleText("Deleted!")
+                                        .setContentText("Your imaginary file has been deleted!")
+                                        .setConfirmText("OK")
+                                        .showCancelButton(false)
+                                        .setCancelClickListener(null)
+                                        .setConfirmClickListener(null)
+                                        .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                            }
+                        })
+                        .show();
+                break;
+            case R.id.custom_img_test:
+                new SweetAlertDialog(this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                        .setTitleText("Sweet!")
+                        .setContentText("Here's a custom image.")
+                        .setCustomImage(R.drawable.custom_img)
+                        .show();
+                break;
+        }
+    }*/
+}

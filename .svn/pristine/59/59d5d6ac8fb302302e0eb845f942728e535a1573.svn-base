@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weixin_duihuan_layout_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+  
+      <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/weixin_duihuan_layout_jifen"
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:text="积分兑换序列号验证"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+       <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/weixin_duihuan_layout_huodong"
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:text="活动兑换序列号验证"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+        <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/weixin_duihuan_layout_erweima"
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:text="扫描二维码"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+
+</LinearLayout>

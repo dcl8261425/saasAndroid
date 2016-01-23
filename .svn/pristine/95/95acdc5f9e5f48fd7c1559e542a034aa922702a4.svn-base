@@ -1,0 +1,220 @@
+package com.herotculb.qunhaichat.homeactiviti.messageinfo;
+
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.messageinfo.SetTempHandler;
+import com.herotculb.qunhaichat.messageinfo.SetTempThread;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class ModelManager {
+	public HomeActivity home;
+	public LinearLayout linearLayout;
+	public ModelManager(HomeActivity home, LinearLayout linearLayout) {
+		this.home = home;
+		this.linearLayout = linearLayout;
+		
+		//短信模板
+		LinearLayout gridLayout = (LinearLayout) home.inflater.inflate(
+				R.layout.message_model_layout, null)
+				.findViewById(R.id.message_model_main);
+		linearLayout.removeAllViews();
+		linearLayout.addView(gridLayout);
+		BootstrapButton addScore = (BootstrapButton) linearLayout.findViewById(R.id.message_model_add_score);
+		BootstrapButton addPrice = (BootstrapButton) linearLayout.findViewById(R.id.message_model_add_price);
+		BootstrapButton jianScore = (BootstrapButton) linearLayout.findViewById(R.id.message_model_jian_score);
+		BootstrapButton jianPrice = (BootstrapButton) linearLayout.findViewById(R.id.message_model_jian_price);
+		BootstrapButton order = (BootstrapButton) linearLayout.findViewById(R.id.message_model_order);
+		addScore.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 添加积分时
+				LinearLayout gridLayout = (LinearLayout)
+						ModelManager.this.home.inflater.inflate(
+								R.layout.message_model_add_score, null)
+								.findViewById(R.id.message_model_add_score_main);
+				LinearLayout linearLayout = (LinearLayout)
+						ModelManager.this.home.findViewById(R.id.message_model_container);
+				linearLayout.removeAllViews();
+				linearLayout.addView(gridLayout);
+				
+				BootstrapButton enter = (BootstrapButton) linearLayout.findViewById(R.id.message_model_enter);
+				enter.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View arg0) {
+						// TODO 添加积分
+						LoadingDialog dialog = new LoadingDialog(ModelManager.this.home,"正在保存数据！");
+						dialog.show();
+						SetTempHandler handler = 
+								new SetTempHandler(ModelManager.this.home, dialog);
+						SetTempThread thread = 
+								new SetTempThread(ModelManager.this.home, "add", "1", handler);
+						thread.start();
+					}
+				});
+				LoadingDialog dialog = new LoadingDialog(ModelManager.this.home,"正在获取数据！");
+				dialog.show();
+				SetTempHandler handler = 
+						new SetTempHandler(ModelManager.this.home, dialog);
+				SetTempThread thread = 
+						new SetTempThread(ModelManager.this.home, "get", "2", handler);
+				thread.start();
+			}
+		});
+		addPrice.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 添加储值时
+				LinearLayout gridLayout = (LinearLayout)
+						ModelManager.this.home.inflater.inflate(
+								R.layout.message_model_add_price, null)
+								.findViewById(R.id.message_model_add_price_main);
+				LinearLayout linearLayout = (LinearLayout)
+						ModelManager.this.home.findViewById(R.id.message_model_container);
+				linearLayout.removeAllViews();
+				linearLayout.addView(gridLayout);
+				BootstrapButton enter = (BootstrapButton) linearLayout.findViewById(R.id.message_model_enter);
+				enter.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View arg0) {
+						// TODO 添加储值
+						LoadingDialog dialog = new LoadingDialog(ModelManager.this.home,"正在保存数据！");
+						dialog.show();
+						SetTempHandler handler = 
+								new SetTempHandler(ModelManager.this.home, dialog);
+						SetTempThread thread = 
+								new SetTempThread(ModelManager.this.home, "add", "2", handler);
+						thread.start();
+					}
+				});
+				LoadingDialog dialog = new LoadingDialog(ModelManager.this.home,"正在获取数据！");
+				dialog.show();
+				SetTempHandler handler = 
+						new SetTempHandler(ModelManager.this.home, dialog);
+				SetTempThread thread = 
+						new SetTempThread(ModelManager.this.home, "get", "2", handler);
+				thread.start();
+			}
+		});
+		jianScore.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 减少积分时
+				LinearLayout gridLayout = (LinearLayout)
+						ModelManager.this.home.inflater.inflate(
+								R.layout.message_model_jian_score, null)
+								.findViewById(R.id.message_model_jian_score_main);
+				LinearLayout linearLayout = (LinearLayout)
+						ModelManager.this.home.findViewById(R.id.message_model_container);
+				linearLayout.removeAllViews();
+				linearLayout.addView(gridLayout);
+				BootstrapButton enter = (BootstrapButton) linearLayout.findViewById(R.id.message_model_enter);
+				enter.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View arg0) {
+						// TODO 减少积分
+						LoadingDialog dialog = new LoadingDialog(ModelManager.this.home,"正在保存数据！");
+						dialog.show();
+						SetTempHandler handler = 
+								new SetTempHandler(ModelManager.this.home, dialog);
+						SetTempThread thread = 
+								new SetTempThread(ModelManager.this.home, "add", "3", handler);
+						thread.start();
+					}
+				});
+				LoadingDialog dialog = new LoadingDialog(ModelManager.this.home,"正在获取数据！");
+				dialog.show();
+				SetTempHandler handler = 
+						new SetTempHandler(ModelManager.this.home, dialog);
+				SetTempThread thread = 
+						new SetTempThread(ModelManager.this.home, "get", "2", handler);
+				thread.start();
+			}
+		});
+		jianPrice.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 减少储值时
+				LinearLayout gridLayout = (LinearLayout)
+						ModelManager.this.home.inflater.inflate(
+								R.layout.message_model_jian_price, null)
+								.findViewById(R.id.message_model_jian_price_main);
+				LinearLayout linearLayout = (LinearLayout)
+						ModelManager.this.home.findViewById(R.id.message_model_container);
+				linearLayout.removeAllViews();
+				linearLayout.addView(gridLayout);
+				BootstrapButton enter = (BootstrapButton) linearLayout.findViewById(R.id.message_model_enter);
+				enter.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View arg0) {
+						// TODO 减少储值
+						LoadingDialog dialog = new LoadingDialog(ModelManager.this.home,"正在保存数据！");
+						dialog.show();
+						SetTempHandler handler = 
+								new SetTempHandler(ModelManager.this.home, dialog);
+						SetTempThread thread = 
+								new SetTempThread(ModelManager.this.home, "add", "4", handler);
+						thread.start();
+					}
+				});
+				LoadingDialog dialog = new LoadingDialog(ModelManager.this.home,"正在获取数据！");
+				dialog.show();
+				SetTempHandler handler = 
+						new SetTempHandler(ModelManager.this.home, dialog);
+				SetTempThread thread = 
+						new SetTempThread(ModelManager.this.home, "get", "2", handler);
+				thread.start();
+			}
+		});
+		order.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 用户下订单时发送给商户
+				LinearLayout gridLayout = (LinearLayout)
+						ModelManager.this.home.inflater.inflate(
+								R.layout.message_model_order, null)
+								.findViewById(R.id.message_model_order_main);
+				LinearLayout linearLayout = (LinearLayout)
+						ModelManager.this.home.findViewById(R.id.message_model_container);
+				linearLayout.removeAllViews();
+				linearLayout.addView(gridLayout);
+				BootstrapButton enter = (BootstrapButton) linearLayout.findViewById(R.id.message_model_enter);
+				enter.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View arg0) {
+						// TODO 用户订单
+						LoadingDialog dialog = new LoadingDialog(ModelManager.this.home,"正在保存数据！");
+						dialog.show();
+						SetTempHandler handler = 
+								new SetTempHandler(ModelManager.this.home, dialog);
+						SetTempThread thread = 
+								new SetTempThread(ModelManager.this.home, "add", "5", handler);
+						thread.start();
+					}
+				});
+				LoadingDialog dialog = new LoadingDialog(ModelManager.this.home,"正在获取数据！");
+				dialog.show();
+				SetTempHandler handler = 
+						new SetTempHandler(ModelManager.this.home, dialog);
+				SetTempThread thread = 
+						new SetTempThread(ModelManager.this.home, "get", "2", handler);
+				thread.start();
+			}
+		});
+	}
+	
+}

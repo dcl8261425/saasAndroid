@@ -1,0 +1,42 @@
+package com.herotculb.qunhaichat.location;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import android.util.Log;
+
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.mapapi.map.MyLocationData;
+import com.herotculb.qunhaichat.util.QNPermissionApiImpl;
+
+public class LocationListenner implements BDLocationListener{
+	String username;
+	String password;
+	public LocationListenner(String username,String password) {
+		// TODO Auto-generated constructor stub
+		this.username=username;
+		this.password=password;
+	}
+	public void onReceiveLocation(BDLocation location) {
+		// map view 销毁后不在处理新接收的位置
+		Log.e("user", username);
+		Log.e("user", password);
+		MyLocationData locData = new MyLocationData.Builder()
+				.accuracy(location.getRadius())
+				// 此处设置开发者获取到的方向信息，顺时针0-360
+				.direction(100).latitude(location.getLatitude())
+				.longitude(location.getLongitude()).build();
+		Log.e("定位", "getLatitude "+location.getLatitude()+" getLongitude"+location.getLongitude()+"");
+		LocationUpTread up=new LocationUpTread(username, password, location.getLongitude()+"", location.getLatitude()+"");
+		up.start();
+	}
+
+	public void onReceivePoi(BDLocation poiLocation) {
+		
+	}
+}

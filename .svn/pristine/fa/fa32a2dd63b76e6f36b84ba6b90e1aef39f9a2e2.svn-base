@@ -1,0 +1,51 @@
+package com.herotculb.qunhaichat.weixin.gailan.window;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.R;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.View.OnClickListener;
+
+public class VoiceResourceWindow extends Activity {
+	private BootstrapButton enter;
+	private BootstrapButton cencal;
+	private BootstrapEditText name;
+	private BootstrapEditText content;
+	private BootstrapEditText idedit;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// 隐藏头
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.weixin_gailan_autoresoure_voice_window);
+		enter=(BootstrapButton) findViewById(R.id.weixin_gailan_autoresoure_voice_content_enter);
+		cencal=(BootstrapButton) findViewById(R.id.weixin_gailan_autoresoure_voice_content_cancel);
+		name=(BootstrapEditText) findViewById(R.id.weixin_gailan_autoresoure_voice_name);
+		content=(BootstrapEditText) findViewById(R.id.weixin_gailan_autoresoure_voice_content);
+		idedit=(BootstrapEditText) findViewById(R.id.weixin_gailan_autoresoure_voice_id);
+		Bundle bundle = getIntent().getExtras();
+		Object idstr = bundle.get("id");
+		
+		if(idstr!=null&&!idstr.equals("")){
+			Object namestr = bundle.get("name");
+			Object contentstr =  bundle.get("mediaId");
+			name.setText((String)namestr);
+			idedit.setText((String)idstr);
+			content.setText((String)contentstr);
+		}
+		cencal.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				VoiceResourceWindow.this.finish();
+			}
+		});
+	}
+}

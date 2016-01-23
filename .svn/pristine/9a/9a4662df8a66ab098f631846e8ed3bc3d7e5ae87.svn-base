@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+        <ImageView android:id="@+id/ret_list_create_user"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+        <TextView android:id="@+id/ret_list_content"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:textSize="20dp"
+	        android:textColor="@color/darksalmon"
+	        android:gravity="center"
+	        />
+        <TextView android:id="@+id/ret_list_create_date"
+	        android:layout_width="fill_parent"
+	        android:layout_height="50dp"
+	        android:textSize="20dp"
+	        android:textStyle="bold"
+	                android:dividerHeight="0dp"
+	        android:textColor="@color/darksalmon"
+	        android:gravity="center"
+	        />
+	    <com.beardedhen.androidbootstrap.BootstrapButton
+             android:id="@+id/ret_list_delete"
+             android:layout_width="wrap_content"
+             android:layout_height="50dp"
+             android:layout_margin="2dp"
+             android:text="删除"
+             bootstrapbutton:bb_roundedCorners="true"
+             bootstrapbutton:bb_text_gravity="center"
+             bootstrapbutton:bb_type="danger" />
+</TableLayout>

@@ -1,0 +1,57 @@
+package com.herotculb.qunhaichat.dto.weixin.auto;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class AotuSendImageTextMessageDto {
+	private String toUserName;
+	private String fromUserName;
+	private String createTime;
+	private String msgType;
+	private String articleCount;
+	private AotuSendImageTextMessageContentListDto articles;
+	public String getToUserName() {
+		return toUserName;
+	}
+	public void setToUserName(String toUserName) {
+		this.toUserName = toUserName;
+	}
+	public String getFromUserName() {
+		return fromUserName;
+	}
+	public void setFromUserName(String fromUserName) {
+		this.fromUserName = fromUserName;
+	}
+	public String getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+	public String getMsgType() {
+		return msgType;
+	}
+	public void setMsgType(String msgType) {
+		this.msgType = msgType;
+	}
+	/**
+	 * 图文消息个数，限制为10条以内
+	 * @return
+	 */
+	public String getArticleCount() {
+		return articleCount;
+	}
+	public void setArticleCount(String articleCount) {
+		this.articleCount = articleCount;
+	}
+	public AotuSendImageTextMessageContentListDto getArticles() {
+		return articles;
+	}
+	public void setArticles(AotuSendImageTextMessageContentListDto articles) {
+		this.articles = articles;
+	}
+	
+
+	
+}

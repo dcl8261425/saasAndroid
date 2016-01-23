@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">青柠协同商户端</string>
+    <string name="action_settings">设置</string>
+    <string name="msg_load_ing">加载中....</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="hello_world">主面板</string>
+      <string name="dialog_default_title">Here\'s a message!</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+        <string name="main_news">短信</string>
+    <string name="main_home">奖品</string>
+    <string name="more">更多</string>
+    <string name="main_manage_date">文章</string>
+    <string name="main_friends">积分</string>
+</resources>

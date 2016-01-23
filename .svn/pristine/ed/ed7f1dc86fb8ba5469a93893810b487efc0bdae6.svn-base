@@ -1,0 +1,21 @@
+package com.herotculb.qunhaichat.weixin.gailan.huifuziyuan;
+
+import android.content.Context;
+import android.os.Handler;
+
+public class AutoResendSetThread extends Thread{
+	private Context context;
+	private String id;
+	private Handler handler;
+		
+	public AutoResendSetThread(Context context, String id,Handler handler) {
+		super();
+		this.context = context;
+		this.id = id;
+		this.handler = handler;
+	}
+	@Override
+	public void run() {
+		
+	}
+}

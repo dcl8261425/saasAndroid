@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+  android:orientation="vertical"  
+  android:id="@+id/employee_add_customer_layout"
+  android:layout_width="match_parent"  
+  android:background="@drawable/dialog_background"
+  android:layout_height="wrap_content" >
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/customer_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="id"
+        android:singleLine="true"
+        android:visibility="gone"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+        <TableRow android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/customer_username"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="账号前缀 如：前缀@编号.com"
+	        android:layout_weight="1"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/customer_password"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="密码"
+	        android:layout_weight="1"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        </TableRow>
+		 <TableRow android:layout_width="match_parent"
+		     android:layout_height="wrap_content">
+		     <com.beardedhen.androidbootstrap.BootstrapEditText
+		        android:id="@+id/customer_name"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="10dp"
+		        android:hint="姓名"
+		        android:layout_weight="1"
+		        android:singleLine="true"
+		        bootstrapbutton:be_roundedCorners="true"
+		        bootstrapbutton:be_state="warning" />
+	        <com.beardedhen.androidbootstrap.BootstrapEditText
+		        android:id="@+id/customer_phone"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="10dp"
+		        android:hint="电话"
+		        android:layout_weight="1"
+		        android:singleLine="true"
+		        bootstrapbutton:be_roundedCorners="true"
+		        bootstrapbutton:be_state="warning" />
+		 </TableRow>
+		 <TableRow android:layout_width="match_parent"
+		     android:layout_height="wrap_content">
+		     <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/customer_email"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="email"
+	        android:layout_weight="1"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/customer_idnum"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="身份证号"
+	        android:layout_weight="1"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+		 </TableRow>
+	 	<TableRow android:layout_width="fill_parent"
+		    android:layout_height="wrap_content">
+		    
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/customer_useLogin"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="是否可用"
+	        android:layout_weight="1"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+         <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/customer_useLogin_select"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="选择"
+                android:layout_weight="1"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />  
+		</TableRow>
+		<TableRow android:layout_width="fill_parent"
+		    android:layout_height="wrap_content">
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/customer_sex"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="性别"
+	        android:layout_weight="1"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+         <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/customer_sex_select"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="选择"
+                android:layout_weight="1"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />  
+		</TableRow>   
+		<TableRow android:layout_width="fill_parent"
+		    android:layout_height="wrap_content">
+		    <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/customer_stute"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="员工合同类型"
+	        android:layout_weight="1"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/customer_address"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="地址"
+	        android:layout_weight="1"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+		</TableRow>
+		<TableRow android:layout_width="fill_parent"
+		    android:layout_height="wrap_content">
+		    <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/customer_price"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="薪水"
+	        android:layout_weight="1"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/customer_marks"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="备注"
+	        android:layout_weight="1"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+		</TableRow>
+	 <TableRow android:layout_width="fill_parent"
+		    android:layout_height="wrap_content">
+		    <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/customer_image"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="员工照片"
+	        android:layout_weight="1"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+		<com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/customer_image_select"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:text="选择"
+            android:layout_weight="1"
+            bootstrapbutton:bb_roundedCorners="true"
+            bootstrapbutton:bb_text_gravity="center"
+            bootstrapbutton:bb_type="danger" />  
+		</TableRow>   
+		<TableRow android:layout_width="fill_parent"
+		    android:layout_height="wrap_content">
+        	<com.beardedhen.androidbootstrap.BootstrapEditText
+		        android:id="@+id/customer_idimage"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="10dp"
+		        android:hint="身份证照片"
+		        android:layout_weight="1"
+		        android:singleLine="true"
+		        bootstrapbutton:be_roundedCorners="true"
+		        bootstrapbutton:be_state="warning" />
+	        <com.beardedhen.androidbootstrap.BootstrapButton
+	            android:id="@+id/customer_idimage_select"
+	            android:layout_width="match_parent"
+	            android:layout_height="50dp"
+	            android:layout_margin="5dp"
+	            android:text="选择"
+	            android:layout_weight="1"
+	            bootstrapbutton:bb_roundedCorners="true"
+	            bootstrapbutton:bb_text_gravity="center"
+	            bootstrapbutton:bb_type="danger" />
+        </TableRow>
+		<TableRow android:layout_width="fill_parent"
+		    android:layout_height="wrap_content">
+        	<ImageView android:id="@+id/customer_img"
+        	    android:layout_width="fill_parent"
+        	    android:layout_height="wrap_content"
+        	    android:layout_weight="1"
+        	    android:visibility="gone"/>
+        	<ImageView android:id="@+id/customer_idimg"
+        	    android:layout_width="fill_parent"
+        	    android:layout_height="wrap_content"
+        	    android:layout_weight="1"
+        	    android:visibility="gone"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/customer_content_enter"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="确定"
+                android:layout_weight="1"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/customer_content_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="取消"
+                android:layout_weight="1"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

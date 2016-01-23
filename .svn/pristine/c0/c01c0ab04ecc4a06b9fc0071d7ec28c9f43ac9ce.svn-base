@@ -1,0 +1,78 @@
+package com.herotculb.qunhaichat.homeactiviti.weixin.mapset;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
+
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.location.LocationClientOption.LocationMode;
+import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BaiduMapOptions;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.model.LatLng;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+
+public class MapSet {
+	public HomeActivity home;
+	public LinearLayout linearLayout;
+	private LocationClient mLocationClient;
+	private TextView LocationResult, ModeInfor;
+	private Button startLocation;
+
+	private LocationMode tempMode = LocationMode.Hight_Accuracy;
+	private String tempcoor = "bd09";
+	private MapView mMapView;
+	private BaiduMap mBaiduMap;
+
+	public MapSet(final HomeActivity home, LinearLayout linearLayout) {
+		this.home = home;
+		this.linearLayout = linearLayout;
+		LinearLayout gridLayout = (LinearLayout) home.inflater.inflate(
+				R.layout.weixin_mapset_layout, null).findViewById(
+				R.id.weixin_mapset_layout_main);
+		linearLayout.removeAllViews();
+		linearLayout.addView(gridLayout);
+		// 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
+		/*
+		 * SDKInitializer.initialize(home.getApplicationContext()); Intent
+		 * intent = home.getIntent(); if (intent.hasExtra("x") &&
+		 * intent.hasExtra("y")) { // 当用intent参数时，设置中心点为指定点 Bundle b =
+		 * intent.getExtras(); LatLng p = new LatLng(b.getDouble("y"),
+		 * b.getDouble("x")); mMapView = new MapView(home, new
+		 * BaiduMapOptions().mapStatus(new MapStatus.Builder()
+		 * .target(p).build())); } else { mMapView = new MapView(home, new
+		 * BaiduMapOptions()); } LinearLayout maplay=(LinearLayout)
+		 * home.findViewById(R.id.mapview); maplay.addView(mMapView); mBaiduMap
+		 * = mMapView.getMap();
+		 */
+		mLocationClient = ((LocationApplication) home.getApplication()).mLocationClient;
+
+		LocationResult = (TextView) home.findViewById(R.id.textView1);
+		((LocationApplication) home.getApplication()).mLocationResult = LocationResult;
+		InitLocation();
+		mLocationClient.start();
+
+	}
+
+	private void InitLocation() {
+		LocationClientOption option = new LocationClientOption();
+		option.setLocationMode(tempMode);// 设置定位模式
+		option.setCoorType(tempcoor);// 返回的定位结果是百度经纬度，默认值gcj02
+		int span = 1000;
+		option.setScanSpan(span);// 设置发起定位请求的间隔时间为5000ms
+		option.setIsNeedAddress(true);
+		mLocationClient.setLocOption(option);
+	}
+}

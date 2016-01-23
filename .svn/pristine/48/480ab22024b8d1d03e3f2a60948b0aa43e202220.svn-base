@@ -1,0 +1,58 @@
+package com.herotculb.qunhaichat.homeactiviti;
+
+import android.os.Handler;
+import android.view.View;
+import android.view.View.OnClickListener;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.hr.qiandao.MeetingHandler;
+import com.herotculb.qunhaichat.hr.qiandao.MeetingThread;
+/**
+ * 签到
+ * @author Administrator
+ *
+ */
+public class QiandaoButtonOnclick {
+	BootstrapButton  but;
+	public QiandaoButtonOnclick(BootstrapButton  but,final HomeActivity home){
+		this.but=but;
+		this.but.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+                new SweetAlertDialog(home, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("签到")
+                .setContentText("您确定在当前位置进行签到？")
+                .setCancelText("取消")
+                .setConfirmText("确定")
+                .showCancelButton(true)
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        // reuse previous dialog instance, keep widget user state, reset them if you need
+                        sDialog.setTitleText("签到取消")
+                                .setContentText("您的签到已经取消")
+                                .setConfirmText("确定")
+                                .showCancelButton(false)
+                                .setCancelClickListener(null)
+                                .setConfirmClickListener(null)
+                                .changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                    }
+                })
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                    	Handler handler = new MeetingHandler(sDialog,home);
+                    	MeetingThread thread = new MeetingThread(
+                				handler,home);
+                		thread.start();
+                    }
+                })
+                .show();
+			}
+		});
+	}
+}

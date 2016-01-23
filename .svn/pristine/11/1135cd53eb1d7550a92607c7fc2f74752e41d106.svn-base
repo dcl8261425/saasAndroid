@@ -1,0 +1,14 @@
+package com.herotculb.qunhaichat.homeactiviti.weixin.account;
+
+import android.widget.LinearLayout;
+
+import com.herotculb.qunhaichat.HomeActivity;
+
+public class AccountSet {
+	public HomeActivity home;
+	public LinearLayout linearLayout;
+	public AccountSet(HomeActivity home,LinearLayout linearLayout){
+		this.home=home;
+		this.linearLayout=linearLayout;
+	}
+}

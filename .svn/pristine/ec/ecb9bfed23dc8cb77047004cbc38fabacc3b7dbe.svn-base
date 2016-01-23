@@ -1,0 +1,39 @@
+package com.herotculb.qunhaichat.goods.operationstore;
+
+import java.util.List;
+import java.util.Map;
+
+import android.app.Activity;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+
+import com.herotculb.qunhaichat.util.QNPermissionApiImpl;
+
+public class GoodsDeleteStoreHouseThread extends Thread {
+	private Activity context;
+	private Handler handler;
+	private String id;
+	
+	public GoodsDeleteStoreHouseThread(Activity context,
+			Handler handler, String id) {
+		super();
+		this.context = context;
+		this.handler = handler;
+		this.id = id;
+	}
+
+	@Override
+	public void run() {
+		super.run();
+		Looper.prepare();
+		
+		QNPermissionApiImpl qnpAPi=new QNPermissionApiImpl(context);
+		List<Map<String, Object>> list=qnpAPi.deleteStoreHouse(id);
+		Map<String,Object> map=list.iterator().next();
+		Message sendmsg = Message.obtain();  
+        sendmsg.obj = map;   //利用Message.obj把子线程的handle传递给主线程。  
+        handler.sendMessage(sendmsg);  
+	}
+	
+}

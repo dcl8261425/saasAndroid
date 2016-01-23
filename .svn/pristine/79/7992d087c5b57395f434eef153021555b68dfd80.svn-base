@@ -1,0 +1,123 @@
+package com.herotculb.qunhaichat.employee.meeting;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TableLayout;
+import android.widget.TextView;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.ConpanyUserDto;
+import com.herotculb.qunhaichat.dto.ConpanyUserMeetingDto;
+import com.herotculb.qunhaichat.goods.source.window.GoodsAddSourceWindow;
+import com.herotculb.qunhaichat.util.DateUtil;
+
+public class GetCustomerMeetingInfoAdapter extends BaseAdapter {
+	private Activity  context;
+	private List<ConpanyUserMeetingDto> list;
+	
+	public GetCustomerMeetingInfoAdapter(Activity context, List<ConpanyUserMeetingDto> list) {
+		super();
+		this.context = context;
+		this.list = list;
+	}
+
+	@Override
+	public int getCount() {
+		// TODO 自动生成的方法存根
+		return list.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		// TODO 自动生成的方法存根
+		return list.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		// TODO 自动生成的方法存根
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO 自动生成的方法存根
+		final ConpanyUserMeetingDto dto = (ConpanyUserMeetingDto) getItem(position);
+		LayoutInflater inflater = LayoutInflater.from(context);
+		TableLayout gridLayout = (TableLayout) inflater.inflate(
+				R.layout.employee_meeting_list, null);
+		if(gridLayout.findViewById(R.id.employee_company_user_truename)!=null){
+			TextView name  = (TextView) gridLayout.findViewById(R.id.employee_company_user_truename);
+			TextView startDate = (TextView) gridLayout.findViewById(R.id.employee_start_date);
+			TextView endDate = (TextView) gridLayout.findViewById(R.id.employee_end_date);
+			TextView stute = (TextView) gridLayout.findViewById(R.id.employee_stute);
+			TextView stuteMarks = (TextView) gridLayout.findViewById(R.id.employee_stute_marks);
+			BootstrapButton update =(BootstrapButton) gridLayout.findViewById(R.id.employee_customer_update);
+			name.setText("姓名："+dto.getConpanyUsertrueName());
+			String sdateStr = "未签到";
+			if(dto.getStartDate()!=null && !dto.getStartDate().equals("")
+					&& dto.getStartDate().toString()!="null"){
+				Date date = new Date();
+				Long sdate = Long.parseLong(dto.getStartDate().toString());
+				date.setTime(sdate);
+				SimpleDateFormat time=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				sdateStr = time.format(date);
+			}
+			startDate.setText("签到时间："+sdateStr);
+			String edateStr = "未签到";
+			if(dto.getEndDate()!=null && !dto.getEndDate().equals("")
+					&& dto.getEndDate().toString() != "null"){
+				Date date = new Date();
+				Long sdate = Long.parseLong(dto.getEndDate().toString());
+				date.setTime(sdate);
+				SimpleDateFormat time=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				edateStr = time.format(date);
+			}
+			endDate.setText("签退时间："+edateStr);
+			String stuteText = "未签到";
+			if(dto.getStute()==1){
+				stuteText = "迟到";
+			}
+			else if(dto.getStute()==2){
+				stuteText = "早退";
+			}
+			else if(dto.getStute()==3){
+				stuteText = "迟到加早退";
+			}
+			else if(dto.getStute()==4){
+				stuteText = "外出";
+			}
+			else if(dto.getStute()==5){
+				stuteText = "正常签到";
+			}
+			stute.setText("状态："+stuteText);
+			stuteMarks.setText("备注："+dto.getStuteMarks());
+			update.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO 修改
+					Intent i = new Intent(context, GoodsAddSourceWindow.class);  
+					Bundle b = new Bundle();
+					b.putString("id", String.valueOf(dto.getId()));
+	                i.putExtras(b);  
+	                context.startActivity(i);
+	                context.overridePendingTransition(R.anim.modal_in, R.anim.modal_out);
+				}
+			});
+		}
+		return gridLayout;
+	}
+
+}

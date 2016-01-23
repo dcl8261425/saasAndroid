@@ -1,0 +1,60 @@
+package com.herotculb.qunhaichat.weixin.addgame;
+
+import java.util.List;
+import java.util.Map;
+
+import com.herotculb.qunhaichat.util.QNPermissionApiImpl;
+
+import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+
+public class WeixinAddDaZhuanPan2Thread extends Thread {
+	private Context context;
+	private String text;
+	private String startDate;	
+	private String endDate;	
+	private String id;	
+	private String num;	
+	private Handler handler;
+	
+	public WeixinAddDaZhuanPan2Thread(Context context, String text,
+			String startDate, String endDate, String id, String num,
+			Handler handler) {
+		super();
+		this.context = context;
+		this.text = text;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.id = id;
+		this.num = num;
+		this.handler = handler;
+	}
+
+	@Override
+	public void run() {
+		super.run();
+		Looper.prepare();
+		
+		QNPermissionApiImpl qnpAPi=new QNPermissionApiImpl(context);
+		List<Map<String, Object>> list= qnpAPi.addDazhuanpan2(text, startDate, endDate, id, num);
+		Map<String,Object> map=list.iterator().next();
+		boolean b=(Boolean) map.get("success");
+		String info = (String)map.get("info");
+		if(b){
+			map.put("success", b);
+			map.put("data", info);
+			//获取数据成功
+			Message sendmsg = Message.obtain();  
+            sendmsg.obj = map;   //利用Message.obj把子线程的handle传递给主线程。  
+            handler.sendMessage(sendmsg); 
+		}else{
+			//获取数据失败
+			Message sendmsg = Message.obtain();  
+            sendmsg.obj = map;   //利用Message.obj把子线程的handle传递给主线程。  
+            handler.sendMessage(sendmsg); 
+		}
+	}
+	
+}

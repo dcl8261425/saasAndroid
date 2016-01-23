@@ -1,0 +1,57 @@
+package com.herotculb.qunhaichat.homeactiviti.weixin.mapset;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.LinearLayout;
+
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.location.LocationClientOption.LocationMode;
+import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BaiduMapOptions;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.model.LatLng;
+import com.herotculb.qunhaichat.HomeActivity;
+
+public class MapSet{
+	public HomeActivity home;
+	public LinearLayout linearLayout;
+	private MapView mMapView;
+	private BaiduMap mBaiduMap;
+	private LocationClient mLocationClient;
+	private LocationMode tempMode = LocationMode.Hight_Accuracy;
+	private String tempcoor="gcj02";
+	public MapSet(HomeActivity home,LinearLayout linearLayout){
+		this.home=home;
+		this.linearLayout=linearLayout;
+		mLocationClient = ((LocationApplication)home.getApplication()).mLocationClient;
+		mLocationClient.start();
+		// 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
+		SDKInitializer.initialize(home.getApplicationContext());
+		Intent intent = home.getIntent();
+		if (intent.hasExtra("x") && intent.hasExtra("y")) {
+			// 当用intent参数时，设置中心点为指定点
+			Bundle b = intent.getExtras();
+			LatLng p = new LatLng(b.getDouble("y"), b.getDouble("x"));
+			mMapView = new MapView(home,
+					new BaiduMapOptions().mapStatus(new MapStatus.Builder()
+							.target(p).build()));
+		} else {
+			mMapView = new MapView(home, new BaiduMapOptions());
+		}
+		linearLayout.removeAllViews();
+		linearLayout.addView(mMapView);
+		mBaiduMap = mMapView.getMap();
+	}
+	private void InitLocation(){
+		LocationClientOption option = new LocationClientOption();
+		option.setLocationMode(tempMode);//设置定位模式
+		option.setCoorType(tempcoor);//返回的定位结果是百度经纬度，默认值gcj02
+		int span=1000;
+		option.setScanSpan(span);//设置发起定位请求的间隔时间为5000ms
+		option.setIsNeedAddress(true);
+		mLocationClient.setLocOption(option);
+	}
+}

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+  android:orientation="vertical"  
+  android:id="@+id/crm_chance_add_linkman_layout"
+  android:layout_width="fill_parent"  
+  android:background="@drawable/dialog_background"
+  android:layout_height="wrap_content" >
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/chance_add_linkman_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="id"
+        android:singleLine="true"
+        android:visibility="gone"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/chance_add_linkman_name"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="请输入联系人名称"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/chance_add_linkman_phone"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="联系人电话"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/chance_add_linkman_position"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="联系人职位"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/chance_add_linkman_sex"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="男"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/chance_add_linkman_birthday"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="5dp"
+	        android:hint="请输入联系人生日"
+	        android:layout_weight="4"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/chance_add_linkman_birthday_button"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="选择"
+                android:layout_weight="1"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+        </TableRow>
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/chance_add_linkman_mark"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="联系人备注信息"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/chance_add_linkman_content_enter"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="确定"
+                android:layout_weight="1"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/chance_add_linkman_content_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="取消"
+                android:layout_weight="1"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

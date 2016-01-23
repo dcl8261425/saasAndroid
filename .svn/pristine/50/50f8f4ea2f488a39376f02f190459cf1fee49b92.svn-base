@@ -1,0 +1,60 @@
+package com.herotculb.qunhaichat.weixin.operationvip;
+
+import java.util.List;
+import java.util.Map;
+
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.util.QNPermissionApiImpl;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+
+public class WeixinAddVipListThread extends Thread {
+	private Activity context;
+	private Handler handler;
+		
+	public WeixinAddVipListThread(Activity context, Handler handler) {
+		super();
+		this.context = context;
+		this.handler = handler;
+	}
+
+	@Override
+	public void run() {
+		super.run();
+		Looper.prepare();
+		
+		BootstrapEditText markstext=(BootstrapEditText) context.findViewById(R.id.weixin_create_class_marks);
+		BootstrapEditText scoretext=(BootstrapEditText) context.findViewById(R.id.weixin_create_class_score);
+		BootstrapEditText nametext=(BootstrapEditText) context.findViewById(R.id.weixin_create_class_name);
+		
+		String score=scoretext.getText().toString();
+		String name=nametext.getText().toString();
+		String marks=markstext.getText().toString();
+		
+		QNPermissionApiImpl qnpAPi=new QNPermissionApiImpl(context);
+		List<Map<String, Object>> list=qnpAPi.addVipList(marks, score, name);
+		Map<String,Object> map=list.iterator().next();
+		boolean b=(Boolean) map.get("success");
+		String info=(String) map.get("info");
+		if(b){
+			Intent mainIntent = new Intent().setClass(context, HomeActivity.class);
+			context.startActivity(mainIntent);
+			SharedPreferences mySharedPreferences = context.getSharedPreferences("usermessage", 
+					Activity.MODE_PRIVATE); 
+		}else{
+			//获取数据失败
+			Message sendmsg = Message.obtain();  
+            sendmsg.obj = list;   //利用Message.obj把子线程的handle传递给主线程。  
+            handler.sendMessage(sendmsg);  
+		}
+	}
+	
+}

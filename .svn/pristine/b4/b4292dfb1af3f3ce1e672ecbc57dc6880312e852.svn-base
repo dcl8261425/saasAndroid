@@ -1,0 +1,45 @@
+package com.herotculb.qunhaichat.homeactiviti.weixin.mapset;
+
+import java.util.Map;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.os.Handler;
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class MapSetHandler extends Handler{
+	Activity context;
+	LoadingDialog dialog;
+	public MapSetHandler(Activity context2,
+			LoadingDialog dialog) {
+		super();
+		this.context = context2;
+		this.dialog = dialog;
+	}
+	@SuppressLint("ResourceAsColor")
+	@Override
+	public void handleMessage(android.os.Message msg) {
+		Map<String, Object> map = (Map<String, Object>) msg.obj;
+		Boolean b=(Boolean) map.get("success");
+		dialog.hide();
+		dialog.dismiss();
+		if (b) {
+				new SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE)
+				.setTitleText("成功")
+				.setContentText((String) map.get("info"))
+				.setConfirmText("确定").showCancelButton(false)
+				.setCancelClickListener(null).setConfirmClickListener(null)
+				.show();
+		
+		} else {
+			new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+					.setTitleText("失败")
+					.setContentText((String) map.get("info"))
+					.setConfirmText("确定").showCancelButton(false)
+					.setCancelClickListener(null).setConfirmClickListener(null)
+					.show();
+		}
+	}
+}

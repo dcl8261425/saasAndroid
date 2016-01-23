@@ -1,0 +1,81 @@
+package com.herotculb.qunhaichat.homeactiviti.messageinfo;
+
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+
+public class MessageSetManager {
+	public HomeActivity home;
+	public LinearLayout linearLayout;
+	
+	public MessageSetManager(HomeActivity home, LinearLayout linearLayout) {
+		this.home = home;
+		this.linearLayout = linearLayout;
+		
+		//短信设置
+		LinearLayout gridLayout = (LinearLayout) home.inflater.inflate(
+				R.layout.message_get_message_set_layout, null)
+				.findViewById(R.id.message_get_message_set_main);
+		linearLayout.removeAllViews();
+		linearLayout.addView(gridLayout);
+		BootstrapButton addScore = (BootstrapButton) linearLayout.findViewById(R.id.message_get_message_set_addscore);
+		BootstrapButton addPrice = (BootstrapButton) linearLayout.findViewById(R.id.message_get_message_set_addprice);
+		BootstrapButton jianScore = (BootstrapButton) linearLayout.findViewById(R.id.message_get_message_set_jianscore);
+		BootstrapButton jianPrice = (BootstrapButton) linearLayout.findViewById(R.id.message_get_message_set_jianprice);
+		BootstrapButton order = (BootstrapButton) linearLayout.findViewById(R.id.message_get_message_set_order);
+		BootstrapButton qianMing = (BootstrapButton) linearLayout.findViewById(R.id.message_get_message_set_qianming_button);
+		addScore.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 添加积分开关
+				
+			}
+		});
+		addPrice.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 加储值开关
+				
+			}
+		});
+		jianScore.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 减积分开关
+				
+			}
+		});
+		jianPrice.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 减储值开发
+				
+			}
+		});
+		order.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 订单开关
+				
+			}
+		});
+		qianMing.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO 短信签名
+				
+			}
+		});
+	}
+	
+}

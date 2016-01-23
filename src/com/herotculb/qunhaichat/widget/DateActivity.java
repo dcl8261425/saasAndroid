@@ -1,0 +1,49 @@
+package com.herotculb.qunhaichat.widget;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.DatePicker;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.weixin.gailan.wenzhang.WebActivity;
+
+public class DateActivity extends Activity{
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+			setContentView(R.layout.dateactivity);
+			BootstrapButton enter= (BootstrapButton)findViewById(R.id.dataActivity_enter);
+			
+			Bundle bundle = getIntent().getExtras();
+			final String type = bundle.getString("type");
+			enter.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					DatePicker date= (DatePicker)findViewById(R.id.dataActivity_date);
+					int d=date.getDayOfMonth();
+					int m=date.getMonth() + 1;
+					int y=date.getYear();
+					Intent i = new Intent(DateActivity.this,
+							WebActivity.class);
+					Bundle b = new Bundle();
+					b.putString("type", type);
+					b.putString("value", y+"-"+m+"-"+d);
+					i.putExtras(b);
+					DateActivity.this.setResult(RESULT_OK, i);
+					DateActivity.this.finish();
+				}
+			});
+	}
+}

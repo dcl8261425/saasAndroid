@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/query_goods_item_man"
+    android:gravity="center"
+    android:orientation="vertical" >
+     	<TextView 
+                  android:id="@+id/query_goods_item_name"
+                  android:layout_width="fill_parent"
+                  android:gravity="center"
+                  />
+          <TableRow 
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              >
+             
+               <TextView 
+                   android:layout_weight="1"
+                  android:id="@+id/query_goods_item_num"
+                  android:layout_width="fill_parent"
+                  android:gravity="center"
+                  />
+               <TextView 
+                   android:layout_weight="1"
+                  android:id="@+id/query_goods_item_price"
+                  android:layout_width="fill_parent"
+                  android:gravity="center"
+                  />
+          </TableRow>
+          <TableRow 
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              >
+             
+               <TextView 
+                   android:layout_weight="1"
+                  android:id="@+id/query_goods_item_model"
+                  android:layout_width="fill_parent"
+                  android:gravity="center"
+                  />
+               <TextView 
+                   android:layout_weight="1"
+                  android:id="@+id/query_goods_item_type"
+                  android:layout_width="fill_parent"
+                  android:gravity="center"
+                  />
+          </TableRow>
+             <TableRow 
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              >
+              <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/query_goods_item_changerPrice"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="修改价格"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/query_goods_item_chart"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="图表分析"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+                  <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/query_goods_item_log"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="进消日志"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/query_goods_item_info"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="综合信息"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+               </TableRow>
+               
+</TableLayout>

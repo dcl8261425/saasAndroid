@@ -1,0 +1,70 @@
+package com.herotculb.qunhaichat.weixin.gailan;
+
+import java.util.List;
+import java.util.Map;
+
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.util.QNPermissionApiImpl;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+
+/**
+ * 管理微信菜单时，用Handler 和主程序进行通讯
+ * @author Administrator
+ *
+ */
+public class WeixinMenuManagerThread extends Thread {
+	private Context context;
+	private String id;
+	private String name;
+	private String url;
+	private String key;	
+	private Handler handler;
+		
+	public WeixinMenuManagerThread(Context context, String id, String name,
+			String url, String key, Handler handler) {
+		super();
+		this.context = context;
+		this.id = id;
+		this.name = name;
+		this.url = url;
+		this.key = key;
+		this.handler = handler;
+	}
+
+	@Override
+	public void run() {
+		super.run();
+		Looper.prepare();
+		
+		QNPermissionApiImpl qnpAPi=new QNPermissionApiImpl(context);
+		List<Map<String, Object>> list=qnpAPi.getMenu(id);
+		Map<String,Object> map=list.iterator().next();
+		boolean b=(Boolean) map.get("success");
+		String info=(String) map.get("info");
+		if(b){
+			Intent mainIntent = new Intent().setClass(context, HomeActivity.class);
+			context.startActivity(mainIntent);
+			SharedPreferences mySharedPreferences = context.getSharedPreferences("usermessage", 
+					Activity.MODE_PRIVATE); 
+			SharedPreferences.Editor editor = mySharedPreferences.edit();
+			editor.putString("id", id); 
+			editor.putString("name", name); 
+			editor.putString("url", url); 
+			editor.putString("key", key); 
+			editor.commit();
+		}else{
+			//获取数据失败
+			Message sendmsg = Message.obtain();  
+            sendmsg.obj = list;   //利用Message.obj把子线程的handle传递给主线程。  
+            handler.sendMessage(sendmsg);  
+		}
+	}
+	
+}

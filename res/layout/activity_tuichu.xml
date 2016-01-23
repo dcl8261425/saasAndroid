@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#80000000"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="35dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shangyuan_jiaojuxing_down"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="15dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="真的要退出微聊吗"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <include layout="@layout/layout_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="2" >
+
+        <Button
+            android:id="@+id/btn_tuichu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_queding"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="确定"
+            android:textColor="#0A4AF5" />
+
+        <TextView
+            android:layout_width="0.5dp"
+            android:layout_height="wrap_content"
+            android:background="#c0c0c0" />
+
+        <Button
+            android:id="@+id/btn_quxiao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_quxiao"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="取消"
+            android:textColor="#0A4AF5" />
+    </LinearLayout>
+
+</LinearLayout>

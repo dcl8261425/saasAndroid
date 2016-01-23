@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weixin_goods_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+> <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_goods_nowpage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="id"
+        android:singleLine="true"
+        android:visibility="gone"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+<com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_goods_isb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="id"
+        android:singleLine="true"
+        android:visibility="gone"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_goods_up_list"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:text="查询已上架"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_goods_down_list"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:text="查询未上架"
+                        bootstrapbutton:bb_icon_left="fa-sign-in"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+                </TableRow>
+
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/weixin_goods_add_list"
+                        android:layout_width="fill_parent"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:text="添加新微信商品"
+                        bootstrapbutton:bb_icon_left="fa-pencil-square-o"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="warning" />
+
+<com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/weixin_goods_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:visibility="gone"
+        android:hint="请输入查询名称"
+        android:singleLine="true"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+ <com.herotculb.qunhaichat.view.listview.updown.XListView
+  android:id="@+id/weixin_goods_list"
+                    android:layout_width="fill_parent"
+                    
+                    android:layout_height="fill_parent"
+                    android:layout_margin="5dp"
+                    android:divider="#00000000"
+                    android:gravity="center"
+                    android:scrollbars="none">
+    </com.herotculb.qunhaichat.view.listview.updown.XListView>
+      
+
+</TableLayout>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+  android:orientation="vertical"  
+  android:id="@+id/crm_create_chance_main"
+  android:layout_width="fill_parent"  
+  android:background="@drawable/dialog_background"
+  android:layout_height="wrap_content" >
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/create_chance_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="id"
+        android:singleLine="true"
+        android:visibility="gone"
+        bootstrapbutton:be_roundedCorners="true"
+        bootstrapbutton:be_state="warning" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+	    <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/create_chance_name"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="请输入客户名称"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+	    <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/create_chance_address"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="客户地址"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+		<com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/create_chance_category"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="客户类别"
+	        android:layout_weight="1"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />    
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/create_chance_class"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="客户级别"
+	        android:layout_weight="1"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        </TableRow>
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/create_chance_marks"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="客户备注信息"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/create_chance_description"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="创建人简介，介绍客户描述客户"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+        <TableRow
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:gravity="center" >
+        	<com.beardedhen.androidbootstrap.BootstrapEditText
+		        android:id="@+id/create_chance_userid"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="10dp"
+		        android:visibility="gone"
+		        android:singleLine="true"
+		        bootstrapbutton:be_roundedCorners="true"
+		        bootstrapbutton:be_state="warning" />
+	        <com.beardedhen.androidbootstrap.BootstrapEditText
+		        android:id="@+id/create_chance_username"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_margin="10dp"
+		        android:hint="指派人"
+		        android:editable="false"
+		        android:layout_weight="1"
+		        android:singleLine="true"
+		        bootstrapbutton:be_roundedCorners="true"
+		        bootstrapbutton:be_state="warning" />
+	        <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/create_chance_select"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="选择"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+	        <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/create_chance_clear"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="清空"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+        </TableRow>
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+	        android:id="@+id/create_chance_glass"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:hint="普通机会"
+	        android:singleLine="true"
+	        bootstrapbutton:be_roundedCorners="true"
+	        bootstrapbutton:be_state="warning" />
+			<TableRow
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:gravity="center" >
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/create_chance_content_enter"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="确认添加"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/create_chance_cancle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="取消"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+	</TableRow>
+    </TableLayout>
+
+</LinearLayout>

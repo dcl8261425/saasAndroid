@@ -1,0 +1,30 @@
+package com.herotculb.qunhaichat.weixin.gailan.huifushezhi;
+
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+import android.annotation.SuppressLint;
+import android.os.Handler;
+import android.view.View;
+import android.view.ViewGroup;
+
+public class AutoResendSetHandler extends Handler{
+	HomeActivity context;
+	ViewGroup view;
+	LoadingDialog dialog;
+	View viewp;
+	
+	public AutoResendSetHandler(HomeActivity context, ViewGroup view,
+			LoadingDialog dialog,View viewp) {
+		super();
+		this.context = context;
+		this.view = view;
+		this.dialog = dialog;
+		this.viewp=viewp;
+	}
+	@SuppressLint("ResourceAsColor")
+	@Override
+	public void handleMessage(android.os.Message msg) {
+		
+	}
+}

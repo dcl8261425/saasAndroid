@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/employee_query_customer_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+			        android:id="@+id/employee_query_customer_name"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_margin="10dp"
+			        android:hint="员工姓名"
+			        android:singleLine="true"
+			        bootstrapbutton:be_roundedCorners="true"
+			        bootstrapbutton:be_state="warning" />
+            <TableLayout
+                android:id="@+id/employee_query_customer_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" >
+			      <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_query_customer_query"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="查询"
+                        bootstrapbutton:bb_icon_left="fa-th-list"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="primary" />
+			      <com.herotculb.qunhaichat.view.listview.updown.XListView
+	  					android:id="@+id/employee_query_customer_list"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content"
+	                    android:layout_margin="5dp"
+	                    android:divider="#00000000"
+	                    android:gravity="center"
+	                    android:scrollbars="none"/>
+		</TableLayout>
+
+</LinearLayout>

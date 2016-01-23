@@ -1,0 +1,187 @@
+package com.herotculb.qunhaichat.activity;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.util.QNPermissionApiImpl;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+import com.herotculb.qunhaichat.widget.RoundedCornerImageView;
+import com.herotculb.qunhaichat.widget.TipsToast;
+
+/**
+ * 
+ * @author Administrator
+ * 
+ */
+public class SignInActivity extends Activity implements OnClickListener {
+
+	private EditText mUsername; // 帐号编辑框
+	private EditText mPassword; // 密码编辑框
+
+	private Button mLoginBtn;
+
+	private String username;
+	private String password;
+
+
+	private static TipsToast tipsToast;
+	private LoadingDialog dialog;
+
+	private long mExitTime;
+	Handler handler;
+	Handler handler2;
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if(dialog!=null&&dialog.isShowing()){
+				dialog.hide();
+			}
+			if ((System.currentTimeMillis() - mExitTime) > 2000) {
+				Object mHelperUtils;
+				showTips(R.drawable.tips_smile, "再按一次返回桌面");
+				mExitTime = System.currentTimeMillis();
+
+			} else {
+				finish();
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);//隐藏头
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.activity_sign_in);
+		Intent intent = getIntent();
+
+		String keyStr = intent.getStringExtra("key");
+
+		
+		LinearLayout inout=(LinearLayout)findViewById(R.id.login_main_in);//淡入动画
+		Animation anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.push_in);
+		inout.startAnimation(anim);
+		RoundedCornerImageView logo=(RoundedCornerImageView)findViewById(R.id.image_icon);//旋转动画
+		Animation anim2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.logo	);
+		logo.startAnimation(anim2);
+		mUsername = (EditText) findViewById(R.id.login_user_edit);
+		
+		mPassword = (EditText) findViewById(R.id.login_passwd_edit);
+		
+
+		mLoginBtn = (Button) findViewById(R.id.login_login_btn);
+		mLoginBtn.setOnClickListener(this);
+		
+		// mFindPswBtn = (Button) findViewById(R.id.forget_passwd);
+		// mFindPswBtn.setOnClickListener(this);
+		// username = mUsername.getText().toString();
+		// password = mPassword.getText().toString();
+		//
+		// if ((!"".equals(username) || "".equals(password)))// 判断 帐号和密码
+		// {
+		// login();
+		// }
+		if ("1".equals(keyStr)) {
+			mLoginBtn.setEnabled(false);
+			dialog = new LoadingDialog(this, "正在登录...");
+			dialog.show();
+			// Toast.makeText(this, "正在登录...", Toast.LENGTH_LONG).show();
+			// 登录接口
+		
+		}
+	}
+
+
+
+
+	@Override
+	public void onClick(View v) {
+		Intent intent = null;
+		switch (v.getId()) {
+		case R.id.login_login_btn:
+			login();
+			break;
+		
+		default:
+			break;
+		}
+	}
+
+	public void login(){
+		username = mUsername.getText().toString();
+		password = mPassword.getText().toString();
+
+		if ("".equals(username) || "".equals(password))// 判断 帐号和密码
+		{
+			showTips(R.drawable.tips_warning, "帐号或者密码不能为空，\n请输入后再登录！");
+		} else {
+			handler=new Handler(){
+				@Override
+				public void handleMessage(android.os.Message msg) {
+					super.handleMessage(msg);
+					List<Map<String,Object>> list=(List<Map<String, Object>>) msg.obj;
+					Map<String,Object> map=list.iterator().next();
+					boolean b=(Boolean) map.get("success");
+					String info=(String) map.get("info");
+					dialog.hide();
+					showTips(R.drawable.tips_warning, info);
+					mLoginBtn.setEnabled(true);
+				};
+			};
+			mLoginBtn.setEnabled(false);
+			dialog = new LoadingDialog(this, "正在登录...");
+			dialog.show();
+			
+			SignInActivityLoginThread thread=new SignInActivityLoginThread(handler, username, password, SignInActivity.this);
+			thread.start();
+		}
+	}
+	/**
+	 * 自定义toast
+	 * 
+	 * @param iconResId
+	 *            图片
+	 * @param msgResId
+	 *            提示文字
+	 */
+	private void showTips(int iconResId, String tips) {
+		if (tipsToast != null) {
+			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+				tipsToast.cancel();
+			}
+		} else {
+			tipsToast = TipsToast.makeText(getApplication().getBaseContext(),
+					tips, TipsToast.LENGTH_SHORT);
+		}
+		tipsToast.show();
+		tipsToast.setIcon(iconResId);
+		tipsToast.setText(tips);
+	}
+
+
+
+}

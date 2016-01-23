@@ -1,0 +1,65 @@
+package com.herotculb.qunhaichat.activity;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.R.id;
+import com.herotculb.qunhaichat.R.layout;
+import com.herotculb.qunhaichat.activity.change.AjaxChangePasswordHandler;
+import com.herotculb.qunhaichat.activity.change.AjaxChangePasswordThread;
+import com.herotculb.qunhaichat.weixin.addgame.WeixinAddAwardsHandler;
+import com.herotculb.qunhaichat.weixin.addgame.WeixinAddAwardsThread;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class AjaxChangePasswordWindow extends Activity {
+	private BootstrapButton enter;
+	private BootstrapButton calcel;
+	private BootstrapEditText old;
+	private BootstrapEditText newp;  //名字
+	private BootstrapEditText renewp;  
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// 隐藏头
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.ajax_change_password_window);
+		enter =(BootstrapButton)findViewById(R.id.change_password_content_enter);
+		calcel = (BootstrapButton)findViewById(R.id.change_password_content_cancel);
+		old=(BootstrapEditText) findViewById(R.id.change_password_old);
+		newp=(BootstrapEditText) findViewById(R.id.change_password_newp);
+		renewp=(BootstrapEditText) findViewById(R.id.change_password_renewp);
+		enter.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 自动生成的方法存根
+				LoadingDialog dialog2 = new LoadingDialog(
+						AjaxChangePasswordWindow.this, "正在获取数据");
+				dialog2.show();
+				AjaxChangePasswordHandler handler = 
+						new AjaxChangePasswordHandler(AjaxChangePasswordWindow.this, dialog2);
+				AjaxChangePasswordThread thread = 
+						new AjaxChangePasswordThread(AjaxChangePasswordWindow.this, handler);
+				thread.start();
+			}
+		});
+		
+		calcel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 自动生成的方法存根
+				AjaxChangePasswordWindow.this.finish();
+			}
+		});
+	}
+}

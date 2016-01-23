@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.herotculb.fragmentdemo.MainActivity$PlaceholderFragment" >
+
+    <LinearLayout
+        android:id="@+id/linear_yanzheng"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#0000"
+            android:src="@drawable/game_sys_notice_icon" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="待验证好友"
+            android:textColor="#000000"
+            android:textStyle="bold|italic" />
+    </LinearLayout>
+
+    <include layout="@layout/layout_line1" />
+
+    <LinearLayout
+        android:id="@+id/linear_tianjia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#0000"
+            android:src="@drawable/nearby_bind_mobile_headerview_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="添加好友"
+            android:textColor="#000000"
+            android:textStyle="bold|italic" />
+    </LinearLayout>
+
+    <include layout="@layout/layout_line1" />
+
+    <ListView
+        android:id="@+id/roster_listView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#ffffff"
+        android:divider="@null" >
+    </ListView>
+
+</LinearLayout>

@@ -1,0 +1,141 @@
+package com.herotculb.qunhaichat.weixin.gailan.window;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Spinner;
+
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.herotculb.qunhaichat.HomeActivity;
+import com.herotculb.qunhaichat.R;
+import com.herotculb.qunhaichat.dto.WeiXinAutoReSendMenuDto;
+import com.herotculb.qunhaichat.weixin.gailan.huifushezhi.AutoResendSetAddHandler;
+import com.herotculb.qunhaichat.weixin.gailan.huifushezhi.AutoResendSetAddThread;
+import com.herotculb.qunhaichat.widget.LoadingDialog;
+
+public class AutoResendSetWindow extends Activity {
+	private BootstrapButton enter;
+	private BootstrapButton cencal;
+	private BootstrapEditText name;
+	private BootstrapEditText content;
+	private BootstrapEditText idedit;
+	private Spinner spinner;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// 隐藏头
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.autoresendset_window);
+		enter=(BootstrapButton) findViewById(R.id.weixin_gailan_autoresoureset_enter);
+		cencal=(BootstrapButton) findViewById(R.id.weixin_gailan_autoresoureset_cancel);
+		name=(BootstrapEditText) findViewById(R.id.weixin_gailan_autoresoureset_name);
+		content=(BootstrapEditText) findViewById(R.id.weixin_gailan_autoresoureset_content);
+		idedit=(BootstrapEditText) findViewById(R.id.weixin_gailan_autoresoureset_id);
+		spinner=(Spinner)findViewById(R.id.weixin_gailan_autoresoureset_eventType);
+		Bundle bundle = getIntent().getExtras();
+		Object idstr = bundle.get("id");
+		Object namestr = bundle.get("name");
+		Object contentstr =  bundle.get("content");
+		final int typestr= bundle.getInt("type");
+		if(typestr!=WeiXinAutoReSendMenuDto.TYPE_EVENT){
+			spinner.setVisibility(View.GONE);
+			content.setText((String)contentstr);
+		}else{
+			spinner.setVisibility(View.VISIBLE);
+			String event_type= bundle.getString("event_type");
+			if(event_type!=null&&!event_type.equals("")){
+			spinner.setSelection(Integer.parseInt(event_type)-1);
+			}
+			Object keystr= bundle.get("key");
+			if(keystr!=null&&!keystr.equals("null")&&!keystr.equals("")){
+				content.setText((String)keystr);
+			}
+		}
+		if(idstr!=null&&!idstr.equals("")){
+			//是修改
+			name.setText((String)namestr);
+			idedit.setText((String)idstr);
+			if(typestr!=WeiXinAutoReSendMenuDto.TYPE_EVENT){
+				enter.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+			}else{
+				enter.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+			}
+		}else{
+			if(typestr!=WeiXinAutoReSendMenuDto.TYPE_EVENT){
+				//不是事件
+				enter.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						String namestr=name.getText().toString();
+						String contentstr=content.getText().toString();
+						
+						WeiXinAutoReSendMenuDto dto=new WeiXinAutoReSendMenuDto();
+						dto.setContent(contentstr);
+						dto.setName(namestr);
+						LoadingDialog dialog = new LoadingDialog(AutoResendSetWindow.this, "正在获取数据");
+						dialog.show();
+						AutoResendSetAddHandler ah=new AutoResendSetAddHandler(AutoResendSetWindow.this, typestr, dialog);
+						AutoResendSetAddThread at=new AutoResendSetAddThread(AutoResendSetWindow.this,typestr, ah, dto);
+						at.start();
+						
+					}
+				});
+			}else{
+				//是事件
+				enter.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						String namestr=name.getText().toString();
+						String contentstr=content.getText().toString();
+						int spinnerstr=spinner.getSelectedItemPosition();
+						WeiXinAutoReSendMenuDto dto=new WeiXinAutoReSendMenuDto();
+						dto.setContent(contentstr);
+						dto.setName(namestr);
+						dto.setWeixin_events(String.valueOf(spinnerstr+1));
+						LoadingDialog dialog = new LoadingDialog(AutoResendSetWindow.this, "正在获取数据");
+						dialog.show();
+						AutoResendSetAddHandler ah=new AutoResendSetAddHandler(AutoResendSetWindow.this, typestr, dialog);
+						AutoResendSetAddThread at=new AutoResendSetAddThread(AutoResendSetWindow.this,typestr, ah, dto);
+						at.start();
+					}
+				});
+			}
+		}
+	
+		cencal.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent( AutoResendSetWindow.this, HomeActivity.class);  
+		        Bundle b = new Bundle();
+		        b.putString("type", "cancel");
+		        i.putExtras(b);
+		        AutoResendSetWindow.this.setResult( AutoResendSetWindow.this.RESULT_OK, i);  
+		        AutoResendSetWindow.this.finish();  			}
+		});
+	}
+}

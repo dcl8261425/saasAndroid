@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/employee_performance_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                 android:layout_margin="0dp"
+                android:gravity="center" >
+
+               <TableRow android:layout_width="fill_parent"
+                   android:layout_height="wrap_content">
+                   <com.beardedhen.androidbootstrap.BootstrapEditText
+				        android:id="@+id/employee_performance_start_date"
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:layout_margin="10dp"
+				        android:hint=""
+				        android:layout_weight="3"
+				        android:singleLine="true"
+				        bootstrapbutton:be_roundedCorners="true"
+				        bootstrapbutton:be_state="warning" />
+                   <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_performance_start_datebtn"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="选择"
+                        android:layout_weight="1"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+               </TableRow>    
+               <TableRow android:layout_width="fill_parent"
+                   android:layout_height="wrap_content">
+                   <com.beardedhen.androidbootstrap.BootstrapEditText
+				        android:id="@+id/employee_performance_end_date"
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:layout_margin="10dp"
+				        android:hint=""
+				        android:layout_weight="3"
+				        android:singleLine="true"
+				        bootstrapbutton:be_roundedCorners="true"
+				        bootstrapbutton:be_state="warning" />
+                   <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_performance_end_datebtn"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="选择"
+                        android:layout_weight="1"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+               </TableRow>    
+               
+               <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:id="@+id/employee_performance_query"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:text="查询"
+                        bootstrapbutton:bb_roundedCorners="true"
+                        bootstrapbutton:bb_text_gravity="center"
+                        bootstrapbutton:bb_type="danger" />
+
+            </TableLayout>
+		     	
+                <com.herotculb.qunhaichat.view.listview.updown.XListView
+                    android:id="@+id/employee_performance_list"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:divider="#00000000"
+                    android:gravity="center"
+                    android:scrollbars="none" />
+                        
+</LinearLayout>

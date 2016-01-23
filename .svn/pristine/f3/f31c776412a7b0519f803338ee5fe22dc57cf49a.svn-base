@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/crm_customer_state_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_background"
+    android:orientation="vertical" >
+
+	<TextView android:id="@+id/customer_state1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/darksalmon"
+        android:layout_margin="10dp"
+	    android:text="普通机会"/>
+	<TextView android:id="@+id/customer_state2"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/darksalmon"
+        android:layout_margin="10dp"
+	    android:text="优质机会"/>
+	<TextView android:id="@+id/customer_state3"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/darksalmon"
+        android:layout_margin="10dp"
+	    android:text="已成客户"/>
+
+</LinearLayout>

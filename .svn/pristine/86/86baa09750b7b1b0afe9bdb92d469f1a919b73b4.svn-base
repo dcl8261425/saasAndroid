@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
+    xmlns:fontawesometext="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weixin_gailan_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+<ScrollView
+        android:id="@+id/weixin_gailan_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+         android:gravity="center"
+        android:layout_weight="0.73" >
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+             >
+             
+             <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/weixin_menu_manager"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:layout_margin="5dp"
+                android:text="管理菜单"
+                bootstrapbutton:bb_icon_left="fa-user"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="primary" />
+             
+             <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/weixin_auto_manager"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:layout_margin="5dp"
+                android:text="自动回复资源管理"
+                bootstrapbutton:bb_icon_left="fa-user"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="danger" />
+             <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/weixin_auto_definition"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:layout_margin="5dp"
+                android:text="自动回复定义"
+                bootstrapbutton:bb_icon_left="fa-user"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="warning" />
+             <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/weixin_create_article"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:layout_margin="5dp"
+                android:text="创建文章/投票(图文，链接)"
+                bootstrapbutton:bb_icon_left="fa-user"
+                bootstrapbutton:bb_roundedCorners="true"
+                bootstrapbutton:bb_text_gravity="center"
+                bootstrapbutton:bb_type="info" />
+       </LinearLayout>
+        
+</ScrollView>
+    
+
+</LinearLayout>
